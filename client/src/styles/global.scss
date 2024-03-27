@@ -1,0 +1,76 @@
+:root {
+  --bg: #fff;
+  --color: #000;
+}
+
+[data-theme='dark'] {
+  --bg: #000;
+  --color: #fff;
+}
+
+@font-face {
+  font-family: 'tg';
+  src: url('../assets/fonts/CeraStencilPRO-Bold.woff');
+  font-weight: 700;
+}
+
+.main {
+  flex-grow: 1;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.7rem;
+}
+
+html,
+body {
+  max-width: 100vw;
+  background-color: var(--bg);
+  color: var(--color);
+  font-family: 'tg', sans-serif;
+  transition: background-color 200ms ease-in-out, color 100ms linear;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul,
+li {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+img {
+  width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.container {
+  padding: 0 15px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.main {
+  padding-top: 80px;
+}

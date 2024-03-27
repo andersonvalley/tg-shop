@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Injectable,
   OnModuleInit,
   UnauthorizedException,
@@ -91,7 +92,7 @@ export class AuthService implements OnModuleInit {
     });
 
     if (!user) {
-      throw new UnauthorizedException(`Код не действителен, получите новый`);
+      throw new BadRequestException(`Код не действителен, получите новый`);
     }
 
     const { accessToken } = await AuthToken.generateAccessToken(user);

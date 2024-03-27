@@ -1,0 +1,31 @@
+import { Link } from 'react-router-dom'
+import cl from './header.module.scss'
+import { APP_PATH } from '../../routes/config/Paths'
+import { menu } from './menu.data'
+
+export const Header = () => {
+  return (
+    <header className={cl.header}>
+      <div className={cl.wrapper}>
+        <div className={cl.burger}>
+          <div className={cl.line}></div>
+        </div>
+        <Link to={APP_PATH.MAIN} className={cl.logo}>
+          TG Shop
+        </Link>
+
+        <nav className={cl.nav}>
+          <ul className={cl.list}>
+            {menu.map(item => (
+              <li key={item.name}>{item.name}</li>
+            ))}
+          </ul>
+        </nav>
+
+        <Link to={APP_PATH.LOGIN} className={cl.button}>
+          Создать магазин
+        </Link>
+      </div>
+    </header>
+  )
+}
