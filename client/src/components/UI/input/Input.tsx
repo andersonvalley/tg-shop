@@ -1,4 +1,3 @@
-import React from 'react'
 import { IInput } from './Input.interface'
 
 import cl from './input.module.scss'
