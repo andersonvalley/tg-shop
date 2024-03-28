@@ -1,0 +1,14 @@
+.button {
+  background: var(--link);
+  border-radius: 10px;
+  padding: 14px 20px;
+  color: #fff;
+  transform: scale(1);
+  transition: transform 200ms ease-in-out;
+  font-size: 1.7rem;
+  font-weight: 500;
+
+  &:hover {
+    transform: scale(1.01);
+  }
+}

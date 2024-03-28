@@ -1,6 +1,12 @@
 :root {
-  --bg: #fff;
-  --color: #000;
+  --bg: #edf2f9;
+  --bg-hover: #dae0e8;
+  --bg-accent: #fff;
+  --bg-header: #303030;
+  --bg-header-accent: #181717;
+  --color-header: #fff;
+  --color: #303030;
+  --link: #00b3ff;
 }
 
 [data-theme='dark'] {
@@ -12,10 +18,6 @@
   font-family: 'tg';
   src: url('../assets/fonts/CeraStencilPRO-Bold.woff');
   font-weight: 700;
-}
-
-.main {
-  flex-grow: 1;
 }
 
 * {
@@ -35,9 +37,10 @@ body {
 html,
 body {
   max-width: 100vw;
-  background-color: var(--bg);
+  background-color: var(--bg--accent);
   color: var(--color);
-  font-family: 'tg', sans-serif;
+  font-family: 'Montserat', sans-serif;
+  font-weight: 400;
   transition: background-color 200ms ease-in-out, color 100ms linear;
 }
 
@@ -71,6 +74,74 @@ button {
   width: 100%;
 }
 
+.link {
+  color: var(--link);
+}
+
 .main {
-  padding-top: 80px;
+  &__app {
+    display: flex;
+  }
+
+  &__wrapper {
+    margin-left: 230px;
+    z-index: 3;
+    background: var(--bg);
+    border-radius: 25px;
+    position: fixed;
+    top: 10px;
+    bottom: 10px;
+    right: 10px;
+    left: 0;
+    overflow-y: scroll;
+    padding: 110px 20px 20px 20px;
+  }
+}
+
+.animate {
+  position: relative;
+  z-index: 2;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.4;
+    filter: blur(21px);
+    border-radius: 99999px;
+    z-index: -1;
+    background: radial-gradient(
+      84.29% 136.58% at 6.86% 83.96%,
+      #eb9c00 0,
+      #ff4769 27.08%,
+      #3d50ff 66.38%,
+      #00b3ff 100%
+    );
+    animation: actions_gradientAnim__Cd_YF 5s linear infinite alternate;
+  }
+}
+
+@keyframes actions_gradientAnim__Cd_YF {
+  0% {
+    transform: scaleX(1) rotate(0deg) translateX(0);
+  }
+
+  50% {
+    transform: scaleX(0.9) rotate(15deg) translateX(-5%);
+  }
+
+  to {
+    transform: scaleX(0.9) rotate(-15deg) translateX(5%);
+  }
+}
+
+.error {
+  text-align: left;
+  color: red;
+  padding-top: 10px;
 }

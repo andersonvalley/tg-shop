@@ -2,17 +2,24 @@ import { FormEvent, useEffect, useRef, useState } from 'react'
 import cl from './login.module.scss'
 import { useMutation } from '@tanstack/react-query'
 import { AuthService } from '../../../service/auth/Auth.service'
-import { ILoginRequest, IUserResponseError } from '../../../service/auth/auth.interface'
+import { ILoginRequest, IUserResponse, IUserResponseError } from '../../../service/auth/Auth.interface'
 import { AxiosError } from 'axios'
+import { useUserStore } from '../../../store/user.state'
+import { saveTokenStorage } from '../../../service/auth/Auth.helpers'
 
 export const Login = () => {
   const inputRef = useRef<HTMLInputElement | null>(null)
   const [activeInput, setActiveInput] = useState(0)
   const [inputValues, setInputValues] = useState(['', '', '', '', '', ''])
+  const { saveUser } = useUserStore(store => store)
   const mutation = useMutation({
     mutationFn: (code: ILoginRequest) => AuthService.login(code),
     onError: (error: AxiosError<IUserResponseError>) => {
       console.log(error.response?.data.message)
+    },
+    onSuccess: (data: IUserResponse) => {
+      saveUser(data)
+      saveTokenStorage(data.accessToken)
     },
   })
 
@@ -25,8 +32,6 @@ export const Login = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-
-    console.log(inputValues)
     if (inputValues.length !== 6) return
 
     const formData = { code: Number(inputValues.join('')) }

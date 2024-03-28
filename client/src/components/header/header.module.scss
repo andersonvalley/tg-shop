@@ -1,12 +1,13 @@
 .header {
   position: fixed;
+  z-index: 5;
   top: 25px;
   left: 10px;
   right: 10px;
 }
 
 .wrapper {
-  background: #303030;
+  background: var(--bg-header);
   width: 100%;
   display: flex;
   align-items: center;
@@ -17,6 +18,25 @@
   max-width: 784px;
   margin: 0 auto;
   color: #fff;
+
+  transition: all 200ms ease-in-out;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 1.8rem;
+  font-family: 'tg', sans-serif;
+}
+
+.logo img {
+  max-width: 25px;
+  width: 100%;
 }
 
 .nav {
@@ -32,6 +52,11 @@
 .list {
   display: flex;
   gap: 14px;
+}
+
+.list li {
+  font-size: 1.3rem;
+  color: #c4c4c4;
 }
 
 .burger {
@@ -85,4 +110,33 @@
   .logo {
     flex-grow: 1;
   }
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+  background: transparent;
+  color: var(--color-header);
+  transition: background 200ms ease-in-out;
+  border-radius: 15px;
+  padding: 5px 20px;
+  font-family: 'tg', sans-serif;
+
+  p {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &:hover {
+    background: var(--bg-header-accent);
+  }
+}
+
+.avatar {
+  border-radius: 50px;
+  width: 30px;
+  height: 30px;
 }

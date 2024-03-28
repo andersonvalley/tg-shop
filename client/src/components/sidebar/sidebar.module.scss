@@ -1,0 +1,47 @@
+.sidebar {
+  max-width: 270px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background-color: #ffffff;
+  padding: 20px;
+  z-index: 2;
+}
+
+.logo {
+  margin-bottom: 40px;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.menu {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 1.8rem;
+  font-family: 'tg', sans-serif;
+}
+
+.logo img {
+  max-width: 30px;
+  width: 100%;
+}

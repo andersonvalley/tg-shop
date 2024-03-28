@@ -1,7 +1,9 @@
+import { ShopEntity } from 'src/shops/entities/shop.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -40,4 +42,7 @@ export class UserEntity {
 
   @UpdateDateColumn()
   updatedDate: Date;
+
+  @OneToMany(() => ShopEntity, (shop) => shop.user)
+  shops: ShopEntity;
 }

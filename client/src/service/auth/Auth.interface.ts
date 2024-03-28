@@ -1,6 +1,6 @@
-export interface IUser {
+interface IUser {
   id: string
-  telgramId: string
+  telegramId: string
   firstName?: string
   lastName?: string
   userName?: string
@@ -8,6 +8,11 @@ export interface IUser {
   languageCode?: string
   avatarUrl?: string
   code?: null | number
+}
+
+export interface IUserResponse {
+  accessToken: string
+  user: IUser
 }
 
 export interface ILoginRequest {

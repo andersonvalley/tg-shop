@@ -45,8 +45,6 @@ export class AuthController {
     const token = request.cookies['refresh-token'];
     const data = await this.authService.refreshToken(token);
 
-    console.log(data);
-
     const refreshToken = await AuthToken.generateRefreshToken(data.user);
     response.cookie('refresh-token', refreshToken, {
       httpOnly: false,

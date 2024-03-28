@@ -3,6 +3,8 @@ import cl from './header.module.scss'
 import { APP_PATH } from '../../routes/config/Paths'
 import { menu } from './menu.data'
 
+import logo from '../../assets/img/logo.png'
+
 export const Header = () => {
   return (
     <header className={cl.header}>
@@ -11,7 +13,8 @@ export const Header = () => {
           <div className={cl.line}></div>
         </div>
         <Link to={APP_PATH.MAIN} className={cl.logo}>
-          TG Shop
+          <img src={logo} alt="logo" />
+          Ракета
         </Link>
 
         <nav className={cl.nav}>
