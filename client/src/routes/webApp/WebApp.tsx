@@ -4,6 +4,8 @@ import { Header } from './header/Header'
 export const WebApp = () => {
   const [tg, setTg] = useState(null)
 
+  console.log(tg)
+
   useEffect(() => {
     const head = document.querySelector('head')
     const script = document.createElement('script')
