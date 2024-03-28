@@ -9,7 +9,7 @@ import { Messages } from '../private/messages/Messages'
 import { Subscribers } from '../private/subscribers/Subscribers'
 import { Share } from '../private/share/Share'
 import { Settings } from '../private/settings/Settings'
-import { TgApp } from '../tgApp/TgApp'
+import { WebApp } from '../webApp/WebApp'
 
 export const privateRoutes = [
   { path: APP_PATH.START, element: <Start /> },
@@ -25,6 +25,6 @@ export const privateRoutes = [
 export const publicRoutes = [
   { path: APP_PATH.MAIN, element: <Landing /> },
   { path: APP_PATH.LOGIN, element: <Login /> },
-  { path: APP_PATH.SITE, element: <TgApp /> },
+  { path: APP_PATH.SITE, element: <WebApp /> },
   { path: '*', element: <Navigate to={APP_PATH.LOGIN} replace /> },
 ]

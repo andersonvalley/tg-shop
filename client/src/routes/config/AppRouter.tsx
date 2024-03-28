@@ -4,11 +4,9 @@ import { privateRoutes, publicRoutes } from './Routes'
 import { useUserStore } from '../../store/user.state'
 import { useCheckAuth } from '../../hooks/useCheckAuth'
 import { AppLayout } from '../private/AppLayout'
-import { PuclicLayout } from '../public/publicLayout'
 
 export const AppRouter = () => {
   const { accessToken } = useUserStore(store => store)
-
   const { isLoading } = useCheckAuth()
 
   if (isLoading) {
@@ -25,11 +23,7 @@ export const AppRouter = () => {
             ))}
           </Route>
         ) : (
-          <Route element={<PuclicLayout />}>
-            {publicRoutes.map(route => (
-              <Route key={route.path} {...route} />
-            ))}
-          </Route>
+          publicRoutes.map(route => <Route key={route.path} {...route} />)
         )}
       </Route>
     </Routes>
