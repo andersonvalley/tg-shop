@@ -25,18 +25,20 @@ export const WebApp = () => {
     script.onload = handleScriptLoad
     head?.appendChild(script)
 
-    console.log(tg)
-
     return () => {
       script.onload = null
       script.remove()
     }
   }, [])
 
+  console.log(window?.Telegram?.WebApp?.initDataUnsafe?.user?.first_name)
+
   return (
     <>
       <Header />
       <main>TgApp</main>
+      <h1>{window?.Telegram?.WebApp?.initDataUnsafe?.user?.first_name}</h1>
+      <p>hh</p>
     </>
   )
 }
