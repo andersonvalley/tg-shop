@@ -7,6 +7,7 @@ type ShopState = {
   currentShop: IShop
   saveShops: (shop: IShop[]) => void
   saveCurrentShop: (shop: IShop) => void
+  deleteAll: () => void
 }
 
 export const useShopStore = create<ShopState>(set => ({
@@ -32,6 +33,22 @@ export const useShopStore = create<ShopState>(set => ({
       currentShop: shop,
     }))
   },
+  deleteAll: () =>
+    set(() => ({
+      shops: [],
+      currentShop: {
+        botId: '',
+        createdDate: '',
+        firstName: '',
+        id: '',
+        isActive: false,
+        titleButton: '',
+        token: '',
+        updatedDate: '',
+        username: '',
+        webLink: '',
+      },
+    })),
 }))
 
 mountStoreDevtool('shop', useShopStore)

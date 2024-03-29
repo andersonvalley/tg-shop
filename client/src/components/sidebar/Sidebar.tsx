@@ -1,6 +1,5 @@
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { APP_PATH } from '../../routes/config/Paths'
-import logo from '../../assets/img/logo.png'
 import { Menu, SubMenu } from './sidebarMenu.data'
 import { MdKeyboardArrowDown } from 'react-icons/md'
 import { GoPlus } from 'react-icons/go'
@@ -12,9 +11,11 @@ import { useAnimation } from './hooks/useAnimation'
 import cl from './sidebar.module.scss'
 import { IShop } from '../../service/shop/shop.interface'
 import { useEffect, useState } from 'react'
+import { useUiStore } from '../../store/ui.store'
 
 export const Sidebar = () => {
   const { shops, currentShop } = useShopStore(store => store)
+  const { toogleMobileMenu } = useUiStore(store => store)
   const [showMenu, setShowMenu] = useState(true)
   const location = useLocation()
   const { stylesSubMenu, styles, measureRef, measureRefSubMenu, setExpandedSubMenu, setExpanded } =
@@ -36,12 +37,7 @@ export const Sidebar = () => {
   }, [location.pathname])
 
   return (
-    <aside className={cl.sidebar}>
-      <Link to={APP_PATH.MAIN} className={cl.logo}>
-        <img src={logo} alt="logo" />
-        Ракета
-      </Link>
-
+    <aside className={toogleMobileMenu ? [cl.sidebar, cl.sidebarOpen].join(' ') : cl.sidebar}>
       <nav className={showMenu ? [cl.nav, cl.navActive].join(' ') : cl.nav}>
         <button onClick={() => setExpanded(val => !val)} className={[cl.link, cl.shop].join(' ')}>
           <div className={cl.shopAvatar}>{currentShop?.firstName[0]}</div>
@@ -73,7 +69,7 @@ export const Sidebar = () => {
             })}
             <li ref={measureRef} className={cl.center}>
               <Link className={cl.add} to={APP_PATH.START}>
-                <GoPlus /> Добавить магазин
+                <GoPlus size={21} /> Добавить магазин
               </Link>
             </li>
           </ul>

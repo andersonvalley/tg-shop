@@ -4,6 +4,7 @@ import { mountStoreDevtool } from 'simple-zustand-devtools'
 
 type Action = {
   saveUser: (userData: IUserResponse & { accessToken?: string }) => void
+  deleteAllUser: () => void
 }
 
 export const useUserStore = create<IUserResponse & Action>(set => ({
@@ -23,6 +24,21 @@ export const useUserStore = create<IUserResponse & Action>(set => ({
     set(state => ({
       accessToken: userData.accessToken || state.accessToken,
       user: { ...state.user, ...userData.user },
+    })),
+  deleteAllUser: () =>
+    set(() => ({
+      accessToken: '',
+      user: {
+        id: '',
+        telegramId: '',
+        firstName: '',
+        lastName: '',
+        userName: '',
+        isPremium: false,
+        languageCode: '',
+        avatarUrl: '',
+        code: null,
+      },
     })),
 }))
 

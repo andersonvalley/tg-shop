@@ -7,8 +7,25 @@
   bottom: 0;
   background-color: #ffffff;
   padding: 30px 7px;
-  z-index: 2;
+  z-index: 5;
   overflow: scroll;
+  transition: all 400ms ease-in-out;
+
+  @media (max-width: 900px) {
+    z-index: 4;
+    position: fixed;
+    right: 0;
+    left: 0;
+    top: 60px;
+    max-width: none;
+    transform: translateX(1000px);
+  }
+}
+
+.sidebarOpen {
+  @media (max-width: 900px) {
+    transform: translateX(0);
+  }
 }
 
 .logo {
@@ -140,13 +157,17 @@ div.shopAvatarSmall {
 .line {
   height: 1px;
   background: var(--menu-active);
-  margin-bottom: 15px;
+  margin: 15px 0 10px 0;
 }
 
 .center {
   display: flex;
   justify-content: center;
   margin-top: 15px;
+
+  @media (max-width: 900px) {
+    justify-content: flex-start;
+  }
 }
 
 .add {

@@ -16,4 +16,5 @@ export const APP_PATH = {
   ACCESS: '/settings/access',
   INTEGRATION: '/settings/integration',
   NOTIFICATIONS: '/settings/notifications',
+  TARIFF: '/settings/tariff',
 }

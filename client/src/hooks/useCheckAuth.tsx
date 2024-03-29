@@ -27,7 +27,6 @@ export const useCheckAuth = () => {
     onSuccess: data => {
       saveUser(data)
       saveTokenStorage(data.accessToken)
-
       if (pathBeforeLoad) {
         navigate(pathBeforeLoad)
       } else {

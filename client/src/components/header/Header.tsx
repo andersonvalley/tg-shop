@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import cl from './header.module.scss'
 import { APP_PATH } from '../../routes/config/Paths'
-import { menu } from './menu.data'
+import { HeaderMenu } from './headerMenu.data'
 
 import logo from '../../assets/img/logo.png'
 
@@ -19,7 +19,7 @@ export const Header = () => {
 
         <nav className={cl.nav}>
           <ul className={cl.list}>
-            {menu.map(item => (
+            {HeaderMenu.map(item => (
               <li key={item.name}>{item.name}</li>
             ))}
           </ul>

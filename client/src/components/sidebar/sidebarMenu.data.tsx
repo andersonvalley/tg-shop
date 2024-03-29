@@ -18,12 +18,12 @@ export const Menu = [
 ]
 
 export const SubMenu = [
-  { title: 'Общие', link: APP_PATH.CATALOG, icon: <LuSettings2 size={23} /> },
-  { title: 'Доставка', link: APP_PATH.ORDERS, icon: <MdOutlineDeliveryDining size={23} /> },
-  { title: 'Оплата', link: APP_PATH.MESSAGE, icon: <PiContactlessPaymentBold size={23} /> },
-  { title: 'Промокоды', link: APP_PATH.SUBSCRIBERS, icon: <MdAddCard size={23} /> },
-  { title: 'Оформление', link: APP_PATH.SHARE, icon: <AiOutlineEye size={23} /> },
-  { title: 'Доступы', link: APP_PATH.SHARE, icon: <HiOutlineKey size={23} /> },
-  { title: 'Интеграции', link: APP_PATH.SHARE, icon: <TbPuzzle size={23} /> },
-  { title: 'Уведомления', link: APP_PATH.SHARE, icon: <FaRegBell size={23} /> },
+  { title: 'Общие', link: APP_PATH.COMMON, icon: <LuSettings2 size={23} /> },
+  { title: 'Доставка', link: APP_PATH.DELIVERY, icon: <MdOutlineDeliveryDining size={23} /> },
+  { title: 'Оплата', link: APP_PATH.PAYMENT, icon: <PiContactlessPaymentBold size={23} /> },
+  { title: 'Промокоды', link: APP_PATH.PROMOCODES, icon: <MdAddCard size={23} /> },
+  { title: 'Оформление', link: APP_PATH.VIEW, icon: <AiOutlineEye size={23} /> },
+  { title: 'Доступы', link: APP_PATH.ACCESS, icon: <HiOutlineKey size={23} /> },
+  { title: 'Интеграции', link: APP_PATH.INTEGRATION, icon: <TbPuzzle size={23} /> },
+  { title: 'Уведомления', link: APP_PATH.NOTIFICATIONS, icon: <FaRegBell size={23} /> },
 ]

@@ -11,6 +11,13 @@ import { Share } from '../private/share/Share'
 import { WebApp } from '../webApp/WebApp'
 import { Common } from '../private/settings/common/Common'
 import { Delivery } from '../private/settings/delivery/Delivery'
+import { Payment } from '../private/settings/payment/Payment'
+import { Promocodes } from '../private/settings/promocodes/Promocodes'
+import { View } from '../private/settings/view/View'
+import { Access } from '../private/settings/access/Access'
+import { Integrations } from '../private/settings/integration/Integrations'
+import { Notifications } from '../private/settings/notifications/Notifications'
+import { Tariff } from '../private/settings/tariff/Tariff'
 
 export const privateRoutes = [
   { path: APP_PATH.START, element: <Start /> },
@@ -21,6 +28,13 @@ export const privateRoutes = [
   { path: APP_PATH.SHARE, element: <Share /> },
   { path: APP_PATH.COMMON, element: <Common /> },
   { path: APP_PATH.DELIVERY, element: <Delivery /> },
+  { path: APP_PATH.PAYMENT, element: <Payment /> },
+  { path: APP_PATH.PROMOCODES, element: <Promocodes /> },
+  { path: APP_PATH.VIEW, element: <View /> },
+  { path: APP_PATH.ACCESS, element: <Access /> },
+  { path: APP_PATH.INTEGRATION, element: <Integrations /> },
+  { path: APP_PATH.NOTIFICATIONS, element: <Notifications /> },
+  { path: APP_PATH.TARIFF, element: <Tariff /> },
   { path: '*', element: <Navigate to={APP_PATH.START} replace /> },
 ]
 

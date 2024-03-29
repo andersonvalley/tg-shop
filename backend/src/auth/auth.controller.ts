@@ -56,7 +56,7 @@ export class AuthController {
   @UsePipes(new ValidationPipe())
   @Post('/logout')
   async logout(@Res({ passthrough: true }) response: Response) {
-    response.cookie('refresh-token', 'fdf', {
+    response.cookie('refresh-token', '', {
       httpOnly: true,
       maxAge: 1,
     });
