@@ -5,8 +5,10 @@
   --bg-header: #303030;
   --bg-header-accent: #181717;
   --color-header: #fff;
-  --color: #303030;
+  --color: #525f7f;
+  --color-title: #202020;
   --link: #00b3ff;
+  --menu-active: #f5f9fc;
 }
 
 [data-theme='dark'] {
@@ -44,7 +46,8 @@ body {
   transition: background-color 200ms ease-in-out, color 100ms linear;
 }
 
-a {
+a,
+button {
   color: inherit;
   text-decoration: none;
 }
@@ -84,7 +87,7 @@ button {
   }
 
   &__wrapper {
-    margin-left: 230px;
+    margin-left: 260px;
     z-index: 3;
     background: var(--bg);
     border-radius: 25px;
@@ -144,4 +147,10 @@ button {
   text-align: left;
   color: red;
   padding-top: 10px;
+}
+
+.all {
+  position: absolute;
+  inset: 0;
+  background: #fff;
 }

@@ -1,10 +1,11 @@
-import { Injectable, OnModuleInit } from '@nestjs/common';
+import { BadRequestException, Injectable, OnModuleInit } from '@nestjs/common';
 import { GetTokenDto } from './dto/get-token.dto';
 import { UserEntity } from 'src/auth/entities/user.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ShopEntity } from './entities/shop.entity';
 import { Telegraf } from 'telegraf';
+import { UpdateShopDto } from './dto/update-shop.dto';
 
 @Injectable()
 export class ShopsService implements OnModuleInit {
@@ -16,13 +17,53 @@ export class ShopsService implements OnModuleInit {
   ) {}
 
   onModuleInit() {
-    this.launchAllBots();
+    // this.launchAllBots();
+  }
+
+  async getAll(id: string) {
+    const user = await this.userRepository.find({
+      where: { id },
+      relations: { shops: true },
+    });
+
+    if (!user) {
+      return null;
+    }
+
+    const shops = user.flatMap((item) => item.shops);
+    return shops;
+  }
+
+  async getById(shopId: string) {
+    const shop = await this.shopRepository.findOne({
+      where: { id: shopId },
+    });
+
+    return shop;
+  }
+
+  async delete(shopId: string) {
+    await this.shopRepository.delete(shopId);
+    return { messge: 'success' };
+  }
+
+  async update(id: string, dto: UpdateShopDto) {
+    const shop = await this.shopRepository.findOne({ where: { id } });
+
+    await this.shopRepository.update(id, {
+      firstName: dto.firstName ? dto.firstName : shop.firstName,
+      username: dto.username ? dto.username : shop.username,
+      isActive: dto.isActive ? dto.isActive : shop.isActive,
+      titleButton: dto.titleButton ? dto.titleButton : shop.titleButton,
+    });
+
+    return { message: 'success' };
   }
 
   async getShopToken(dto: GetTokenDto, userId: string) {
     const botData = await this.getBotInfo(dto.token);
 
-    if (!botData.ok) return { error: 'Некорректный токен' };
+    if (!botData.ok) throw new BadRequestException('Некорректный токен');
 
     const user = await this.userRepository.findOne({
       where: { id: userId },
@@ -40,7 +81,7 @@ export class ShopsService implements OnModuleInit {
       where: { token: dto.token },
     });
 
-    if (findShop) return { error: 'Некорректный токен' };
+    if (findShop) throw new BadRequestException('Некорректный токен');
 
     const shop = this.shopRepository.create(info);
     shop.user = user;

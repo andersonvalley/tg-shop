@@ -6,6 +6,8 @@ import logo from '../../assets/img/logo.png'
 import cl from './header.module.scss'
 import { MdKeyboardArrowDown } from 'react-icons/md'
 
+import user from '../../assets/img/user.png'
+
 export const HeaderWithUser = () => {
   const { firstName, lastName, avatarUrl } = useUserStore(store => store.user)
 
@@ -21,7 +23,7 @@ export const HeaderWithUser = () => {
         </Link>
 
         <button className={cl.user}>
-          <img src={avatarUrl} alt={'user avatar'} className={cl.avatar}></img>
+          <img src={avatarUrl ? avatarUrl : user} alt={'user avatar'} className={cl.avatar}></img>
           <p>
             {firstName} {lastName} <MdKeyboardArrowDown />
           </p>

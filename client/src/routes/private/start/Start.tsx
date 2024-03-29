@@ -2,19 +2,15 @@ import { FormEvent, useState } from 'react'
 import { Input } from '../../../components/UI/input/Input'
 import cl from './start.module.scss'
 import { Button } from '../../../components/UI/button/Button'
-import { useMutation } from '@tanstack/react-query'
-import { TokenService } from '../../../service/shop/Token.serive'
-import { IToken } from '../../../service/shop/Token.interface'
+import { useToken } from './hooks/useToken'
 
 export const Start = () => {
   const [value, setValue] = useState('')
-  const mutation = useMutation({
-    mutationFn: (value: IToken) => TokenService.sendToken(value),
-  })
+  const { mutate, error } = useToken()
 
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    mutation.mutate({ token: value })
+    mutate({ token: value })
   }
 
   return (
@@ -39,7 +35,7 @@ export const Start = () => {
           <form onSubmit={submitHandler} className={cl.form}>
             <Input placeholder="Введите токен" value={value} onChange={e => setValue(e.target.value)} />
             <Button type="submit">Войти</Button>
-            <p className="error">{mutation?.data?.error}</p>
+            <p className="error">{error?.response?.data.message}</p>
           </form>
         </div>
       </div>

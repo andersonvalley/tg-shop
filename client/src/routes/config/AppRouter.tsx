@@ -1,17 +1,17 @@
 import { Route, Routes } from 'react-router-dom'
 import { MainLayout } from '../MainLayout'
 import { privateRoutes, publicRoutes } from './Routes'
-import { useUserStore } from '../../store/user.state'
 import { useCheckAuth } from '../../hooks/useCheckAuth'
 import { AppLayout } from '../private/AppLayout'
+import { Loader } from '../../components/UI/loader/Loader'
+import { useDelay } from '../../hooks/useDelay'
 
 export const AppRouter = () => {
-  const { accessToken } = useUserStore(store => store)
-  const { isLoading } = useCheckAuth()
+  const { status, accessToken } = useCheckAuth()
+  const { delay } = useDelay(100)
 
-  if (isLoading) {
-    return <h1>Загрузка</h1>
-  }
+  if (delay) return <Loader />
+  if (status === 'error' && accessToken) return 'Error'
 
   return (
     <Routes>

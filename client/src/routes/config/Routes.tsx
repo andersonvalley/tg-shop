@@ -8,8 +8,9 @@ import { Catalog } from '../private/catalog/Catalog'
 import { Messages } from '../private/messages/Messages'
 import { Subscribers } from '../private/subscribers/Subscribers'
 import { Share } from '../private/share/Share'
-import { Settings } from '../private/settings/Settings'
 import { WebApp } from '../webApp/WebApp'
+import { Common } from '../private/settings/common/Common'
+import { Delivery } from '../private/settings/delivery/Delivery'
 
 export const privateRoutes = [
   { path: APP_PATH.START, element: <Start /> },
@@ -18,8 +19,9 @@ export const privateRoutes = [
   { path: APP_PATH.MESSAGE, element: <Messages /> },
   { path: APP_PATH.SUBSCRIBERS, element: <Subscribers /> },
   { path: APP_PATH.SHARE, element: <Share /> },
-  { path: APP_PATH.SETTINGS, element: <Settings /> },
-  { path: '*', element: <Navigate to={APP_PATH.START} /> },
+  { path: APP_PATH.COMMON, element: <Common /> },
+  { path: APP_PATH.DELIVERY, element: <Delivery /> },
+  { path: '*', element: <Navigate to={APP_PATH.START} replace /> },
 ]
 
 export const publicRoutes = [

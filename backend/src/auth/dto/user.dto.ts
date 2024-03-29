@@ -8,3 +8,9 @@ export class UserDto {
   avatarUrl?: string;
   code?: null | number;
 }
+
+export class UserFromRequest {
+  user: {
+    id: string;
+  };
+}

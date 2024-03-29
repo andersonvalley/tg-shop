@@ -14,7 +14,7 @@ export class UserEntity {
   id: string;
 
   @Column()
-  telgramId: string;
+  telegramId: string;
 
   @Column({ default: '' })
   firstName?: string;

@@ -67,7 +67,7 @@ export class AuthService implements OnModuleInit {
 
   async auth(code: number, userDto: UserDto) {
     const user = await this.userRepository.findOne({
-      where: { telgramId: userDto.telgramId },
+      where: { telegramId: userDto.telgramId },
     });
 
     if (user) {
@@ -89,6 +89,7 @@ export class AuthService implements OnModuleInit {
       where: {
         code: dto.code,
       },
+      relations: { shops: true },
     });
 
     if (!user) {
@@ -109,6 +110,7 @@ export class AuthService implements OnModuleInit {
 
     const user = await this.userRepository.findOne({
       where: { id: userData.id },
+      relations: { shops: true },
     });
 
     const { accessToken } = await AuthToken.generateAccessToken(user);

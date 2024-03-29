@@ -8,10 +8,10 @@ const queryClient = new QueryClient()
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <BrowserRouter>
     <QueryClientProvider client={queryClient}>
-      <AppRouter />
-      </QueryClientProvider>
-    </BrowserRouter>
+      <BrowserRouter>
+        <AppRouter />
+      </BrowserRouter>
+    </QueryClientProvider>
   </React.StrictMode>
 )
