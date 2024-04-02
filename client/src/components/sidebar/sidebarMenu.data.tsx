@@ -1,5 +1,5 @@
 import { LuSettings2, LuShoppingCart, LuTags } from 'react-icons/lu'
-import { APP_PATH } from '../../routes/config/Paths'
+import { DYNAMIC_LINK } from '../../routes/config/Paths'
 import { RiMessage3Line } from 'react-icons/ri'
 import { MdAddCard, MdOutlineDeliveryDining, MdPeopleOutline } from 'react-icons/md'
 import { LiaTelegramPlane } from 'react-icons/lia'
@@ -8,22 +8,31 @@ import { AiOutlineEye } from 'react-icons/ai'
 import { HiOutlineKey } from 'react-icons/hi'
 import { TbPuzzle } from 'react-icons/tb'
 import { FaRegBell } from 'react-icons/fa'
+import { useMemo } from 'react'
 
-export const Menu = [
-  { title: 'Товары', link: APP_PATH.CATALOG, icon: <LuTags size={23} /> },
-  { title: 'Заказы', link: APP_PATH.ORDERS, icon: <LuShoppingCart size={23} /> },
-  { title: 'Сообщения', link: APP_PATH.MESSAGE, icon: <RiMessage3Line size={23} /> },
-  { title: 'Подписчики', link: APP_PATH.SUBSCRIBERS, icon: <MdPeopleOutline size={23} /> },
-  { title: 'Рассылки', link: APP_PATH.SHARE, icon: <LiaTelegramPlane size={23} /> },
-]
+export const Menu = (id: string) => {
+  const dynamicLink = useMemo(() => DYNAMIC_LINK(id), [id])
 
-export const SubMenu = [
-  { title: 'Общие', link: APP_PATH.COMMON, icon: <LuSettings2 size={23} /> },
-  { title: 'Доставка', link: APP_PATH.DELIVERY, icon: <MdOutlineDeliveryDining size={23} /> },
-  { title: 'Оплата', link: APP_PATH.PAYMENT, icon: <PiContactlessPaymentBold size={23} /> },
-  { title: 'Промокоды', link: APP_PATH.PROMOCODES, icon: <MdAddCard size={23} /> },
-  { title: 'Оформление', link: APP_PATH.VIEW, icon: <AiOutlineEye size={23} /> },
-  { title: 'Доступы', link: APP_PATH.ACCESS, icon: <HiOutlineKey size={23} /> },
-  { title: 'Интеграции', link: APP_PATH.INTEGRATION, icon: <TbPuzzle size={23} /> },
-  { title: 'Уведомления', link: APP_PATH.NOTIFICATIONS, icon: <FaRegBell size={23} /> },
-]
+  return [
+    { title: 'Товары', link: dynamicLink.CATALOG, icon: <LuTags size={23} /> },
+    { title: 'Заказы', link: dynamicLink.ORDERS, icon: <LuShoppingCart size={23} /> },
+    { title: 'Сообщения', link: dynamicLink.MESSAGE, icon: <RiMessage3Line size={23} /> },
+    { title: 'Подписчики', link: dynamicLink.SUBSCRIBERS, icon: <MdPeopleOutline size={23} /> },
+    { title: 'Рассылки', link: dynamicLink.SHARE, icon: <LiaTelegramPlane size={23} /> },
+  ]
+}
+
+export const SubMenu = (id: string) => {
+  const dynamicLink = useMemo(() => DYNAMIC_LINK(id), [id])
+
+  return [
+    { title: 'Общие', link: dynamicLink.COMMON, icon: <LuSettings2 size={23} /> },
+    { title: 'Доставка', link: dynamicLink.DELIVERY, icon: <MdOutlineDeliveryDining size={23} /> },
+    { title: 'Оплата', link: dynamicLink.PAYMENT, icon: <PiContactlessPaymentBold size={23} /> },
+    { title: 'Промокоды', link: dynamicLink.PROMOCODES, icon: <MdAddCard size={23} /> },
+    { title: 'Оформление', link: dynamicLink.VIEW, icon: <AiOutlineEye size={23} /> },
+    { title: 'Доступы', link: dynamicLink.ACCESS, icon: <HiOutlineKey size={23} /> },
+    { title: 'Интеграции', link: dynamicLink.INTEGRATION, icon: <TbPuzzle size={23} /> },
+    { title: 'Уведомления', link: dynamicLink.NOTIFICATIONS, icon: <FaRegBell size={23} /> },
+  ]
+}

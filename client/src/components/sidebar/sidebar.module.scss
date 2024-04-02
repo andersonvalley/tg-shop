@@ -1,5 +1,5 @@
 .sidebar {
-  max-width: 260px;
+  max-width: 280px;
   width: 100%;
   position: fixed;
   top: 0;
@@ -119,6 +119,7 @@ div.shopAvatarSmall {
 
 .active {
   background: var(--menu-active);
+  font-weight: 600;
 }
 
 .logo {

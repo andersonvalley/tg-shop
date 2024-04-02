@@ -1,5 +1,4 @@
 import { create } from 'zustand'
-import { mountStoreDevtool } from 'simple-zustand-devtools'
 import { IShop } from '../service/shop/shop.interface'
 
 type ShopState = {
@@ -51,4 +50,4 @@ export const useShopStore = create<ShopState>(set => ({
     })),
 }))
 
-mountStoreDevtool('shop', useShopStore)
+// mountStoreDevtool('shop', useShopStore)

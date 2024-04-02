@@ -5,9 +5,10 @@
   border-radius: 12px;
   border: none;
   margin-bottom: 10px;
-  transition: background 200ms ease-in-out;
+  transition: all 200ms ease-in-out;
   outline: none;
   border: 2px solid transparent;
+  font-size: 1.7rem;
 
   &:hover {
     background: var(--bg-hover);

@@ -13,7 +13,11 @@ async function bootstrap() {
 
   app.enableCors({
     credentials: true,
-    origin: ['http://localhost:5173', 'http://localhost:4173'],
+    origin: [
+      'http://localhost:5173',
+      'http://localhost:4173',
+      'http://172.20.10.2:5173',
+    ],
   });
 
   await app.listen(5501);

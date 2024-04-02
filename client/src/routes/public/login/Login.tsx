@@ -1,31 +1,13 @@
 import { FormEvent, useEffect, useRef, useState } from 'react'
-import { useMutation } from '@tanstack/react-query'
-import { AuthService } from '../../../service/auth/Auth.service'
-import { ILoginRequest, IUserResponseError } from '../../../service/auth/Auth.interface'
-import { AxiosError } from 'axios'
-import { useUserStore } from '../../../store/user.state'
-import { saveTokenStorage } from '../../../service/auth/Auth.helpers'
-import { useNavigate } from 'react-router-dom'
-import { APP_PATH } from '../../config/Paths'
 
 import cl from './login.module.scss'
+import { useLogin } from './hooks/useLogin'
 
 export const Login = () => {
   const inputRef = useRef<HTMLInputElement | null>(null)
-  const navigate = useNavigate()
   const [activeInput, setActiveInput] = useState(0)
   const [inputValues, setInputValues] = useState(['', '', '', '', '', ''])
-  const { saveUser } = useUserStore(store => store)
-
-  const mutation = useMutation({
-    mutationFn: (code: ILoginRequest) => AuthService.login(code),
-    onError: (error: AxiosError<IUserResponseError>) => console.log(error.response?.data.message),
-    onSuccess: data => {
-      saveUser(data)
-      saveTokenStorage(data.accessToken)
-      navigate(APP_PATH.START)
-    },
-  })
+  const { mutate, isError, error } = useLogin()
 
   useEffect(() => {
     if (activeInput === inputValues.length) return
@@ -39,7 +21,7 @@ export const Login = () => {
     if (inputValues.length !== 6) return
 
     const formData = { code: Number(inputValues.join('')) }
-    mutation.mutate(formData)
+    mutate(formData)
   }
 
   const handleChange = (index: number, value: string) => {
@@ -97,7 +79,7 @@ export const Login = () => {
               )
             })}
           </ul>
-          <p className={cl.error}>{mutation.isError ? mutation.error?.response?.data.message : ''}</p>
+          <p className={cl.error}>{isError ? error?.response?.data.message : ''}</p>
           <div className={cl.bwrapper}>
             <button type="submit" className={cl.button}>
               Войти

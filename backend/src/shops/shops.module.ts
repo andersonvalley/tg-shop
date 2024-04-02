@@ -5,13 +5,15 @@ import { UserEntity } from 'src/auth/entities/user.entity';
 import { ShopEntity } from './entities/shop.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { CategoryEntity } from 'src/category/entities/category.entity';
 
 @Module({
   controllers: [ShopsController],
   providers: [ShopsService],
   imports: [
     ConfigModule.forRoot(),
-    TypeOrmModule.forFeature([ShopEntity, UserEntity]),
+    TypeOrmModule.forFeature([ShopEntity, UserEntity, CategoryEntity]),
   ],
+  exports: [ShopsService],
 })
 export class ShopsModule {}

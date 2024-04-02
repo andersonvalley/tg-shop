@@ -1,5 +1,5 @@
-import { Link, NavLink, useLocation } from 'react-router-dom'
-import { APP_PATH } from '../../routes/config/Paths'
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
+import { APP_PATH, DYNAMIC_LINK } from '../../routes/config/Paths'
 import { Menu, SubMenu } from './sidebarMenu.data'
 import { MdKeyboardArrowDown } from 'react-icons/md'
 import { GoPlus } from 'react-icons/go'
@@ -14,33 +14,32 @@ import { useEffect, useState } from 'react'
 import { useUiStore } from '../../store/ui.store'
 
 export const Sidebar = () => {
-  const { shops, currentShop } = useShopStore(store => store)
-  const { toogleMobileMenu } = useUiStore(store => store)
   const [showMenu, setShowMenu] = useState(true)
   const location = useLocation()
+  const navigate = useNavigate()
+  const { id } = useShopStore(store => store.currentShop)
+
   const { stylesSubMenu, styles, measureRef, measureRefSubMenu, setExpandedSubMenu, setExpanded } =
     useAnimation()
 
-  const { saveCurrentShop } = useShopStore(store => store)
+  const { shops, currentShop, saveCurrentShop } = useShopStore(store => store)
+  const { toogleMobileMenu } = useUiStore(store => store)
 
   const setCurrentShop = (item: IShop) => {
     saveCurrentShop(item)
     setExpanded(false)
+    navigate(`catalog/${item.id}`)
   }
 
   useEffect(() => {
-    if (location.pathname === APP_PATH.START) {
-      setShowMenu(false)
-    } else {
-      setShowMenu(true)
-    }
+    location.pathname === APP_PATH.START ? setShowMenu(false) : setShowMenu(true)
   }, [location.pathname])
 
   return (
     <aside className={toogleMobileMenu ? [cl.sidebar, cl.sidebarOpen].join(' ') : cl.sidebar}>
       <nav className={showMenu ? [cl.nav, cl.navActive].join(' ') : cl.nav}>
         <button onClick={() => setExpanded(val => !val)} className={[cl.link, cl.shop].join(' ')}>
-          <div className={cl.shopAvatar}>{currentShop?.firstName[0]}</div>
+          <p className={cl.shopAvatar}>{currentShop?.firstName[0]}</p>
           <span>{currentShop?.firstName}</span> <MdKeyboardArrowDown />
         </button>
         <animated.div style={{ overflow: 'hidden', ...styles }}>
@@ -76,7 +75,7 @@ export const Sidebar = () => {
         </animated.div>
         <div className={cl.line}></div>
         <ul className={cl.menu}>
-          {Menu.map(item => {
+          {Menu(id).map(item => {
             return (
               <li key={item.title} className={cl.item}>
                 <NavLink
@@ -99,7 +98,7 @@ export const Sidebar = () => {
 
             <animated.div style={{ overflow: 'hidden', ...stylesSubMenu }}>
               <ul ref={measureRefSubMenu} className={cl.subMenu}>
-                {SubMenu.map(item => {
+                {SubMenu(id).map(item => {
                   return (
                     <li key={item.title} className={cl.item}>
                       <NavLink

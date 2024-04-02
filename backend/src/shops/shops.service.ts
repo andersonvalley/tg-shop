@@ -6,18 +6,23 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ShopEntity } from './entities/shop.entity';
 import { Telegraf } from 'telegraf';
 import { UpdateShopDto } from './dto/update-shop.dto';
+import { CategoryEntity } from 'src/category/entities/category.entity';
+
+let idBot = null;
 
 @Injectable()
 export class ShopsService implements OnModuleInit {
   constructor(
     @InjectRepository(ShopEntity)
     private readonly shopRepository: Repository<ShopEntity>,
+    @InjectRepository(CategoryEntity)
+    private readonly categoryRepository: Repository<CategoryEntity>,
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
   ) {}
 
   onModuleInit() {
-    // this.launchAllBots();
+    this.launchAllBots();
   }
 
   async getAll(id: string) {
@@ -43,8 +48,10 @@ export class ShopsService implements OnModuleInit {
   }
 
   async delete(shopId: string) {
+    await this.categoryRepository.delete({ shop: { id: shopId } });
+    idBot.stop();
     await this.shopRepository.delete(shopId);
-    return { messge: 'success' };
+    return { message: 'success' };
   }
 
   async update(id: string, dto: UpdateShopDto) {
@@ -96,6 +103,8 @@ export class ShopsService implements OnModuleInit {
   async getBotInfo(token: string) {
     const url = `https://api.telegram.org/bot${token}/getMe`;
     const response = await fetch(url);
+
+    if (!response) return;
     const data = await response.json();
 
     return data;
@@ -103,9 +112,14 @@ export class ShopsService implements OnModuleInit {
 
   async createBotServer(token: string) {
     const bot = new Telegraf(token);
+    idBot = bot;
 
     bot.start((ctx) => {
-      ctx.reply('👋');
+      ctx.setChatMenuButton({
+        type: 'web_app',
+        text: '🕹️ Меню',
+        web_app: { url: process.env.WEB_APP },
+      });
     });
 
     bot.launch();
@@ -118,6 +132,13 @@ export class ShopsService implements OnModuleInit {
       if (!isActive) return;
 
       const bot = new Telegraf(token);
+
+      bot.hears('/start', async (ctx) => {
+        const tUser = ctx.from;
+
+        // сохранить как подписчика
+        console.log(tUser);
+      });
 
       bot.start((ctx) => {
         ctx.setChatMenuButton({

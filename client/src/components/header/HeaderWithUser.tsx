@@ -1,5 +1,5 @@
-import { Link, useNavigate } from 'react-router-dom'
-import { APP_PATH } from '../../routes/config/Paths'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { APP_PATH, DYNAMIC_LINK } from '../../routes/config/Paths'
 import { useUserStore } from '../../store/user.state'
 import { animated } from '@react-spring/web'
 
@@ -17,6 +17,7 @@ import cl from './header.module.scss'
 import logo from '../../assets/img/logo.png'
 import user from '../../assets/img/user.png'
 import { useUiStore } from '../../store/ui.store'
+import { useShopStore } from '../../store/shop.state'
 
 export const HeaderWithUser = () => {
   const navigate = useNavigate()
@@ -25,6 +26,8 @@ export const HeaderWithUser = () => {
   const { firstName, lastName, avatarUrl } = useUserStore(store => store.user)
   const { deleteAllUser } = useUserStore(store => store)
   const { setToogleMobileMenu, toogleMobileMenu } = useUiStore(store => store)
+  const { id } = useShopStore(store => store.currentShop)
+  const locate = useLocation()
 
   const { mutate: fetchLogout } = useMutation({
     mutationFn: AuthService.logut,
@@ -69,15 +72,19 @@ export const HeaderWithUser = () => {
     }
   }, [])
 
+  useEffect(() => {
+    setToogleMobileMenu()
+  }, [locate.pathname])
+
   const clickMenuItemHandler = (name: string) => {
     setExpanded(false)
-    return name === 'Выйти' ? fetchLogout() : navigate(APP_PATH.TARIFF)
+    return name === 'Выйти' ? fetchLogout() : navigate(DYNAMIC_LINK(id).TARIFF)
   }
 
   return (
     <header className={cl.header}>
       <div className={cl.wrapper}>
-        <Link to={APP_PATH.CATALOG} className={cl.logo}>
+        <Link to={DYNAMIC_LINK(id).CATALOG} className={cl.logo}>
           <img src={logo} alt="logo" />
           <span>Ракета</span>
         </Link>

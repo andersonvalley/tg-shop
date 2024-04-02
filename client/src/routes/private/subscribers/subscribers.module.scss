@@ -1,0 +1,16 @@
+:global(
+    :where(.css-dev-only-do-not-override-11xg00t).ant-table-wrapper
+      .ant-table-container
+      table
+      > thead
+      > tr
+      > *
+  ) {
+  color: var(--color);
+  font-size: 1.2rem;
+  text-transform: uppercase;
+}
+
+.link {
+  text-decoration: underline;
+}

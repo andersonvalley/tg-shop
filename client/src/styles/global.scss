@@ -16,10 +16,15 @@
   --color: #fff;
 }
 
+// @font-face {
+//   font-family: 'tg';
+//   src: url('../assets/fonts/CeraStencilPRO-Bold.woff');
+//   font-weight: 700;
+// }
+
 @font-face {
   font-family: 'tg';
-  src: url('../assets/fonts/CeraStencilPRO-Bold.woff');
-  font-weight: 700;
+  src: url('../assets/fonts/FontsFree-Net-SF-Compact-Rounded-Bold.woff2');
 }
 
 * {
@@ -87,8 +92,8 @@ button {
   }
 
   &__wrapper {
-    margin-left: 260px;
-    z-index: 3;
+    margin-left: 280px;
+    // z-index: 3;
     background: var(--bg);
     border-radius: 25px;
     position: fixed;
@@ -115,7 +120,6 @@ button {
 
 .animate {
   position: relative;
-  z-index: 2;
 
   &::before {
     content: '';
@@ -139,6 +143,10 @@ button {
     );
     animation: actions_gradientAnim__Cd_YF 5s linear infinite alternate;
   }
+}
+
+.animate-min {
+  // opacity: 0.1;
 }
 
 @keyframes actions_gradientAnim__Cd_YF {
@@ -165,4 +173,91 @@ button {
   position: absolute;
   inset: 0;
   background: #fff;
+}
+
+.title,
+.ant-modal-title,
+:where(.css-dev-only-do-not-override-11xg00t).ant-modal .ant-modal-title {
+  font-family: 'tg';
+  color: var(--color);
+  font-size: 3.7rem;
+}
+
+.line {
+  height: 1px;
+  background: #e7eaf0;
+  margin: 0 0 20px 0;
+  max-width: 1000px;
+}
+
+.button-add {
+  width: 36px;
+  height: 36px;
+  color: #4c6fff;
+  background: #e1e8ff;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 200ms ease-in-out;
+
+  &:hover {
+    background: #d5defb;
+  }
+
+  &__good {
+    width: auto;
+    padding: 0 20px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+}
+
+.card {
+  border-radius: 16px;
+  background-color: #fff;
+  width: 100%;
+
+  &__full {
+    max-width: 1000px;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    padding: 16px 14px;
+    border-bottom: 1px solid #e7eaf0;
+
+    span {
+      font-weight: 600;
+      font-family: 'tg', sans-serif;
+      font-size: 1.9rem;
+    }
+  }
+
+  &__item {
+    border-bottom: 1px solid #e7eaf0;
+    padding: 16px 14px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    position: relative;
+
+    span {
+      flex-grow: 1;
+    }
+  }
+
+  &__item:last-child {
+    border: none;
+  }
+}
+
+:where(.css-dev-only-do-not-override-11xg00t).ant-switch.ant-switch-checked {
+  background: var(--link);
 }

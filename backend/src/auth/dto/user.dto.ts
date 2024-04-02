@@ -1,5 +1,5 @@
 export class UserDto {
-  telgramId: string;
+  telgramId?: string;
   firstName?: string;
   lastName?: string;
   userName?: string;

@@ -6,7 +6,8 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { ShopsModule } from './shops/shops.module';
-import { SiteModule } from './site/site.module';
+import { CategoryModule } from './category/category.module';
+import { GoodsModule } from './goods/goods.module';
 
 @Module({
   imports: [
@@ -24,7 +25,8 @@ import { SiteModule } from './site/site.module';
     ConfigModule.forRoot(),
     AuthModule,
     ShopsModule,
-    SiteModule,
+    CategoryModule,
+    GoodsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

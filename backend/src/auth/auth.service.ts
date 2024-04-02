@@ -73,6 +73,9 @@ export class AuthService implements OnModuleInit {
     if (user) {
       await this.userRepository.update(user.id, {
         code,
+        avatarUrl: userDto.avatarUrl,
+        firstName: user.firstName,
+        lastName: user.lastName,
       });
 
       await this.destroyCode(user.id);
@@ -112,6 +115,10 @@ export class AuthService implements OnModuleInit {
       where: { id: userData.id },
       relations: { shops: true },
     });
+
+    if (!user) {
+      throw new UnauthorizedException(`Ошибка`);
+    }
 
     const { accessToken } = await AuthToken.generateAccessToken(user);
 

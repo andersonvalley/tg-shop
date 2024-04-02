@@ -1,9 +1,11 @@
 import { UserEntity } from 'src/auth/entities/user.entity';
+import { CategoryEntity } from 'src/category/entities/category.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -42,4 +44,7 @@ export class ShopEntity {
 
   @ManyToOne(() => UserEntity, (user) => user.shops)
   user: UserEntity;
+
+  @OneToMany(() => CategoryEntity, (category) => category.shop)
+  categories: CategoryEntity;
 }
