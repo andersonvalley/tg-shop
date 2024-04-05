@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { IShop } from '../service/shop/shop.interface'
+import { IShop } from '../types/shop.interface'
 
 type ShopState = {
   shops: IShop[]

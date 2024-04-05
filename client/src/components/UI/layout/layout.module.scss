@@ -1,0 +1,14 @@
+.title,
+.ant-modal-title,
+:where(.css-dev-only-do-not-override-11xg00t).ant-modal .ant-modal-title {
+  font-family: 'tg', sans-serif;
+  color: var(--color);
+  font-size: 3.7rem;
+  margin-bottom: 20px;
+}
+
+.line {
+  height: 1px;
+  background: #e7eaf0;
+  margin: 0 0 20px 0;
+}

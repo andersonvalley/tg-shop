@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { IGood } from '../service/goods/goods.interface'
+import { IGood } from '../types/goods.interface'
 
 type GoodState = {
   goods: IGood[]

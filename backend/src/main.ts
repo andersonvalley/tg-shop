@@ -10,11 +10,13 @@ async function bootstrap() {
   const jwtService = app.get(JwtService);
   AuthToken.setJwtService(jwtService);
   app.use(cookieParser());
+  app.setGlobalPrefix('api');
 
   app.enableCors({
     credentials: true,
     origin: [
       'http://localhost:5173',
+      'http://localhost:3000',
       'http://localhost:4173',
       'http://172.20.10.2:5173',
     ],

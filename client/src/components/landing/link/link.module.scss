@@ -1,0 +1,41 @@
+.button {
+  padding: 8px 13px;
+  border-radius: 12px;
+  background-color: var(--tag);
+  transition: background-color 200ms ease-in-out;
+  color: #fff;
+  font-weight: 500;
+  font-family: 'tg', sans-serif;
+  text-align: center;
+
+  &:hover {
+    background-color: var(--tag-hover);
+  }
+
+  @media (max-width: 550px) {
+    font-size: 1.6rem;
+  }
+}
+
+.xl {
+  padding: 12px 40px;
+
+  @media (max-width: 550px) {
+    padding: 12px 15px;
+  }
+}
+
+.justText {
+  background: transparent;
+  color: var(--color);
+  padding: 12px 40px;
+
+  &:hover {
+    background-color: transparent;
+  }
+
+  @media (max-width: 550px) {
+    padding: 14px 0;
+    font-size: 1.2rem;
+  }
+}

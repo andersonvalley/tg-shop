@@ -1,6 +1,5 @@
 import { create } from 'zustand'
-import { IUserResponse } from '../service/auth/Auth.interface'
-import { mountStoreDevtool } from 'simple-zustand-devtools'
+import { IUserResponse } from '../types/auth.interface'
 
 type Action = {
   saveUser: (userData: IUserResponse & { accessToken?: string }) => void
@@ -42,4 +41,4 @@ export const useUserStore = create<IUserResponse & Action>(set => ({
     })),
 }))
 
-mountStoreDevtool('Store', useUserStore)
+// mountStoreDevtool('Store', useUserStore)

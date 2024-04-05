@@ -1,19 +1,17 @@
-:global(button.danger) {
-  background-color: #ff3366;
-}
-
 .button {
-  background: var(--link);
+  background: var(--tag);
   border-radius: 10px;
   padding: 14px 20px;
   color: #fff;
   transform: scale(1);
   transition: transform 200ms ease-in-out;
-  font-size: 1.7rem;
+  font-size: 1.9rem;
   width: 100%;
+  font-family: 'tg', sans-serif;
 
   &:hover {
     transform: scale(1.01);
+    background: var(--tag-hover);
   }
 }
 

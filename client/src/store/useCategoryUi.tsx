@@ -33,4 +33,4 @@ export const useCategoryUiStore = create<State>(set => ({
     })),
 }))
 
-mountStoreDevtool('cat', useCategoryUiStore)
+// mountStoreDevtool('cat', useCategoryUiStore)

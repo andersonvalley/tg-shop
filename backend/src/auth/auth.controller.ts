@@ -26,6 +26,7 @@ export class AuthController {
 
     if (data.user) {
       const refreshToken = await AuthToken.generateRefreshToken(data.user);
+
       response.cookie('refresh-token', refreshToken, {
         httpOnly: true,
         maxAge: 30 * 24 * 60 * 60 * 1000,

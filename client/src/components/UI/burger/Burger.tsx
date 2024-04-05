@@ -1,8 +1,12 @@
 import React from 'react'
 import './burger.scss'
-import { IBurger } from './burger.interface'
 
-export const Burger: React.FC<IBurger> = ({ checked, onChange }) => {
+export interface Props {
+  checked: boolean
+  onChange: () => void
+}
+
+export const Burger: React.FC<Props> = ({ checked, onChange }) => {
   return (
     <input
       checked={checked}

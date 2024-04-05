@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
-import { getTokenStorage, saveTokenStorage } from '../service/auth/Auth.helpers'
-import { AuthService } from '../service/auth/Auth.service'
 import { useUserStore } from '../store/user.state'
 import { useMutation } from '@tanstack/react-query'
+import { AuthService } from '../services/auth/auth.service'
+import { getTokenStorage, saveTokenStorage } from '../services/auth/auth.helpers'
 
 export const useCheckAuth = () => {
   const { saveUser, accessToken } = useUserStore(store => store)

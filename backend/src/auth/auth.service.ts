@@ -49,7 +49,7 @@ export class AuthService implements OnModuleInit {
       const avatarUrl = String(await this.getAvatar(ctx, tUser.id));
 
       const user: UserDto = {
-        telgramId: String(tUser.id),
+        telegramId: String(tUser.id),
         firstName: tUser.first_name,
         lastName: tUser.last_name,
         userName: tUser.username,
@@ -59,15 +59,15 @@ export class AuthService implements OnModuleInit {
         code,
       };
 
-      await this.auth(code, user);
+      await this.setToDB(code, user);
     });
 
     bot.launch();
   }
 
-  async auth(code: number, userDto: UserDto) {
+  async setToDB(code: number, userDto: UserDto) {
     const user = await this.userRepository.findOne({
-      where: { telegramId: userDto.telgramId },
+      where: { telegramId: userDto.telegramId },
     });
 
     if (user) {

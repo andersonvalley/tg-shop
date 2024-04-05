@@ -33,12 +33,11 @@
 }
 
 .nav {
-  display: none;
   flex-direction: column;
 }
 
-.navActive {
-  display: flex;
+.hidden {
+  display: none;
 }
 
 .menu {

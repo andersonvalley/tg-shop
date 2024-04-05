@@ -1,6 +1,6 @@
 import { create } from 'zustand'
+import { ICategory } from '../types/category.interface'
 import { mountStoreDevtool } from 'simple-zustand-devtools'
-import { ICategory } from '../service/category/category.interface'
 
 type CategoryState = {
   categories: ICategory[]
@@ -15,4 +15,4 @@ export const useCategoryStore = create<CategoryState>(set => ({
     })),
 }))
 
-// mountStoreDevtool('shop', useCategoryStore)
+mountStoreDevtool('shop', useCategoryStore)
