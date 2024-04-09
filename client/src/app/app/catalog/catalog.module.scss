@@ -21,38 +21,3 @@
   align-items: flex-start;
   gap: 20px;
 }
-
-.drag {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: grab;
-
-  svg {
-    fill: #bdbfc2;
-  }
-}
-
-.more {
-  svg {
-    fill: #bdbfc2;
-  }
-}
-
-.active {
-  background-color: var(--menu-active);
-  font-weight: 600;
-}
-
-.group {
-  display: flex;
-  flex-direction: column;
-}
-
-.wrapperItem {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  gap: 5px;
-}

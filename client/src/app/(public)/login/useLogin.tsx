@@ -11,8 +11,7 @@ import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
 export const useLogin = () => {
-  const { saveUser, accessToken } = useUserStore(store => store)
-  const { shops } = useShopStore(store => store)
+  const { saveUser } = useUserStore(store => store)
   const client = useQueryClient()
   const router = useRouter()
 

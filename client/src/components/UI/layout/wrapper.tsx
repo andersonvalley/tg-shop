@@ -3,9 +3,10 @@ import React, { ReactNode } from 'react'
 interface Props {
   title: string
   children: ReactNode
-  width?: string
+  width: string
 }
 
+import './main.scss'
 import styles from './layout.module.scss'
 
 export const Wrapper = ({ title, children, width }: Props) => {

@@ -17,7 +17,6 @@
   padding: 20px 0;
   padding: 16px 14px;
   border-bottom: 1px solid #e7eaf0;
-  margin-bottom: 20px;
 
   span {
     font-weight: 600;
@@ -28,4 +27,20 @@
 
 .danger {
   color: #ff3366;
+}
+
+.button {
+  width: 36px;
+  height: 36px;
+  color: #4c6fff;
+  background: #e1e8ff;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 200ms ease-in-out;
+
+  &:hover {
+    background: #d5defb;
+  }
 }

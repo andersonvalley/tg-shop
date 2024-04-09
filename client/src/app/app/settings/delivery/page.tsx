@@ -1,12 +1,10 @@
-import { Card } from '@/src/components/UI/card/card'
-import { Wrapper } from '@/src/components/UI/layout/wrapper'
+import { Metadata } from 'next'
+import { Delivery } from './delivery'
 
-export default function Delivery() {
-  return (
-    <Wrapper width="50%" title="Настройки доставки">
-      <Card width="50%" title="Способы доставки">
-        <ul>fsffs</ul>
-      </Card>
-    </Wrapper>
-  )
+export const metadata: Metadata = {
+  title: 'Настройки оплаты',
+}
+
+export default function DeliveryPage() {
+  return <Delivery />
 }

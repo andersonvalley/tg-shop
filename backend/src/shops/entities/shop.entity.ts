@@ -1,5 +1,6 @@
 import { UserEntity } from 'src/auth/entities/user.entity';
 import { CategoryEntity } from 'src/category/entities/category.entity';
+import { DeliveryEntity } from 'src/delivery/entities/delivery.entity';
 import {
   Column,
   CreateDateColumn,
@@ -47,4 +48,7 @@ export class ShopEntity {
 
   @OneToMany(() => CategoryEntity, (category) => category.shop)
   categories: CategoryEntity;
+
+  @OneToMany(() => DeliveryEntity, (delivery) => delivery.shop)
+  delivery: DeliveryEntity;
 }

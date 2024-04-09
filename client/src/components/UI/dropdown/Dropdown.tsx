@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
-import cl from './dropdown.module.scss'
+import styles from './dropdown.module.scss'
 
 interface Props {
   children: ReactNode
@@ -10,8 +10,8 @@ interface Props {
 export const DropdownUi = ({ children, closeDropdowm }: Props) => {
   return (
     <>
-      <div className={cl.dropdown}>{children}</div>
-      <div onClick={closeDropdowm} className={cl.overlay}></div>
+      <div className={styles.dropdown}>{children}</div>
+      <div onClick={closeDropdowm} className={styles.overlay}></div>
     </>
   )
 }

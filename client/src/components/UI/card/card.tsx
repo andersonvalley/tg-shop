@@ -1,4 +1,6 @@
-import { ReactNode } from 'react'
+'use client'
+
+import { ReactNode, useState } from 'react'
 
 interface Props {
   children: ReactNode
@@ -7,26 +9,48 @@ interface Props {
   danger?: boolean
   hideButton?: boolean
   textButton?: string
-  onClickButton?: () => void
+  modalContent?: ReactNode
+  titleModal?: string
 }
 
 import styles from './card.module.scss'
-import { FiPlus } from 'react-icons/fi'
+import { HiPlus } from 'react-icons/hi'
+import { createPortal } from 'react-dom'
+import { ModalUi } from '../modal/modal'
+import { useModalStore } from '@/src/store/modal.store'
 
-export const Card = ({ children, title, textButton, onClickButton, width, hideButton, danger }: Props) => {
+export const Card = ({
+  children,
+  title,
+  textButton,
+  width,
+  hideButton,
+  danger,
+  modalContent,
+  titleModal,
+}: Props) => {
   const dangerCl = danger ? styles.danger : ''
+  const { openModal, setToogleModal } = useModalStore(store => store)
 
   return (
     <div style={{ maxWidth: width }} className={[styles.card, dangerCl, 'card', 'animate'].join(' ')}>
       <div className={styles.cardHeader}>
         <span>{title}</span>{' '}
         {hideButton ? null : (
-          <button onClick={onClickButton} className="button-add">
-            <FiPlus size={23} /> {textButton}
+          <button onClick={() => setToogleModal()} className={styles.button}>
+            <HiPlus size={23} /> {textButton}
           </button>
         )}
       </div>
       <div className={styles.cardBody}>{children}</div>
+
+      {openModal &&
+        createPortal(
+          <ModalUi title={titleModal} open={openModal} setOpen={setToogleModal}>
+            {modalContent}
+          </ModalUi>,
+          document.body
+        )}
     </div>
   )
 }

@@ -9,7 +9,7 @@ import { ButtonMenu } from '@/src/components/UI/button/buttonMenu'
 import { ICategory } from '@/src/types/category.interface'
 
 interface Props {
-  value: ICategory
+  value?: ICategory
 }
 
 export const ContentDropdown: React.FC<Props> = ({ value }): ReactNode => {
@@ -21,7 +21,7 @@ export const ContentDropdown: React.FC<Props> = ({ value }): ReactNode => {
       <ButtonMenu onClick={() => renameCategoryHandler()}>
         <RxCursorText size={18} /> Переименовать
       </ButtonMenu>
-      <ButtonMenu onClick={() => deleteCategoryHandler(value)} danger>
+      <ButtonMenu onClick={() => deleteCategoryHandler()} danger>
         <MdOutlineDelete size={18} /> Удалить
       </ButtonMenu>
     </div>

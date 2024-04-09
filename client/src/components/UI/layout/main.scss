@@ -1,0 +1,60 @@
+:where(.css-dev-only-do-not-override-11xg00t).ant-switch.ant-switch-checked {
+  background: var(--link);
+}
+
+:where(.css-dev-only-do-not-override-11xg00t).ant-switch.ant-switch-checked:hover:not(.ant-switch-disabled) {
+  background: var(--link-hover);
+}
+
+.line {
+  height: 1px;
+  background: #e7eaf0;
+  margin: 0 0 20px 0;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.description {
+  padding-left: 40px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 450px;
+  width: 100%;
+  text-align: right;
+}
+
+.switch {
+  display: flex;
+  gap: 12px;
+  font-size: 1.5rem;
+  color: var(--color);
+  font-family: 'tg', sans-serif;
+  margin-bottom: 10px;
+}
+
+.switchMargin {
+  margin-bottom: 0;
+
+  span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+    width: 100%;
+  }
+}
+
+.empty {
+  padding: 10px 15px;
+}
