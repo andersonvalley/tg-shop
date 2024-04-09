@@ -9,6 +9,7 @@ import { ShopsModule } from './shops/shops.module';
 import { CategoryModule } from './category/category.module';
 import { GoodsModule } from './goods/goods.module';
 import { DeliveryModule } from './delivery/delivery.module';
+import { PromocodesModule } from './promocodes/promocodes.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { DeliveryModule } from './delivery/delivery.module';
     CategoryModule,
     GoodsModule,
     DeliveryModule,
+    PromocodesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

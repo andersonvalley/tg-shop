@@ -5,29 +5,32 @@ import { Input } from '@/src/components/UI/input/input'
 import { SelectUi } from '@/src/components/UI/select/select'
 
 import { useValidate } from '@/src/hooks/useValidate'
+import { IPromocode } from '@/src/types/promocode.interface'
 import React, { useState } from 'react'
+import { useCreate } from './fetch/useCreate'
+import { useUpdate } from './fetch/useUpdate'
 
-export interface formType {
-  title: string
-  description: string
-  price: string
-  priceFrom: string
-  apply: string
+export interface Props {
+  data: IPromocode
+  update?: boolean
 }
 
-export const ContentModal = () => {
-  const [values, setValues] = useState<formType>({
-    title: '',
-    description: '',
-    price: '',
-    priceFrom: '',
-    apply: 'first',
-  })
+export const ContentModal = ({ data, update }: Props) => {
+  const [values, setValues] = useState<IPromocode>(data)
 
   const { onChange } = useValidate()
 
+  const { createDeliveryHandler } = useCreate()
+  const { updateDeliveryHandler } = useUpdate()
+
+  const submit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    if (update) updateDeliveryHandler(values)
+    else createDeliveryHandler(values)
+  }
+
   return (
-    <form>
+    <form onSubmit={e => submit(e)}>
       <Input
         label="Промокод"
         value={values.title}
@@ -54,8 +57,8 @@ export const ContentModal = () => {
 
       <Input
         label="Скидка"
-        value={values.price}
-        onChange={e => onChange(e.target.value, value => setValues({ ...values, price: value }))}
+        value={values.discount}
+        onChange={e => onChange(e.target.value, value => setValues({ ...values, discount: value }))}
         placeholder="0"
         width="50%"
       />
@@ -63,8 +66,8 @@ export const ContentModal = () => {
       <div className="flex">
         <Input
           label="Для заказов от"
-          value={values.priceFrom}
-          onChange={e => onChange(e.target.value, value => setValues({ ...values, priceFrom: value }))}
+          value={values.orderFrom}
+          onChange={e => onChange(e.target.value, value => setValues({ ...values, orderFrom: value }))}
           placeholder="0"
           width="50%"
           icon="₽"

@@ -1,6 +1,7 @@
 import { UserEntity } from 'src/auth/entities/user.entity';
 import { CategoryEntity } from 'src/category/entities/category.entity';
 import { DeliveryEntity } from 'src/delivery/entities/delivery.entity';
+import { PromocodeEntity } from 'src/promocodes/entities/promocode.entity';
 import {
   Column,
   CreateDateColumn,
@@ -51,4 +52,7 @@ export class ShopEntity {
 
   @OneToMany(() => DeliveryEntity, (delivery) => delivery.shop)
   delivery: DeliveryEntity;
+
+  @OneToMany(() => PromocodeEntity, (promocode) => promocode.shop)
+  promocodes: PromocodeEntity;
 }

@@ -1,28 +1,28 @@
 import { QUERY_KEY } from '@/src/constants/queryKey'
-import { DeliveryService } from '@/src/services/delivery/delivery.service'
 import { useModalStore } from '@/src/store/modal.store'
-import { IDelivery } from '@/src/types/delivery.interface'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
-import { emptyState } from '../delivery'
+import { emptyState } from '../promocode'
+import { IPromocode } from '@/src/types/promocode.interface'
+import { PromocodeService } from '@/src/services/promocode/promocode.service'
 
 export const useUpdate = () => {
   const { setIsEditModal } = useModalStore(store => store)
-  const [currentEditItem, setCurrentItem] = useState<IDelivery>(emptyState)
+  const [currentEditItem, setCurrentItem] = useState<IPromocode>(emptyState)
   const client = useQueryClient()
   const { hideEditModal, setIsOpenDropdown } = useModalStore(store => store)
 
   const { mutate: updateDelivery } = useMutation({
-    mutationFn: (formData: IDelivery) => DeliveryService.update(formData),
-    onSuccess: () => client.invalidateQueries({ queryKey: [QUERY_KEY.getAllDelivery] }),
+    mutationFn: (formData: IPromocode) => PromocodeService.update(formData),
+    onSuccess: () => client.invalidateQueries({ queryKey: [QUERY_KEY.getAllPromocode] }),
   })
 
-  const updateDeliveryHandler = (formData: IDelivery) => {
+  const updateDeliveryHandler = (formData: IPromocode) => {
     updateDelivery(formData)
     hideEditModal()
   }
 
-  const editOption = (item: IDelivery) => {
+  const editOption = (item: IPromocode) => {
     setCurrentItem(item)
     setIsEditModal()
     setIsOpenDropdown()
