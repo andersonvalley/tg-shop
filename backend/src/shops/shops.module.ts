@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { CategoryEntity } from 'src/category/entities/category.entity';
 import { DeliveryEntity } from 'src/delivery/entities/delivery.entity';
+import { PromocodeEntity } from 'src/promocodes/entities/promocode.entity';
 
 @Module({
   controllers: [ShopsController],
@@ -18,6 +19,7 @@ import { DeliveryEntity } from 'src/delivery/entities/delivery.entity';
       UserEntity,
       CategoryEntity,
       DeliveryEntity,
+      PromocodeEntity,
     ]),
   ],
   exports: [ShopsService],

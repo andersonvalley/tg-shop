@@ -35,6 +35,26 @@ export class ShopEntity {
   @Column()
   username: string;
 
+  @Column({ default: '' })
+  description: string;
+
+  @Column({
+    default: `Добро пожаловать 👋
+  Нажмите «Начать», чтобы ознакомиться с нашим ассортиментом.`,
+  })
+  greetings: string;
+
+  @Column({
+    default: `Здравствуйте 👋
+    Откройте меню, чтобы увидеть весь ассортимент.`,
+  })
+  firstLaunch: string;
+
+  @Column({
+    default: `💬 Менеджер скоро свяжется с вами`,
+  })
+  afterOrder: string;
+
   @Column({ default: 'Меню' })
   titleButton: string;
 

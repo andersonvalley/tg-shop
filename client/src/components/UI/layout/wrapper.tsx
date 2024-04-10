@@ -3,7 +3,7 @@ import React, { ReactNode } from 'react'
 interface Props {
   title: string
   children: ReactNode
-  width: string
+  width?: string
 }
 
 import './main.scss'

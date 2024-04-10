@@ -1,5 +1,10 @@
 import { Card } from '@/src/components/UI/card/card'
 import { Wrapper } from '@/src/components/UI/layout/wrapper'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Настройки оплаты',
+}
 
 export default function Payment() {
   return (

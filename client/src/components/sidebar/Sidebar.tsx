@@ -23,7 +23,6 @@ export const Sidebar = () => {
   const setCurrentShop = (item: IShop) => {
     saveCurrentShop(item)
     setExpanded(false)
-    // navigate(`catalog/${item.id}`)
   }
 
   return (

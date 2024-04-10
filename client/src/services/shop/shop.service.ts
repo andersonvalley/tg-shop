@@ -18,8 +18,8 @@ export class ShopService {
     return response.data
   }
 
-  static async update(id: string, data: IUpdateShopRequest) {
-    const response = await instance(`/shop/${id}`, {
+  static async update(data: IUpdateShopRequest) {
+    const response = await instance(`/shop/${data.shopId}`, {
       method: 'PATCH',
       data,
     })

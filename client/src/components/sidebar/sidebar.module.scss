@@ -118,7 +118,10 @@ div.shopAvatarSmall {
 
 .active {
   background: var(--menu-active);
-  font-weight: 600;
+
+  span {
+    font-weight: 600;
+  }
 }
 
 .logo {

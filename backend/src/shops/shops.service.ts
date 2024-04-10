@@ -7,8 +7,8 @@ import { ShopEntity } from './entities/shop.entity';
 import { Telegraf } from 'telegraf';
 import { UpdateShopDto } from './dto/update-shop.dto';
 import { CategoryEntity } from 'src/category/entities/category.entity';
-
-let idBot = null;
+import { PromocodeEntity } from 'src/promocodes/entities/promocode.entity';
+import { DeliveryEntity } from 'src/delivery/entities/delivery.entity';
 
 @Injectable()
 export class ShopsService implements OnModuleInit {
@@ -17,6 +17,10 @@ export class ShopsService implements OnModuleInit {
     private readonly shopRepository: Repository<ShopEntity>,
     @InjectRepository(CategoryEntity)
     private readonly categoryRepository: Repository<CategoryEntity>,
+    @InjectRepository(DeliveryEntity)
+    private readonly deliveryRepository: Repository<DeliveryEntity>,
+    @InjectRepository(PromocodeEntity)
+    private readonly promocodeRepository: Repository<PromocodeEntity>,
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
   ) {}
@@ -49,7 +53,11 @@ export class ShopsService implements OnModuleInit {
 
   async delete(shopId: string) {
     await this.categoryRepository.delete({ shop: { id: shopId } });
-    idBot.stop();
+    await this.deliveryRepository.delete({ shop: { id: shopId } });
+    await this.promocodeRepository.delete({ shop: { id: shopId } });
+
+    // остановить бота
+
     await this.shopRepository.delete(shopId);
     return { message: 'success' };
   }
@@ -62,6 +70,10 @@ export class ShopsService implements OnModuleInit {
       username: dto.username ? dto.username : shop.username,
       isActive: dto.isActive ? dto.isActive : shop.isActive,
       titleButton: dto.titleButton ? dto.titleButton : shop.titleButton,
+      description: dto.description ? dto.description : shop.description,
+      greetings: dto.greetings ? dto.greetings : shop.greetings,
+      firstLaunch: dto.firstLaunch ? dto.firstLaunch : shop.firstLaunch,
+      afterOrder: dto.afterOrder ? dto.afterOrder : shop.afterOrder,
     });
 
     return { message: 'success' };
@@ -112,7 +124,6 @@ export class ShopsService implements OnModuleInit {
 
   async createBotServer(token: string) {
     const bot = new Telegraf(token);
-    idBot = bot;
 
     bot.start((ctx) => {
       ctx.setChatMenuButton({

@@ -3,12 +3,21 @@ export interface IUpdateShopRequest {
   firstName?: string
   isActive?: boolean
   titleButton?: string
+  shopId?: string
+  description?: string
+  afterOrder?: string
+  firstLaunch?: string
+  greetings?: string
 }
 
 export interface IShop {
   botId: string
   createdDate: string
   firstName: string
+  description: string
+  afterOrder: string
+  firstLaunch: string
+  greetings: string
   id: string
   isActive: boolean
   titleButton: string

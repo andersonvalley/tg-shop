@@ -1,6 +1,9 @@
-import axios from 'axios'
 import { StartPage } from './Start'
-import { ShopService } from '@/src/services/shop/shop.service'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Создать магазин',
+}
 
 export default async function Start() {
   return <StartPage />

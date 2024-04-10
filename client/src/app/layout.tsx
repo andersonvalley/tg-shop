@@ -5,7 +5,7 @@ import { Providers } from './providers'
 
 import '../styles/global.scss'
 
-const montserrat = Montserrat({ subsets: ['latin'], weight: ['100', '300', '500'] })
+const montserrat = Montserrat({ subsets: ['latin'], weight: ['100', '300', '500', '600'], variable: '--ff' })
 
 export const metadata: Metadata = {
   title: {

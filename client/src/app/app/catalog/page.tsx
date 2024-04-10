@@ -9,6 +9,11 @@ import { Card } from '@/src/components/UI/card/card'
 
 import styles from './catalog.module.scss'
 import { ContentModal } from './goods/contentModal'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Каталог',
+}
 
 export default function Catalog() {
   // const [openModalToAddCategory, setOpenModalToAddCategory] = useState(false)
