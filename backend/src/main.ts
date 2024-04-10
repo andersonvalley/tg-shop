@@ -19,6 +19,7 @@ async function bootstrap() {
       'http://localhost:3000',
       'http://localhost:4173',
       'http://172.20.10.2:5173',
+      'http://192.168.0.157:3000',
     ],
   });
 

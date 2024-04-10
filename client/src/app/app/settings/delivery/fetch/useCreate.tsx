@@ -4,7 +4,6 @@ import { useModalStore } from '@/src/store/modal.store'
 import { useShopStore } from '@/src/store/shop.state'
 import { IDelivery } from '@/src/types/delivery.interface'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { FormEvent } from 'react'
 
 export const useCreate = () => {
   const { id } = useShopStore(store => store.currentShop)

@@ -1,14 +1,14 @@
-import { useCategoryUiStore } from '@/src/store/useCategoryUi'
-import { useState } from 'react'
-import { useRenameCategory } from './category/useRenameCategory'
-import { useCreteCategory } from './category/useCreteCategory'
-import { useDragCategory } from './category/useDragCategory'
-import { useCategory } from './category/useCategory'
+// import { useCategoryUiStore } from '@/src/store/useCategoryUi'
+// import { useState } from 'react'
+// import { useRenameCategory } from './category/useRenameCategory'
+// import { useCreteCategory } from './category/useCreteCategory'
+// import { useDragCategory } from './category/useDragCategory'
+// import { useCategory } from './category/useCategory'
 import { Wrapper } from '@/src/components/UI/layout/wrapper'
-import { Card } from '@/src/components/UI/card/card'
+// import { Card } from '@/src/components/UI/card/card'
 
 import styles from './catalog.module.scss'
-import { ContentModal } from './goods/contentModal'
+// import { ContentModal } from './goods/contentModal'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -29,12 +29,12 @@ export default function Catalog() {
   return (
     <Wrapper width="86%" title="Товары">
       <div className={styles.cardWrapper}>
-        <Card width="25%" title="Категории">
+        {/* <Card width="25%" title="Категории">
           ul
         </Card>
         <Card width="60%" title="Товары" modalContent={<ContentModal />} titleModal="Новый товар">
           ul
-        </Card>
+        </Card> */}
       </div>
     </Wrapper>
   )

@@ -8,6 +8,10 @@
   &__full {
     max-width: 1000px;
   }
+
+  @media (max-width: 1350px) {
+    max-width: none !important;
+  }
 }
 
 .cardHeader {

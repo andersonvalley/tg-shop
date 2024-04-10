@@ -1,17 +1,16 @@
 'use client'
 
+import React, { useState } from 'react'
 import { SubmitButton } from '@/src/components/UI/button/submitButton'
 import { Input } from '@/src/components/UI/input/input'
 import { useValidate } from '@/src/hooks/useValidate'
 import { Switch, Tooltip } from 'antd'
-import React, { useState } from 'react'
 import { IoIosHelpCircleOutline } from 'react-icons/io'
-
 import { IDelivery } from '@/src/types/delivery.interface'
-
-import styles from './delivery.module.scss'
 import { useCreate } from './fetch/useCreate'
 import { useUpdate } from './fetch/useUpdate'
+
+import styles from './delivery.module.scss'
 
 export interface Props {
   data: IDelivery
