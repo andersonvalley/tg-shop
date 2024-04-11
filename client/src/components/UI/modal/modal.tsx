@@ -10,13 +10,24 @@ interface Props {
   setOpen: (type: boolean) => void
   title?: string
   children: ReactNode
+  confirmCloseMessage?: boolean
 }
 
-export const ModalUi: React.FC<Props> = ({ open, setOpen, title = '', children }) => {
+export const ModalUi: React.FC<Props> = ({
+  open,
+  setOpen,
+  title = '',
+  children,
+  confirmCloseMessage = true,
+}) => {
   const [confirmClose, setConfirmClose] = useState(false)
 
   const handleCancel = () => {
-    setConfirmClose(true)
+    if (confirmCloseMessage) {
+      setConfirmClose(true)
+    } else {
+      setOpen(false)
+    }
   }
 
   const okConfirmModal = () => {

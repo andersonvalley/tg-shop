@@ -11,6 +11,7 @@ interface Props {
   textButton?: string
   modalContent?: ReactNode
   titleModal?: string
+  confirmCloseMessage?: boolean
 }
 
 import styles from './card.module.scss'
@@ -28,6 +29,7 @@ export const Card = ({
   danger,
   modalContent,
   titleModal,
+  confirmCloseMessage,
 }: Props) => {
   const dangerCl = danger ? styles.danger : ''
   const { openModal, setToogleModal } = useModalStore(store => store)
@@ -46,7 +48,12 @@ export const Card = ({
 
       {openModal &&
         createPortal(
-          <ModalUi title={titleModal} open={openModal} setOpen={setToogleModal}>
+          <ModalUi
+            title={titleModal}
+            open={openModal}
+            setOpen={setToogleModal}
+            confirmCloseMessage={confirmCloseMessage}
+          >
             {modalContent}
           </ModalUi>,
           document.body

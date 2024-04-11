@@ -14,7 +14,7 @@ export const Hero = () => {
 
         <div className={styles.group}>
           <LinkLanding xl={true} path={PATHS.LOGIN} text="Начать бесплатно" />
-          <LinkLanding justText={true} path="t.me/" text="Пример магазина" />
+          <LinkLanding justText={true} path="https://t.me/shopcrocs" text="Пример магазина" />
         </div>
       </div>
 

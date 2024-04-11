@@ -23,9 +23,9 @@ export const useShop = () => {
 
   useEffect(() => {
     if (pathname === PATHS.START && data && data?.length > 0 && !add) {
-      router.push(PATHS.CATALOG)
+      router.push(PATHS.CATALOG, { scroll: false })
     } else if (data && data?.length === 0) {
-      router.push(PATHS.START)
+      router.push(PATHS.START, { scroll: false })
     }
   }, [pathname, data, router, add])
 

@@ -35,9 +35,9 @@ export const Delivery = () => {
   )
 
   return (
-    <Wrapper width="50%" title="Настройки доставки">
+    <Wrapper width="60%" title="Настройки доставки">
       <Card
-        width="50%"
+        width="60%"
         title="Способы доставки"
         titleModal="Новый способ доставки"
         modalContent={<ContentModal data={emptyState} />}
@@ -45,9 +45,10 @@ export const Delivery = () => {
         <ul>
           {isError && <li className="empty">Ошибка загрузки</li>}
           {items?.length === 0 && <li className="empty">Еще нет способов доставки</li>}
-          {items?.map(item => {
+          {items?.map((item, index) => {
             return (
               <ListItem
+                index={index}
                 deleteHandler={() => deleteOption(item)}
                 editHandler={() => editOption(item)}
                 key={item.id}

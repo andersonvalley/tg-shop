@@ -9,6 +9,7 @@ import { UpdateShopDto } from './dto/update-shop.dto';
 import { CategoryEntity } from 'src/category/entities/category.entity';
 import { PromocodeEntity } from 'src/promocodes/entities/promocode.entity';
 import { DeliveryEntity } from 'src/delivery/entities/delivery.entity';
+import { delivery, delivery2 } from 'src/delivery/delivery.data.defult';
 
 @Injectable()
 export class ShopsService implements OnModuleInit {
@@ -26,7 +27,7 @@ export class ShopsService implements OnModuleInit {
   ) {}
 
   onModuleInit() {
-    this.launchAllBots();
+    // this.launchAllBots();
   }
 
   async getAll(id: string) {
@@ -89,22 +90,30 @@ export class ShopsService implements OnModuleInit {
       relations: { shops: true },
     });
 
-    const info = {
+    const findShop = await this.shopRepository.findOne({
+      where: { token: dto.token },
+    });
+
+    if (findShop) throw new BadRequestException('Так магазин уже создан');
+
+    const data = {
       botId: botData.result.id,
       firstName: botData.result.first_name,
       username: botData.result.username,
       token: dto.token,
     };
 
-    const findShop = await this.shopRepository.findOne({
-      where: { token: dto.token },
-    });
-
-    if (findShop) throw new BadRequestException('Некорректный токен');
-
-    const shop = this.shopRepository.create(info);
+    const shop = this.shopRepository.create(data);
     shop.user = user;
     await this.shopRepository.save(shop);
+
+    const newDelivery = this.deliveryRepository.create(delivery);
+    const newDelivery2 = this.deliveryRepository.create(delivery2);
+
+    newDelivery.shop = shop;
+    newDelivery2.shop = shop;
+    await this.deliveryRepository.save(newDelivery);
+    await this.deliveryRepository.save(newDelivery2);
 
     // TODO
     // отправить уведомление в бот, что создан магазин

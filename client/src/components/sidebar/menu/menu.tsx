@@ -7,10 +7,12 @@ import { animated } from '@react-spring/web'
 
 import styles from '../sidebar.module.scss'
 import { useAnimation } from '../useAnimation'
+import { Url } from 'url'
+import { useUiStore } from '@/src/store/ui.store'
 
 export const SidebarMenu = () => {
   const pathname = usePathname()
-
+  const { setToogleMobileMenu } = useUiStore(store => store)
   const { stylesSubMenu, measureRefSubMenu, setExpandedSubMenu } = useAnimation()
 
   return (
@@ -20,7 +22,9 @@ export const SidebarMenu = () => {
           <li key={item.title} className={styles.item}>
             <Link
               className={`${styles.link} ${pathname === item.link ? styles.active : ''}`}
+              onClick={setToogleMobileMenu}
               href={item.link}
+              scroll={false}
             >
               <item.icon size={23} /> <span>{item.title}</span>
             </Link>
@@ -43,7 +47,9 @@ export const SidebarMenu = () => {
                 <li key={item.title} className={styles.item}>
                   <Link
                     className={`${styles.link} ${pathname === item.link ? styles.active : ''}`}
+                    onClick={setToogleMobileMenu}
                     href={item.link}
+                    scroll={false}
                   >
                     <item.icon size={23} /> <span>{item.title}</span>
                   </Link>

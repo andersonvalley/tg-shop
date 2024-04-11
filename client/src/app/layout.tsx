@@ -14,6 +14,9 @@ export const metadata: Metadata = {
   },
   description:
     'Интернет-магазин в Telegram — это бот. Создается за 20 минут. Без программистов. Собирает базу посетителей и делает push-рассылки.',
+  icons: {
+    icon: '/favicon.ico',
+  },
 }
 
 export default function RootLayout({

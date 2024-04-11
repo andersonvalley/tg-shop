@@ -13,6 +13,9 @@ type State = {
 
   isOpenDropdown: boolean
   setIsOpenDropdown: () => void
+
+  currentClickIndex: number
+  setCurrentClickIndex: (payload: number) => void
 }
 
 export const useModalStore = create<State>(set => ({
@@ -47,6 +50,13 @@ export const useModalStore = create<State>(set => ({
   setIsOpenDropdown: () => {
     set(state => ({
       isOpenDropdown: !state.isOpenDropdown,
+    }))
+  },
+
+  currentClickIndex: -1,
+  setCurrentClickIndex: payload => {
+    set(() => ({
+      currentClickIndex: payload,
     }))
   },
 }))

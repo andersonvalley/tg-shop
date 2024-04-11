@@ -58,9 +58,6 @@ export class ShopEntity {
   @Column({ default: 'Меню' })
   titleButton: string;
 
-  @Column({ default: '' })
-  webLink: string;
-
   @Column({ default: true })
   isActive: boolean;
 

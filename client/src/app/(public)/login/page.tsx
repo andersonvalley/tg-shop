@@ -28,7 +28,7 @@ export default function Login() {
 
         <p className={styles.subtitle}>
           Получите код в боте{' '}
-          <LinkLanding justText={true} text="@login_rocket_bot" path="https://t.me/registerthshopbot" />
+          <LinkLanding justText={true} text="@login_rocket_bot" path="https://t.me/login_rocket_bot" />
         </p>
 
         <form className={styles.form} onSubmit={handleSubmit}>

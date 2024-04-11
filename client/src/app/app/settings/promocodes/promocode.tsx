@@ -44,9 +44,10 @@ export const Promocodes = () => {
         <ul>
           {isError && <li className="empty">Ошибка загрузки</li>}
           {items?.length === 0 && <li className="empty">Еще нет промокодов</li>}
-          {items?.map(item => {
+          {items?.map((item, index) => {
             return (
               <ListItem
+                index={index}
                 deleteHandler={() => deleteOption(item)}
                 editHandler={() => editOption(item)}
                 key={item.id}

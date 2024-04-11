@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react'
+import React, { ReactNode, useEffect, useState } from 'react'
 
 import styles from './listItem.module.scss'
 import { MdDragIndicator, MdOutlineDelete } from 'react-icons/md'
@@ -7,15 +7,27 @@ import { DropdownUi } from '../dropdown/dropdown'
 import { ButtonMenu } from '../button/buttonMenu'
 import { RxCursorText } from 'react-icons/rx'
 import { useModalStore } from '@/src/store/modal.store'
+import { usePathname } from 'next/navigation'
 
 interface Props {
   children: ReactNode
   editHandler: () => void
   deleteHandler: () => void
+  index: number
 }
 
-export const ListItem = ({ children, deleteHandler, editHandler }: Props) => {
-  const { isOpenDropdown, setIsOpenDropdown } = useModalStore(store => store)
+export const ListItem = ({ children, deleteHandler, editHandler, index }: Props) => {
+  const { isOpenDropdown, setIsOpenDropdown, currentClickIndex, setCurrentClickIndex } = useModalStore(
+    store => store
+  )
+  const pathname = usePathname()
+
+  const clickHandler = (index: number) => {
+    setCurrentClickIndex(index)
+    setIsOpenDropdown()
+  }
+
+  useEffect(() => setCurrentClickIndex(-1), [pathname, setCurrentClickIndex])
 
   return (
     <li className={styles.item}>
@@ -24,11 +36,11 @@ export const ListItem = ({ children, deleteHandler, editHandler }: Props) => {
           <MdDragIndicator size={19} />
         </button>
         <div className={styles.content}>{children}</div>
-        <button onClick={() => setIsOpenDropdown()} className={styles.more}>
+        <button onClick={() => clickHandler(index)} className={styles.more}>
           <IoMdMore size={21} />
         </button>
 
-        {isOpenDropdown && (
+        {isOpenDropdown && currentClickIndex === index && (
           <DropdownUi closeDropdowm={() => setIsOpenDropdown()}>
             <ul className={styles.group}>
               <li>

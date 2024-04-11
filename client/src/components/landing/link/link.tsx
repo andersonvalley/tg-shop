@@ -18,6 +18,7 @@ export const LinkLanding = ({ text, path, xl, justText }: Props) => {
     <Link
       target={justBtn ? '_blank' : '_self'}
       href={path}
+      scroll={false}
       className={[styles.button, xlBtn, justBtn].join(' ')}
     >
       {text}

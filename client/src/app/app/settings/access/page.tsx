@@ -16,6 +16,7 @@ export default function Access() {
         title="Выданные доступы"
         modalContent={<ContentModal />}
         titleModal="Новый пользователь"
+        confirmCloseMessage={false}
       >
         ul
       </Card>

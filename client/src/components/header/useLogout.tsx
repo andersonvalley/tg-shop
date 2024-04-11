@@ -14,7 +14,7 @@ export const useLogout = () => {
     onSuccess: () => {
       deleteAllUser()
       removeTokenStorage()
-      router.push(PATHS.LOGIN)
+      router.push(PATHS.LOGIN, { scroll: false })
     },
   })
 
