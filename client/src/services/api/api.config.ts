@@ -1,11 +1,10 @@
 import axios from 'axios'
 import { getTokenStorage, saveTokenStorage } from '../auth/auth.helpers'
 
-export const BASE_URL = 'http://localhost:5501/api'
-export const PROD_URL = 'http://localhost:5501/api'
+export const BASE_URL = process.env.NEXT_PUBLIC_BACKEND
 
 const options = {
-  baseURL: BASE_URL ? BASE_URL : PROD_URL,
+  baseURL: BASE_URL,
   headers: { 'Content-Type': 'application/json' },
   withCredentials: true,
 }

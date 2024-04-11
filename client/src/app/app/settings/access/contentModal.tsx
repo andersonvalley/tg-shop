@@ -2,9 +2,7 @@
 
 import { SubmitButton } from '@/src/components/UI/button/submitButton'
 import { Input } from '@/src/components/UI/input/input'
-import { SelectUi } from '@/src/components/UI/select/select'
 
-import { useValidate } from '@/src/hooks/useValidate'
 import React, { useState } from 'react'
 
 export interface formType {

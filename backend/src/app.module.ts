@@ -16,8 +16,8 @@ import { PromocodesModule } from './promocodes/promocodes.module';
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.POSTGRES_HOST || 'localhost',
-      port: +process.env.POSTGRES_PORT,
-      database: process.env.DB_NAME,
+      port: +process.env.POSTGRES_PORT || 5432,
+      database: process.env.DB_NAME || 'tgshop',
       username: process.env.DATABASE_USER || 'postgres',
       password: process.env.DATABASE_PASSWORD || 'postgres',
       entities: [join(__dirname, '**', '/../**/*.entity{.ts,.js}')],
