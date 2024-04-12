@@ -3,6 +3,7 @@ import { CategoryEntity } from 'src/category/entities/category.entity';
 import { DeliveryEntity } from 'src/delivery/entities/delivery.entity';
 import { PromocodeEntity } from 'src/promocodes/entities/promocode.entity';
 import { ShareEntity } from 'src/share/entities/share.entity';
+import { SubscriberEntity } from 'src/subscriber/entities/subscriber.entity';
 import {
   Column,
   CreateDateColumn,
@@ -76,4 +77,7 @@ export class ShopEntity {
 
   @OneToMany(() => ShareEntity, (share) => share.shop)
   share: ShareEntity;
+
+  @OneToMany(() => SubscriberEntity, (share) => share.shop)
+  subscribers: SubscriberEntity;
 }

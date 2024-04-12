@@ -27,7 +27,7 @@ export const Alert = ({ children, local }: Props) => {
     <>
       {show && (
         <div className={styles.alert}>
-          <div className={styles.text}>{children}</div>
+          <p className={styles.text}>{children}</p>
 
           <button onClick={closeAlert}>
             <MdClose size={21} />

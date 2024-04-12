@@ -13,6 +13,7 @@ import { PromocodesModule } from './promocodes/promocodes.module';
 import { NoficationModule } from './nofication/nofication.module';
 import { ShareModule } from './share/share.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { SubscriberModule } from './subscriber/subscriber.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
     PromocodesModule,
     NoficationModule,
     ShareModule,
+    SubscriberModule,
   ],
   controllers: [AppController],
   providers: [AppService],

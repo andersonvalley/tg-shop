@@ -6,5 +6,5 @@ export const metadata: Metadata = {
 }
 
 export default function Messages() {
-  return <Wrapper title="Сообщения">hello</Wrapper>
+  return <Wrapper title="Сообщения">dev mode</Wrapper>
 }

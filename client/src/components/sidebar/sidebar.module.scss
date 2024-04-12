@@ -102,8 +102,10 @@ div.shopAvatarSmall {
   transition: background 200ms ease-in-out;
   width: 100%;
 
-  &:hover {
-    background: var(--menu-active);
+  @media (any-hover: hover) {
+    &:hover {
+      background: var(--menu-active);
+    }
   }
 }
 

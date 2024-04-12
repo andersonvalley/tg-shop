@@ -102,3 +102,27 @@
     margin-bottom: 7px;
   }
 }
+
+:where(.css-dev-only-do-not-override-1kuana8).ant-table-wrapper .ant-table-thead > tr > th,
+:where(.css-dev-only-do-not-override-1kuana8).ant-table-wrapper .ant-table-thead > tr > td {
+  color: #8492a6;
+  text-transform: uppercase;
+  font-family: 'tg', sans-serif;
+}
+
+.ant-empty-normal {
+  display: none;
+}
+
+@media (max-width: 650px) {
+  .ant-table {
+    overflow: scroll;
+  }
+  .ant-table-container {
+    width: 600px;
+  }
+}
+
+.ant-table-cell {
+  color: var(--color);
+}
