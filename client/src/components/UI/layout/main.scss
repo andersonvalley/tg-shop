@@ -16,6 +16,19 @@
   margin-bottom: 20px;
 }
 
+:where(.css-dev-only-do-not-override-1kuana8).ant-checkbox-wrapper {
+  color: var(--color);
+  font-family: 'tg';
+}
+
+.ant-upload button div {
+  display: none;
+}
+
+.ant-upload button svg {
+  fill: var(--tag);
+}
+
 .line {
   height: 1px;
   background: #e7eaf0;

@@ -11,6 +11,8 @@ import { GoodsModule } from './goods/goods.module';
 import { DeliveryModule } from './delivery/delivery.module';
 import { PromocodesModule } from './promocodes/promocodes.module';
 import { NoficationModule } from './nofication/nofication.module';
+import { ShareModule } from './share/share.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
 
 @Module({
   imports: [
@@ -25,6 +27,10 @@ import { NoficationModule } from './nofication/nofication.module';
       migrations: [join(__dirname, '**', '/../**/*.migration{.ts,.js}')],
       synchronize: true,
     }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'api', 'uploads'),
+      serveRoot: '/api/uploads',
+    }),
     ConfigModule.forRoot(),
     AuthModule,
     ShopsModule,
@@ -33,6 +39,7 @@ import { NoficationModule } from './nofication/nofication.module';
     DeliveryModule,
     PromocodesModule,
     NoficationModule,
+    ShareModule,
   ],
   controllers: [AppController],
   providers: [AppService],

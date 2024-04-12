@@ -3,51 +3,28 @@
 import { SubmitButton } from '@/src/components/UI/button/submitButton'
 import React, { useState } from 'react'
 import { TextArea } from '@/src/components/UI/input/textArea'
-import { IShare } from '@/src/types/share.interface'
+import { IShare, createShare } from '@/src/types/share.interface'
+import { Checkbox, Upload } from 'antd'
+import Image from 'next/image'
+import { beforeUpload } from '../../../utils/upload'
+import { useUpload } from '@/src/hooks/useUpload'
+import { UploadButton } from '@/src/components/UI/button/uploadButton'
 
 import styles from './share.module.scss'
-import { Checkbox, Upload } from 'antd'
-import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
-import type { UploadProps } from 'antd'
-import Image from 'next/image'
-import { FileType, beforeUpload, getBase64 } from '../../utils/upload'
-
+import { useShopStore } from '@/src/store/shop.state'
+import { useCreate } from './fetch/useCreate'
 export interface Props {
-  data: IShare
+  data: createShare
 }
 
 export const ShareModal = ({ data }: Props) => {
-  const [values, setValues] = useState<IShare>(data)
-  const [loading, setLoading] = useState(false)
-  const [imageUrl, setImageUrl] = useState<string>()
-
-  const submit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-  }
-
-  const handleChange: UploadProps['onChange'] = info => {
-    if (info.file.status === 'uploading') {
-      setLoading(true)
-      return
-    }
-    if (info.file.status === 'done') {
-      // Get this url from response in real world.
-      getBase64(info.file.originFileObj as FileType, url => {
-        setLoading(false)
-        setImageUrl(url)
-      })
-    }
-  }
-
-  const uploadButton = (
-    <button style={{ border: 0, background: 'none' }} type="button">
-      {loading ? <LoadingOutlined /> : <PlusOutlined />}
-      <div style={{ marginTop: 8 }}>Upload</div>
-    </button>
-  )
+  const [values, setValues] = useState<createShare>(data)
+  const { id } = useShopStore(store => store.currentShop)
+  const { handleChange, imageUrl } = useUpload(values, setValues)
+  const { createShareHandler } = useCreate()
 
   return (
-    <form onSubmit={e => submit(e)}>
+    <form onSubmit={e => createShareHandler(e, values)}>
       <TextArea
         height="150px"
         value={values.text}
@@ -59,19 +36,25 @@ export const ShareModal = ({ data }: Props) => {
       <div className={styles.mb}>
         <span className={styles.label}>Фото:</span>
         <Upload
-          name="avatar"
+          accept="image/png, image/jpeg, image/jpg"
+          name="sharePhoto"
           listType="picture-card"
           className="avatar-uploader"
           showUploadList={false}
-          action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
+          action={`${process.env.NEXT_PUBLIC_BACKEND}/share/upload/${id}`}
           beforeUpload={beforeUpload}
           onChange={handleChange}
         >
-          {imageUrl ? <Image src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+          {imageUrl ? (
+            <Image src={imageUrl} width={60} height={60} alt="avatar" style={{ width: '100%' }} />
+          ) : (
+            <UploadButton />
+          )}
         </Upload>
       </div>
 
       <Checkbox
+        className={styles.checkbox}
         checked={values.addButton}
         onChange={e => setValues({ ...values, addButton: e.target.checked })}
       >

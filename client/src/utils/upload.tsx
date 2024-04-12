@@ -11,9 +11,9 @@ export const getBase64 = (img: FileType, callback: (url: string) => void) => {
 }
 
 export const beforeUpload = (file: FileType) => {
-  const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
+  const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/jpg'
   if (!isJpgOrPng) {
-    message.error('Принимаются только JPG/PNG файлы!')
+    message.error('Принимаются только JPEG/JPG/PNG файлы!')
   }
   const isLt2M = file.size / 1024 / 1024 < 2
   if (!isLt2M) {

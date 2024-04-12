@@ -12,8 +12,8 @@
   --menu-active: #f5f9fc;
 
   --landing-width: 1344px;
-  --tag: #6e73f8;
-  --tag-hover: #6266e1;
+  --tag: #1677ff;
+  --tag-hover: #126ce9;
   --tag-bg: rgba(206, 207, 253, 0.4);
 }
 
@@ -123,7 +123,7 @@ button {
     @media (max-width: 500px) {
       inset: 6px;
       margin-left: 0;
-      padding: 80px 10px 10px 10px;
+      padding: 100px 10px 10px 10px;
     }
   }
 }

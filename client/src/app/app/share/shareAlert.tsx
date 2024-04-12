@@ -11,7 +11,7 @@ interface Props {
   width: string
 }
 
-export const Share = ({ width }: Props) => {
+export const ShareAlert = ({ width }: Props) => {
   return (
     <div className={styles.wrapperAlert} style={{ maxWidth: width }}>
       <Alert local="share">
