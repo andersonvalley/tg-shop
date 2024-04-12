@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ShopEntity } from 'src/shops/entities/shop.entity';
 import { Repository } from 'typeorm';
 import { DeliveryEntity } from './entities/delivery.entity';
+import { getDeliveryDto } from './dto/get-delivery.dto';
 
 @Injectable()
 export class DeliveryService {

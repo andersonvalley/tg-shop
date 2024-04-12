@@ -16,7 +16,7 @@ async function getData(id: string) {
   const res = await fetch(`http://localhost:5501/api/delivery/${id}`, { next: { revalidate: 3600 } })
 
   if (!res.ok) {
-    throw new Error('Failed to fetch data')
+    return 'Failed to fetch data'
   }
 
   return res.json()

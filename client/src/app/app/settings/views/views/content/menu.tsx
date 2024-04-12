@@ -13,6 +13,7 @@ import { ShopService } from '@/src/services/shop/shop.service'
 import { IUpdateShopRequest } from '@/src/types/shop.interface'
 import { TextArea } from '@/src/components/UI/input/textArea'
 import { SelectUi } from '@/src/components/UI/select/select'
+import { message } from 'antd'
 
 export const Menu = () => {
   const { titleButton, id } = useShopStore(store => store.currentShop)
@@ -22,7 +23,11 @@ export const Menu = () => {
 
   const { mutate, isSuccess } = useMutation({
     mutationFn: (data: IUpdateShopRequest) => ShopService.update(data),
-    onSuccess: () => client.invalidateQueries({ queryKey: [QUERY_KEY.getAllShops] }),
+    onSuccess: () => {
+      client.invalidateQueries({ queryKey: [QUERY_KEY.getAllShops] })
+      message.success('Успешно')
+    },
+    onError: () => message.error('Произошла ошибка'),
   })
 
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {

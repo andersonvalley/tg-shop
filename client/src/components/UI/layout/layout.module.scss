@@ -11,4 +11,8 @@
   height: 1px;
   background: #e7eaf0;
   margin: 0 0 20px 0;
+
+  @media (max-width: 1350px) {
+    max-width: none !important;
+  }
 }

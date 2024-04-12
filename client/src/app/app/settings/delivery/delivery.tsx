@@ -11,6 +11,7 @@ import { createPortal } from 'react-dom'
 import { ModalUi } from '@/src/components/UI/modal/modal'
 import { useModalStore } from '@/src/store/modal.store'
 import { useUpdate } from './fetch/useUpdate'
+import { Empty } from '@/src/components/UI/empty/empty'
 
 export const emptyState = {
   title: '',
@@ -44,7 +45,7 @@ export const Delivery = () => {
       >
         <ul>
           {isError && <li className="empty">Ошибка загрузки</li>}
-          {items?.length === 0 && <li className="empty">Еще нет способов доставки</li>}
+          {items && items?.length === 0 && <Empty />}
           {items?.map((item, index) => {
             return (
               <ListItem

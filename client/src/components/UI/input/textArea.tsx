@@ -12,9 +12,19 @@ export interface Props {
   width?: string
   icon?: ReactNode
   labelHelper?: string
+  height?: string
 }
 
-export const TextArea = ({ placeholder, value, onChange, label, width, icon, labelHelper }: Props) => {
+export const TextArea = ({
+  placeholder,
+  value,
+  onChange,
+  label,
+  width,
+  icon,
+  labelHelper,
+  height,
+}: Props) => {
   return (
     <label style={{ maxWidth: width }} className={styles.label}>
       <div className={styles.labelText}>
@@ -30,6 +40,7 @@ export const TextArea = ({ placeholder, value, onChange, label, width, icon, lab
         )}
       </div>
       <textarea
+        style={{ height }}
         className={styles.input}
         value={value}
         onChange={onChange}

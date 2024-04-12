@@ -12,6 +12,7 @@ import { QUERY_KEY } from '@/src/constants/queryKey'
 import { ShopService } from '@/src/services/shop/shop.service'
 import { IUpdateShopRequest } from '@/src/types/shop.interface'
 import { TextArea } from '@/src/components/UI/input/textArea'
+import { message } from 'antd'
 
 export const AfterOrder = () => {
   const { afterOrder, id } = useShopStore(store => store.currentShop)
@@ -21,7 +22,11 @@ export const AfterOrder = () => {
 
   const { mutate, isSuccess } = useMutation({
     mutationFn: (data: IUpdateShopRequest) => ShopService.update(data),
-    onSuccess: () => client.invalidateQueries({ queryKey: [QUERY_KEY.getAllShops] }),
+    onSuccess: () => {
+      client.invalidateQueries({ queryKey: [QUERY_KEY.getAllShops] })
+      message.success('Успешно')
+    },
+    onError: () => message.error('Произошла ошибка'),
   })
 
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {

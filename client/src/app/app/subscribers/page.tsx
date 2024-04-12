@@ -1,3 +1,4 @@
+import { Alert } from '@/src/components/UI/alert/alert'
 import { Wrapper } from '@/src/components/UI/layout/wrapper'
 import { Metadata } from 'next'
 

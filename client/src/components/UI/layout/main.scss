@@ -6,6 +6,16 @@
   background: var(--link-hover);
 }
 
+:where(.css-dev-only-do-not-override-1kuana8).ant-modal .ant-modal-title {
+  font-size: 2rem;
+  color: var(--tag);
+  font-family: 'tg', sans-serif;
+}
+
+:where(.css-dev-only-do-not-override-1kuana8).ant-modal .ant-modal-header {
+  margin-bottom: 20px;
+}
+
 .line {
   height: 1px;
   background: #e7eaf0;
@@ -66,4 +76,16 @@
 
 .empty {
   padding: 10px 15px;
+}
+
+.empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  img {
+    max-width: 80px;
+    margin-bottom: 7px;
+  }
 }

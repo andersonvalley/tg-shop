@@ -8,7 +8,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('promocod')
+@Entity('promocode')
 export class PromocodeEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;

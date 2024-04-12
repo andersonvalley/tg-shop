@@ -1,1 +1,1 @@
-export class Nofication {}
+export class NoficationEntity {}

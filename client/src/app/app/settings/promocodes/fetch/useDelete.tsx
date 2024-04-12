@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { emptyState } from '../promocode'
 import { IPromocode } from '@/src/types/promocode.interface'
 import { PromocodeService } from '@/src/services/promocode/promocode.service'
+import { message } from 'antd'
 
 export const useDelete = () => {
   const [currentItem, setCurrentItem] = useState<IPromocode>(emptyState)
@@ -14,7 +15,10 @@ export const useDelete = () => {
 
   const { mutate: deleteDelivery } = useMutation({
     mutationFn: (id: string) => PromocodeService.delete(id),
-    onSuccess: () => client.invalidateQueries({ queryKey: [QUERY_KEY.getAllPromocode] }),
+    onSuccess: () => {
+      client.invalidateQueries({ queryKey: [QUERY_KEY.getAllPromocode] })
+      message.success('Успешно')
+    },
   })
 
   const deleteDeliveryHandler = (id: string) => {

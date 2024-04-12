@@ -7,11 +7,14 @@ import {
   Param,
   Delete,
   UseGuards,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { DeliveryService } from './delivery.service';
 import { CreateDeliveryDto } from './dto/create-delivery.dto';
 import { UpdateDeliveryDto } from './dto/update-delivery.dto';
 import { AuthGuard } from 'src/auth/auth.gard';
+import { UUID } from 'crypto';
 
 @Controller('delivery')
 export class DeliveryController {
@@ -26,8 +29,9 @@ export class DeliveryController {
     return this.deliveryService.create(createDeliveryDto, id);
   }
 
+  @UsePipes(new ValidationPipe())
   @Get(':id')
-  findAll(@Param('id') id: string) {
+  findAll(@Param('id') id: UUID) {
     return this.deliveryService.findAll(id);
   }
 

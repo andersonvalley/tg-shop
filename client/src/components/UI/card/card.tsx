@@ -39,8 +39,11 @@ export const Card = ({
       <div className={styles.cardHeader}>
         <span>{title}</span>{' '}
         {hideButton ? null : (
-          <button onClick={() => setToogleModal()} className={styles.button}>
-            <HiPlus size={23} /> {textButton}
+          <button
+            onClick={() => setToogleModal()}
+            className={textButton ? [styles.button, styles.buttonText].join(' ') : styles.button}
+          >
+            <HiPlus size={23} /> <span>{textButton}</span>
           </button>
         )}
       </div>

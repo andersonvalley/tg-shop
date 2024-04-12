@@ -12,6 +12,7 @@ import { useDelete } from './fetch/useDelete'
 import { useUpdate } from './fetch/useUpdate'
 import { useModalStore } from '@/src/store/modal.store'
 import { ModalUi } from '@/src/components/UI/modal/modal'
+import { Empty } from '@/src/components/UI/empty/empty'
 
 export const emptyState = {
   title: '',
@@ -43,7 +44,7 @@ export const Promocodes = () => {
       >
         <ul>
           {isError && <li className="empty">Ошибка загрузки</li>}
-          {items?.length === 0 && <li className="empty">Еще нет промокодов</li>}
+          {items?.length === 0 && <Empty />}
           {items?.map((item, index) => {
             return (
               <ListItem

@@ -4,6 +4,7 @@ import { useModalStore } from '@/src/store/modal.store'
 import { useShopStore } from '@/src/store/shop.state'
 import { IDelivery } from '@/src/types/delivery.interface'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { message } from 'antd'
 
 export const useCreate = () => {
   const { id } = useShopStore(store => store.currentShop)
@@ -12,7 +13,11 @@ export const useCreate = () => {
 
   const { mutate: createDelivery } = useMutation({
     mutationFn: (formData: IDelivery) => DeliveryService.create(formData),
-    onSuccess: () => client.invalidateQueries({ queryKey: [QUERY_KEY.getAllDelivery] }),
+    onSuccess: () => {
+      client.invalidateQueries({ queryKey: [QUERY_KEY.getAllDelivery] })
+      message.success('Успешно')
+    },
+    onError: () => message.error('Произошла ошибка'),
   })
 
   const createDeliveryHandler = (formData: IDelivery) => {
