@@ -1,18 +1,18 @@
-import { BadRequestException, Injectable, OnModuleInit } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { GetTokenDto } from './dto/get-token.dto';
 import { UserEntity } from 'src/auth/entities/user.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ShopEntity } from './entities/shop.entity';
-import { Telegraf } from 'telegraf';
 import { UpdateShopDto } from './dto/update-shop.dto';
 import { CategoryEntity } from 'src/category/entities/category.entity';
 import { PromocodeEntity } from 'src/promocodes/entities/promocode.entity';
 import { DeliveryEntity } from 'src/delivery/entities/delivery.entity';
 import { delivery, delivery2 } from 'src/delivery/delivery.data.defult';
+import { createBot, stopBot } from './Bot';
 
 @Injectable()
-export class ShopsService implements OnModuleInit {
+export class ShopsService {
   constructor(
     @InjectRepository(ShopEntity)
     private readonly shopRepository: Repository<ShopEntity>,
@@ -25,10 +25,6 @@ export class ShopsService implements OnModuleInit {
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
   ) {}
-
-  onModuleInit() {
-    // this.launchAllBots();
-  }
 
   async getAll(id: string) {
     const user = await this.userRepository.find({
@@ -53,12 +49,13 @@ export class ShopsService implements OnModuleInit {
   }
 
   async delete(shopId: string) {
+    const shop = await this.shopRepository.findOne({ where: { id: shopId } });
+
+    await stopBot(shop.token);
+
     await this.categoryRepository.delete({ shop: { id: shopId } });
     await this.deliveryRepository.delete({ shop: { id: shopId } });
     await this.promocodeRepository.delete({ shop: { id: shopId } });
-
-    // остановить бота
-
     await this.shopRepository.delete(shopId);
     return { message: 'success' };
   }
@@ -94,10 +91,10 @@ export class ShopsService implements OnModuleInit {
       where: { token: dto.token },
     });
 
-    if (findShop) throw new BadRequestException('Так магазин уже создан');
+    if (findShop) throw new BadRequestException('Такой магазин уже создан');
 
     const data = {
-      botId: botData.result.id,
+      bot_id: botData.result.id,
       firstName: botData.result.first_name,
       username: botData.result.username,
       token: dto.token,
@@ -118,7 +115,7 @@ export class ShopsService implements OnModuleInit {
     // TODO
     // отправить уведомление в бот, что создан магазин
 
-    this.createBotServer(dto.token);
+    await createBot(shop.token);
   }
 
   async getBotInfo(token: string) {
@@ -129,46 +126,5 @@ export class ShopsService implements OnModuleInit {
     const data = await response.json();
 
     return data;
-  }
-
-  async createBotServer(token: string) {
-    const bot = new Telegraf(token);
-
-    bot.start((ctx) => {
-      ctx.setChatMenuButton({
-        type: 'web_app',
-        text: '🕹️ Меню',
-        web_app: { url: process.env.WEB_APP },
-      });
-    });
-
-    bot.launch();
-  }
-
-  async launchAllBots() {
-    const shops = await this.shopRepository.find();
-
-    shops.forEach(({ token, isActive }) => {
-      if (!isActive) return;
-
-      const bot = new Telegraf(token);
-
-      bot.hears('/start', async (ctx) => {
-        const tUser = ctx.from;
-
-        // сохранить как подписчика
-        console.log(tUser);
-      });
-
-      bot.start((ctx) => {
-        ctx.setChatMenuButton({
-          type: 'web_app',
-          text: '🕹️ Меню',
-          web_app: { url: process.env.WEB_APP },
-        });
-      });
-
-      bot.launch();
-    });
   }
 }

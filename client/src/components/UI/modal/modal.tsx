@@ -11,6 +11,7 @@ interface Props {
   title?: string
   children: ReactNode
   confirmCloseMessage?: boolean
+  width?: string
 }
 
 export const ModalUi: React.FC<Props> = ({
@@ -19,6 +20,7 @@ export const ModalUi: React.FC<Props> = ({
   title = '',
   children,
   confirmCloseMessage = true,
+  width,
 }) => {
   const [confirmClose, setConfirmClose] = useState(false)
 
@@ -45,6 +47,7 @@ export const ModalUi: React.FC<Props> = ({
         <Modal title={title} open={open} onCancel={handleCancel} footer={[]}>
           {confirmClose && (
             <Modal
+              width={width}
               className="confirm"
               title="Выйти из редактирования?"
               open={open}

@@ -24,9 +24,6 @@ export class CategoryEntity {
   @Column()
   title: string;
 
-  @Column()
-  order: number;
-
   @ManyToOne(() => ShopEntity, (shop) => shop.categories)
   shop: ShopEntity;
 

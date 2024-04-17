@@ -2,6 +2,8 @@ export const PATHS = {
   MAIN: '/',
   LOGIN: '/login',
   CATALOG: '/app/catalog',
+  PRODUCTS: '/app/products',
+  VITRINA: '/app/vitrina',
   START: '/app/start',
   MESSAGES: '/app/messages',
   SUBSCRIBERS: '/app/subscribers',

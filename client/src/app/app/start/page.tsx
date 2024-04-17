@@ -1,3 +1,4 @@
+import { Wrapper } from '@/src/components/UI/layout/wrapper'
 import { StartPage } from './Start'
 import { Metadata } from 'next'
 
@@ -6,5 +7,9 @@ export const metadata: Metadata = {
 }
 
 export default async function Start() {
-  return <StartPage />
+  return (
+    <Wrapper width="43%" title="Создайте магазин">
+      <StartPage />
+    </Wrapper>
+  )
 }

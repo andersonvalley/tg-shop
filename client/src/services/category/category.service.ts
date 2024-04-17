@@ -1,13 +1,11 @@
 import { instance } from '../api/api.config'
-import { ICategory, categoryResponse, createCategory, updateCategory } from '../../types/category.interface'
+import { ICategory, categoryResponse, createOrUpdateCategory } from '../../types/category.interface'
 
 export class CategoryService {
-  static async create(dto: createCategory) {
-    if (!dto.shopId) return
-
-    const response = await instance<categoryResponse>(`/category/${dto.shopId}`, {
+  static async create(data: createOrUpdateCategory) {
+    const response = await instance<categoryResponse>(`/category/${data.shopId}`, {
       method: 'POST',
-      data: { title: dto.title, order: dto.order },
+      data,
     })
 
     return response.data
@@ -31,10 +29,10 @@ export class CategoryService {
     return response.data
   }
 
-  static async update(dto: updateCategory) {
-    const response = await instance<categoryResponse>(`/category/${dto.id}`, {
+  static async update(data: createOrUpdateCategory) {
+    const response = await instance<categoryResponse>(`/category/${data.id}`, {
       method: 'PATCH',
-      data: { title: dto.title, order: dto.order },
+      data,
     })
 
     return response.data

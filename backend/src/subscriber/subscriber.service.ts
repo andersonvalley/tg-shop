@@ -12,9 +12,9 @@ export class SubscriberService {
 
   async findAll(id: string) {
     const subscribers = await this.subscriberRepository.find({
-      where: { shop: { id } },
+      where: { shop_: { id } },
       order: {
-        createdDate: 'ASC',
+        created_date: 'ASC',
       },
     });
 

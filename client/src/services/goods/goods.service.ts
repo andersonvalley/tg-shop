@@ -1,10 +1,9 @@
 import { instance } from '../api/api.config'
-import { ICategory, categoryResponse, createCategory } from '../../types/category.interface'
-import { IGood } from '../../types/goods.interface'
+import { IGood, createOrUpdateIGood, responseMessage } from '../../types/goods.interface'
 
 export class GoodsService {
-  static async create(shopId: string, data: createCategory) {
-    const response = await instance<IGood[]>(`/goods/${shopId}`, {
+  static async create(data: createOrUpdateIGood) {
+    const response = await instance<responseMessage>(`/goods`, {
       method: 'POST',
       data,
     })
@@ -23,15 +22,15 @@ export class GoodsService {
   }
 
   static async getById(id: string) {
-    const response = await instance<ICategory>(`/goods/${id}`, {
+    const response = await instance<IGood>(`/goods/${id}`, {
       method: 'GET',
     })
 
     return response.data
   }
 
-  static async update(id: string, data: createCategory) {
-    const response = await instance<categoryResponse>(`/goods/${id}`, {
+  static async update(data: createOrUpdateIGood) {
+    const response = await instance<responseMessage>(`/goods/${data.id}`, {
       method: 'PATCH',
       data,
     })
@@ -40,7 +39,7 @@ export class GoodsService {
   }
 
   static async delete(id: string) {
-    const response = await instance<categoryResponse>(`/goods/${id}`, {
+    const response = await instance<responseMessage>(`/goods/${id}`, {
       method: 'DELETE',
     })
 

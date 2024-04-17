@@ -13,7 +13,7 @@ export default async function WebApp({ params }: { params: { id: string } }) {
 }
 
 async function getData(id: string) {
-  const res = await fetch(`http://localhost:5501/api/delivery/${id}`, { next: { revalidate: 3600 } })
+  const res = await fetch(`https://tgrocket.ru/api/delivery/${id}`, { next: { revalidate: 3600 } })
 
   if (!res.ok) {
     return 'Failed to fetch data'

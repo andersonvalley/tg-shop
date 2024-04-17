@@ -13,6 +13,7 @@ export interface Props {
   icon?: ReactNode
   labelHelper?: string
   height?: string
+  required?: boolean
 }
 
 export const TextArea = ({
@@ -24,6 +25,7 @@ export const TextArea = ({
   icon,
   labelHelper,
   height,
+  required = true,
 }: Props) => {
   return (
     <label style={{ maxWidth: width }} className={styles.label}>
@@ -45,7 +47,7 @@ export const TextArea = ({
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        required
+        required={required}
         spellCheck={false}
       />
       <span className={styles.icon}>{icon}</span>

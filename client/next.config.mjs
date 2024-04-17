@@ -5,6 +5,12 @@ const nextConfig = {
       {
         hostname: 'api.telegram.org',
       },
+      {
+        hostname: 'localhost',
+      },
+      {
+        hostname: 'tgrocket.ru',
+      },
     ],
   },
   async headers() {

@@ -1,0 +1,21 @@
+.column {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.title {
+  white-space: nowrap;
+}
+
+.photo {
+  width: 45px;
+  height: 45px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.list > li {
+  padding: 10px 16px;
+}

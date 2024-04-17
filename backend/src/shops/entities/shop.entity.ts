@@ -1,6 +1,8 @@
 import { UserEntity } from 'src/auth/entities/user.entity';
 import { CategoryEntity } from 'src/category/entities/category.entity';
 import { DeliveryEntity } from 'src/delivery/entities/delivery.entity';
+import { GoodsEntity } from 'src/goods/entities/good.entity';
+import { OrderEntity } from 'src/order/entities/order.entity';
 import { PromocodeEntity } from 'src/promocodes/entities/promocode.entity';
 import { ShareEntity } from 'src/share/entities/share.entity';
 import { SubscriberEntity } from 'src/subscriber/entities/subscriber.entity';
@@ -29,7 +31,7 @@ export class ShopEntity {
   token: string;
 
   @Column({ unique: true })
-  botId: string;
+  bot_id: string;
 
   @Column()
   firstName: string;
@@ -78,6 +80,12 @@ export class ShopEntity {
   @OneToMany(() => ShareEntity, (share) => share.shop)
   share: ShareEntity;
 
-  @OneToMany(() => SubscriberEntity, (share) => share.shop)
+  @OneToMany(() => SubscriberEntity, (share) => share.shop_)
   subscribers: SubscriberEntity;
+
+  @OneToMany(() => OrderEntity, (order) => order.shop)
+  orders: OrderEntity;
+
+  @OneToMany(() => GoodsEntity, (goods) => goods.shop)
+  goods: GoodsEntity;
 }

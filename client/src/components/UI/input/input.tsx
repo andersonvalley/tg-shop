@@ -12,6 +12,7 @@ export interface Props {
   validate?: boolean
   width?: string
   icon?: ReactNode
+  required?: boolean
   labelHelper?: string
 }
 
@@ -21,6 +22,7 @@ export const Input = ({
   onChange,
   label,
   type = 'text',
+  required = true,
   width,
   icon,
   labelHelper,
@@ -45,7 +47,7 @@ export const Input = ({
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        required
+        required={required}
         spellCheck={false}
       />
       <span className={styles.icon}>{icon}</span>

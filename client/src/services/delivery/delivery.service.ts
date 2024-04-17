@@ -1,5 +1,5 @@
 import { instance } from '../api/api.config'
-import { ICategory, categoryResponse, createCategory } from '../../types/category.interface'
+import { categoryResponse } from '../../types/category.interface'
 import { IDelivery, deliveryResponse } from '@/src/types/delivery.interface'
 
 export class DeliveryService {

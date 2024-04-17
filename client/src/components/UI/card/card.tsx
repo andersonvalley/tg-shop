@@ -1,6 +1,6 @@
 'use client'
 
-import { ReactNode, useState } from 'react'
+import { ReactNode } from 'react'
 
 interface Props {
   children: ReactNode
@@ -63,7 +63,7 @@ export const Card = ({
           >
             {modalContent}
           </ModalUi>,
-          document.body
+          document?.body
         )}
     </div>
   )

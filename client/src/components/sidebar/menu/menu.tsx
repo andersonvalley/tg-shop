@@ -1,14 +1,13 @@
-import { Menu, SubMenu } from './sidebar.menu'
 import Link from 'next/link'
+import { Menu, SubMenu } from './sidebar.menu'
 import { usePathname } from 'next/navigation'
 import { IoSettingsOutline } from 'react-icons/io5'
 import { MdKeyboardArrowDown } from 'react-icons/md'
 import { animated } from '@react-spring/web'
+import { useAnimation } from '../useAnimation'
+import { useUiStore } from '@/src/store/ui.store'
 
 import styles from '../sidebar.module.scss'
-import { useAnimation } from '../useAnimation'
-import { Url } from 'url'
-import { useUiStore } from '@/src/store/ui.store'
 
 export const SidebarMenu = () => {
   const pathname = usePathname()

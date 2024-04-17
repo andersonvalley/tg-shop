@@ -1,5 +1,41 @@
-export interface IGood {
-  title: string
+interface Photo {
   id: string
-  order: number
+  photoLink: string
+  url?: string
+  uui?: string
+  name?: string
+}
+
+export interface IGood {
+  id: string
+  createdDate: string
+  updatedDate: string
+  title: string
+  description: string
+  price: string
+  weight: string
+  quantity: string
+  vendorCode: string
+  shopId?: string
+  photoLinks: Photo[]
+  categoryId?: string
+}
+export interface createOrUpdateIGood {
+  id?: string
+  createdDate?: string
+  updatedDate?: string
+  title: string
+  description: string
+  price: string
+  weight: string
+  quantity: string
+  vendorCode: string
+  shopId?: string
+  categoryId?: string
+  linksOfPhoto?: string[]
+  photoLinks?: Photo[]
+}
+
+export interface responseMessage {
+  message: string
 }

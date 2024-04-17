@@ -5,12 +5,13 @@ import { LiaTelegramPlane } from 'react-icons/lia'
 import { PiContactlessPaymentBold } from 'react-icons/pi'
 import { AiOutlineEye } from 'react-icons/ai'
 import { HiOutlineKey } from 'react-icons/hi'
-import { TbPuzzle } from 'react-icons/tb'
+import { TbCategory2, TbPuzzle } from 'react-icons/tb'
 import { FaRegBell } from 'react-icons/fa'
 import { PATHS } from '@/src/constants/pages-url.config'
 
 export const Menu = [
-  { title: 'Товары', link: PATHS.CATALOG, icon: LuTags },
+  { title: 'Категории', link: PATHS.CATALOG, icon: TbCategory2 },
+  { title: 'Товары', link: PATHS.PRODUCTS, icon: LuTags },
   { title: 'Заказы', link: PATHS.ORDERS, icon: LuShoppingCart },
   { title: 'Сообщения', link: PATHS.MESSAGES, icon: RiMessage3Line },
   { title: 'Подписчики', link: PATHS.SUBSCRIBERS, icon: MdPeopleOutline },

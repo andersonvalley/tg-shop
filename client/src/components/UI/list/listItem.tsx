@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from 'react'
+import React, { ReactNode, memo, useEffect, useState } from 'react'
 
 import styles from './listItem.module.scss'
 import { MdDragIndicator, MdOutlineDelete } from 'react-icons/md'
@@ -32,9 +32,9 @@ export const ListItem = ({ children, deleteHandler, editHandler, index }: Props)
   return (
     <li className={styles.item}>
       <div className={styles.wrapperItem}>
-        <button className={styles.drag}>
+        {/* <button className={styles.drag}>
           <MdDragIndicator size={19} />
-        </button>
+        </button> */}
         <div className={styles.content}>{children}</div>
         <button onClick={() => clickHandler(index)} className={styles.more}>
           <IoMdMore size={21} />

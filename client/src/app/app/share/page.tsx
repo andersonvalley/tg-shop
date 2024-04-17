@@ -9,31 +9,17 @@ import empty from '../../../assets/img/empty.png'
 import { Empty } from '@/src/components/UI/empty/empty'
 import { ShareModal } from './share.modal'
 import { ShareList } from './shareList'
+import { useModalStore } from '@/src/store/modal.store'
 
 export const metadata: Metadata = {
   title: 'Рассылки',
-}
-
-export const emptyState = {
-  text: '',
-  photoLink: '',
-  addButton: true,
-  shopId: '',
 }
 
 export default function SharePage() {
   return (
     <Wrapper width="60%" title="Рассылки">
       <ShareAlert width="60%" />
-      <Card
-        width="60%"
-        title="Завершенные рассылки"
-        textButton="Создать рассылку"
-        titleModal="Новая рассылка"
-        modalContent={<ShareModal data={emptyState} />}
-      >
-        <ShareList />
-      </Card>
+      <ShareList />
     </Wrapper>
   )
 }

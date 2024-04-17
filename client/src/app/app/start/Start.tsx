@@ -17,31 +17,28 @@ export const StartPage = () => {
   }
 
   return (
-    <>
-      <h1 className="title">Создайте магазин</h1>
-      <div className={[styles.card, 'animate'].join(' ')}>
-        <div className={styles.card__wrapper}>
-          <ul className={styles.list}>
-            <li>
-              1. Запустите бота{' '}
-              <a className="link" href="https://t.me/BotFather" target="_blank">
-                @BotFather
-              </a>{' '}
-              в Телеграм
-            </li>
-            <li>2. Нажмите /newbot</li>
-            <li>3. Введите название магазина</li>
-            <li>4. Придумайте ссылку для магазина. Она должна оканчиваться на Bot, например, CafeBot</li>
-            <li>5. Бот пришлет токен</li>
-          </ul>
+    <div className={[styles.card, 'animate'].join(' ')}>
+      <div className={styles.card__wrapper}>
+        <ul className={styles.list}>
+          <li>
+            1. Запустите бота{' '}
+            <a className="link" href="https://t.me/BotFather" target="_blank">
+              @BotFather
+            </a>{' '}
+            в Телеграм
+          </li>
+          <li>2. Нажмите /newbot</li>
+          <li>3. Введите название магазина</li>
+          <li>4. Придумайте ссылку для магазина. Она должна оканчиваться на Bot, например, CafeBot</li>
+          <li>5. Бот пришлет токен</li>
+        </ul>
 
-          <form onSubmit={submitHandler} className={styles.form}>
-            <Input placeholder="Введите токен" value={value} onChange={e => setValue(e.target.value)} />
-            <SubmitButton type="submit">Войти</SubmitButton>
-            <p className="error">{error?.response?.data.message}</p>
-          </form>
-        </div>
+        <form onSubmit={submitHandler} className={styles.form}>
+          <Input placeholder="Введите токен" value={value} onChange={e => setValue(e.target.value)} />
+          <SubmitButton type="submit">Войти</SubmitButton>
+          <p className="error">{error?.response?.data.message}</p>
+        </form>
       </div>
-    </>
+    </div>
   )
 }

@@ -14,6 +14,10 @@ import { NoficationModule } from './nofication/nofication.module';
 import { ShareModule } from './share/share.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { SubscriberModule } from './subscriber/subscriber.module';
+import { OrderModule } from './order/order.module';
+import { OptionModule } from './option/option.module';
+import { VariantModule } from './variant/variant.module';
+import { PhotoGoodsModule } from './photo-goods/photo-goods.module';
 
 @Module({
   imports: [
@@ -42,6 +46,10 @@ import { SubscriberModule } from './subscriber/subscriber.module';
     NoficationModule,
     ShareModule,
     SubscriberModule,
+    OrderModule,
+    PhotoGoodsModule,
+    VariantModule,
+    OptionModule,
   ],
   controllers: [AppController],
   providers: [AppService],

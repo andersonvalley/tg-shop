@@ -4,6 +4,4 @@ export class CreateCategoryDto {
   @IsString()
   @IsNotEmpty()
   title: string;
-
-  order: number;
 }

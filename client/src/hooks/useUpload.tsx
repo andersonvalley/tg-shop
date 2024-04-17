@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { FileType, getBase64 } from '../utils/upload'
 import { IShare, createShare } from '../types/share.interface'
 
-export const useUpload = (values: IShare, setValues: (type: createShare) => void) => {
+export const useUpload = (values?: createShare, setValues?: (type: any) => void) => {
   const [loading, setLoading] = useState(false)
   const [imageUrl, setImageUrl] = useState<string>()
 
@@ -16,7 +16,7 @@ export const useUpload = (values: IShare, setValues: (type: createShare) => void
       getBase64(info.file.originFileObj as FileType, url => {
         setLoading(false)
         setImageUrl(url)
-        setValues({ ...values, photoLink: info.file.response })
+        if (setValues) setValues({ ...values, photoLink: info.file.response })
       })
     }
   }

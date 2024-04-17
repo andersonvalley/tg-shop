@@ -4,7 +4,6 @@
   width: 100%;
   max-width: 1000px;
   margin-bottom: 30px;
-  overflow: hidden;
 
   &__full {
     max-width: 1000px;
@@ -20,8 +19,7 @@
   justify-content: space-between;
   gap: 15px;
   align-items: center;
-  padding: 20px 0;
-  padding: 16px 14px;
+  padding: 20px 14px;
   border-bottom: 1px solid #e7eaf0;
 
   span {

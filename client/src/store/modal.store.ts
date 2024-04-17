@@ -1,3 +1,4 @@
+import { mountStoreDevtool } from 'simple-zustand-devtools'
 import { create } from 'zustand'
 
 type State = {
@@ -31,6 +32,7 @@ export const useModalStore = create<State>(set => ({
   setIsConfirmDeleteModal: () => {
     set(state => ({
       isConfirmDeleteModal: !state.isConfirmDeleteModal,
+      isOpenDropdown: false,
     }))
   },
 
@@ -61,4 +63,4 @@ export const useModalStore = create<State>(set => ({
   },
 }))
 
-// mountStoreDevtool('Store', useUiStore)
+mountStoreDevtool('Store', useModalStore)

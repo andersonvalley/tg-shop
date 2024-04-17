@@ -1,13 +1,7 @@
-export interface createCategory {
+export interface createOrUpdateCategory {
   title: string
-  order: number
-  shopId: string
-}
-
-export interface updateCategory {
-  title: string
-  order: number
-  id: string
+  shopId?: string
+  id?: string
 }
 
 export interface categoryResponse {
@@ -16,6 +10,5 @@ export interface categoryResponse {
 
 export interface ICategory {
   title: string
-  order: number
   id: string
 }

@@ -1,10 +1,11 @@
+import { OrderEntity } from 'src/order/entities/order.entity';
 import { ShopEntity } from 'src/shops/entities/shop.entity';
 import {
-  BeforeInsert,
   Column,
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -15,30 +16,29 @@ export class SubscriberEntity {
   id: string;
 
   @CreateDateColumn()
-  createdDate: Date;
+  created_date: Date;
 
   @UpdateDateColumn()
-  updatedDate: Date;
+  updated_date: Date;
 
-  @Column()
-  number: string;
+  @Column({ default: '' })
+  first_name?: string;
 
-  @Column()
-  name: string;
+  @Column({ default: '' })
+  last_name?: string;
+
+  @Column({ unique: true })
+  telegram_id: string;
 
   @Column()
   username: string;
 
-  @ManyToOne(() => ShopEntity, (shop) => shop.subscribers)
-  shop: ShopEntity;
+  @Column({ default: '' })
+  avatar_url?: string;
 
-  @BeforeInsert()
-  async incrementNumberBeforeInsert() {
-    const currentNumber = parseInt(this.number);
-    if (!isNaN(currentNumber)) {
-      this.number = (currentNumber + 1).toString();
-    } else {
-      console.error('Значение поля number не является числом');
-    }
-  }
+  @ManyToOne(() => ShopEntity, (shop) => shop.subscribers)
+  shop_: ShopEntity;
+
+  @OneToMany(() => OrderEntity, (order) => order.shop)
+  orders: OrderEntity;
 }

@@ -6,4 +6,5 @@ export const QUERY_KEY = {
   getAllPromocode: 'getAllPromocode',
   getAllShare: 'getAllShare',
   getAllSubscribers: 'getAllSubscribers',
+  getAllOrders: 'getAllOrders',
 }

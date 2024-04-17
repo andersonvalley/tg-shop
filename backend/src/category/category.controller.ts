@@ -7,6 +7,8 @@ import {
   Param,
   Delete,
   UseGuards,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { CategoryService } from './category.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
@@ -18,6 +20,7 @@ export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
   @UseGuards(AuthGuard)
+  @UsePipes(new ValidationPipe())
   @Post(':id')
   create(
     @Body() createCategoryDto: CreateCategoryDto,

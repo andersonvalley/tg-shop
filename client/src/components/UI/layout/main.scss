@@ -21,6 +21,34 @@
   font-family: 'tg';
 }
 
+:where(.css-dev-only-do-not-override-1kuana8).ant-select-dropdown .ant-select-item {
+  padding: 10px 12px;
+  color: var(--color);
+  font-weight: 500;
+}
+
+:where(.css-dev-only-do-not-override-1kuana8).ant-select-dropdown
+  .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
+  background-color: var(--bg);
+}
+
+:where(.css-dev-only-do-not-override-1kuana8).ant-select-dropdown
+  .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+  font-weight: 700;
+  color: var(--color);
+}
+
+:where(.css-dev-only-do-not-override-1kuana8).ant-select-single.ant-select-show-arrow
+  .ant-select-selection-item,
+:where(.css-dev-only-do-not-override-1kuana8).ant-select-single.ant-select-show-arrow
+  .ant-select-selection-placeholder {
+  color: #000;
+}
+
+a[title='Preview file'] {
+  display: none;
+}
+
 .ant-upload button div {
   display: none;
 }

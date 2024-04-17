@@ -10,7 +10,6 @@ import { Card } from '@/src/components/UI/card/card'
 import { Table } from 'antd'
 import { columns } from './table/subscribers.columns'
 import { useGet } from './fetch/useGet'
-import { Empty } from '@/src/components/UI/empty/empty'
 
 export const Subscribers = () => {
   const { items, isLoading } = useGet()

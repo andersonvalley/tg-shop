@@ -57,7 +57,6 @@ export class CategoryService {
 
     await this.categoryRepository.update(id, {
       title: updateCategoryDto.title,
-      order: updateCategoryDto.order,
     });
 
     return { messge: 'success' };
