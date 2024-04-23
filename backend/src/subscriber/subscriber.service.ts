@@ -22,4 +22,14 @@ export class SubscriberService {
 
     return subscribers;
   }
+
+  async findById(id: string) {
+    const subscriber = await this.subscriberRepository.findOne({
+      where: { telegram_id: id },
+    });
+
+    if (!subscriber) throw new BadRequestException('Ошибка');
+
+    return subscriber;
+  }
 }

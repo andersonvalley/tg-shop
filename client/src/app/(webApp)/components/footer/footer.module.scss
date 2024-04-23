@@ -1,0 +1,11 @@
+.footer {
+  display: flex;
+  justify-content: center;
+  padding: 25px 10px;
+  font-family: 'tg', sans-serif;
+  color: var(--tg-theme-text-color);
+
+  a {
+    color: var(--tg-theme-link-color);
+  }
+}

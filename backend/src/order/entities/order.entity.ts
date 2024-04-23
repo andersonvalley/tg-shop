@@ -1,7 +1,6 @@
 import { ShopEntity } from 'src/shops/entities/shop.entity';
 import { SubscriberEntity } from 'src/subscriber/entities/subscriber.entity';
 import {
-  BeforeInsert,
   Column,
   CreateDateColumn,
   Entity,
@@ -44,14 +43,4 @@ export class OrderEntity {
 
   @ManyToOne(() => SubscriberEntity, (subscriber) => subscriber.orders)
   subscriber: SubscriberEntity;
-
-  @BeforeInsert()
-  async incrementNumberBeforeInsert() {
-    const currentNumber = parseInt(this.number);
-    if (!isNaN(currentNumber)) {
-      this.number = (currentNumber + 1).toString();
-    } else {
-      console.error('Значение поля number не является числом');
-    }
-  }
 }

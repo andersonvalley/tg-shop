@@ -1,3 +1,4 @@
+import { MessageEntity } from 'src/message/entities/message.entity';
 import { OrderEntity } from 'src/order/entities/order.entity';
 import { ShopEntity } from 'src/shops/entities/shop.entity';
 import {
@@ -27,7 +28,7 @@ export class SubscriberEntity {
   @Column({ default: '' })
   last_name?: string;
 
-  @Column({ unique: true })
+  @Column()
   telegram_id: string;
 
   @Column()
@@ -41,4 +42,7 @@ export class SubscriberEntity {
 
   @OneToMany(() => OrderEntity, (order) => order.shop)
   orders: OrderEntity;
+
+  @OneToMany(() => MessageEntity, (message) => message.subscriber_)
+  messages: MessageEntity;
 }

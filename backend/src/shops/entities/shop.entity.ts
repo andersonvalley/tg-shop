@@ -2,6 +2,7 @@ import { UserEntity } from 'src/auth/entities/user.entity';
 import { CategoryEntity } from 'src/category/entities/category.entity';
 import { DeliveryEntity } from 'src/delivery/entities/delivery.entity';
 import { GoodsEntity } from 'src/goods/entities/good.entity';
+import { MessageEntity } from 'src/message/entities/message.entity';
 import { OrderEntity } from 'src/order/entities/order.entity';
 import { PromocodeEntity } from 'src/promocodes/entities/promocode.entity';
 import { ShareEntity } from 'src/share/entities/share.entity';
@@ -82,6 +83,9 @@ export class ShopEntity {
 
   @OneToMany(() => SubscriberEntity, (share) => share.shop_)
   subscribers: SubscriberEntity;
+
+  @OneToMany(() => MessageEntity, (message) => message.bot_)
+  messages: MessageEntity;
 
   @OneToMany(() => OrderEntity, (order) => order.shop)
   orders: OrderEntity;

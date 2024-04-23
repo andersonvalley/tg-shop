@@ -18,6 +18,7 @@ import { OrderModule } from './order/order.module';
 import { OptionModule } from './option/option.module';
 import { VariantModule } from './variant/variant.module';
 import { PhotoGoodsModule } from './photo-goods/photo-goods.module';
+import { MessageModule } from './message/message.module';
 
 @Module({
   imports: [
@@ -50,6 +51,7 @@ import { PhotoGoodsModule } from './photo-goods/photo-goods.module';
     PhotoGoodsModule,
     VariantModule,
     OptionModule,
+    MessageModule,
   ],
   controllers: [AppController],
   providers: [AppService],

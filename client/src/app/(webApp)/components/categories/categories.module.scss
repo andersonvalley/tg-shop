@@ -1,0 +1,20 @@
+.category {
+  background-color: var(--tg-theme-bg-color);
+  border-radius: 30px;
+  cursor: pointer;
+  padding: 13px 30px;
+  transition: background-color 0.1s ease-in-out;
+  white-space: nowrap;
+  font-family: 'tg', sans-serif;
+  max-width: fit-content;
+  color: #c4c4c4;
+}
+
+.categorySlider {
+  margin: 30px 0;
+}
+
+.active {
+  color: #fff;
+  background: var(--tg-theme-button-color);
+}

@@ -1,4 +1,9 @@
-import { Header } from '@/src/components/header/header'
+import Script from 'next/script'
+import { Footer } from '../../components/footer/footer'
+import { HeaderWebApp } from '../../components/header/header'
+
+import './webapp.scss'
+import { Providers } from './providers'
 
 export default function RootLayout({
   children,
@@ -6,11 +11,12 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <>
-      <Header />
+    <Providers>
+      <HeaderWebApp />
       <main className="main main__webApp">
         <section className="main__webApp-wrapper">{children}</section>
       </main>
-    </>
+      <Footer />
+    </Providers>
   )
 }

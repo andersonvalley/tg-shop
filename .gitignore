@@ -28,6 +28,7 @@ client/.vscode/*
 backend/dist
 backend/node_modules
 backend/build
+backend/api
 
 # OS
 .DS_Store

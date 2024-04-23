@@ -12,4 +12,14 @@ export class SubscriberService {
 
     return response.data
   }
+
+  static async getById(id: string) {
+    if (!id) return
+
+    const response = await instance<ISubscriber>(`/subscriber/get/${id}`, {
+      method: 'GET',
+    })
+
+    return response.data
+  }
 }

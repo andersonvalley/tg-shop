@@ -11,4 +11,9 @@ export class SubscriberController {
   findAll(@Param('id') id: string) {
     return this.subscriberService.findAll(id);
   }
+
+  @Get('/get/:id')
+  findById(@Param('id') id: string) {
+    return this.subscriberService.findById(id);
+  }
 }

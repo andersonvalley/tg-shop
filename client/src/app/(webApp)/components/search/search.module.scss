@@ -1,0 +1,29 @@
+.search {
+  width: 100%;
+  position: relative;
+}
+
+.input {
+  background: var(--tg-theme-bg-color);
+  width: 100%;
+  border-radius: 30px;
+  padding: 11px 12px;
+  border: none;
+  font-family: 'tg', sans-serif;
+  outline: none;
+  border: 1px solid transparent;
+  transition: all 200ms ease-in-out;
+  color: #c4c4c4;
+  font-size: 1.7rem;
+
+  &:focus {
+    border: 1px solid var(--tg-theme-button-color);
+  }
+}
+
+.icon {
+  position: absolute;
+  right: 15px;
+  top: 12px;
+  color: #c4c4c4;
+}
