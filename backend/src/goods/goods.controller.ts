@@ -12,6 +12,7 @@ import {
   BadRequestException,
   UploadedFile,
   UseInterceptors,
+  Query,
 } from '@nestjs/common';
 import { GoodsService } from './goods.service';
 import { CreateGoodDto } from './dto/create-good.dto';
@@ -20,6 +21,7 @@ import { AuthGuard } from 'src/auth/auth.gard';
 import { diskStorage } from 'multer';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { extname } from 'path';
+import { QueryGoodDto } from './dto/query-good.dto';
 
 @Controller('goods')
 export class GoodsController {
@@ -33,8 +35,8 @@ export class GoodsController {
   }
 
   @Get(':id')
-  findAll(@Param('id') id: string) {
-    return this.goodsService.findAll(id);
+  findAll(@Param('id') id: string, @Query() query: QueryGoodDto) {
+    return this.goodsService.findAll(id, query);
   }
 
   // @Get(':id')

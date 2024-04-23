@@ -1,5 +1,6 @@
 import { instance } from '../api/api.config'
 import { IGood, createOrUpdateIGood, responseMessage } from '../../types/goods.interface'
+import { useSearchAndSortStore } from '@/src/app/(webApp)/store/searchAndSort'
 
 export class GoodsService {
   static async create(data: createOrUpdateIGood) {
@@ -11,10 +12,16 @@ export class GoodsService {
     return response.data
   }
 
-  static async getAll(shopId: string) {
+  static async getAll(shopId: string, search: string, category: string, sortBy: string, sortByType: string) {
     if (!shopId) return []
 
     const response = await instance<IGood[]>(`/goods/${shopId}`, {
+      params: {
+        search,
+        category,
+        sortBy,
+        sortByType,
+      },
       method: 'GET',
     })
 

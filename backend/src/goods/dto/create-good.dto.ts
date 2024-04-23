@@ -8,7 +8,7 @@ export class CreateGoodDto {
   categoryId: string;
   linksOfPhoto?: string[];
   description?: string;
-  price: string;
+  price: number;
   weight?: string;
   quantity?: string;
   vendorCode?: string;

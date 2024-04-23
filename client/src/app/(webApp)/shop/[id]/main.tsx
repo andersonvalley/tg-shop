@@ -9,10 +9,23 @@ import { useEffect } from 'react'
 import { CategoryService } from '@/src/services/category/category.service'
 import { Categories } from '../../components/categories/categories'
 import { ProductList } from '../../components/products/productList'
+import { useSearchAndSortStore } from '../../store/searchAndSort'
+import useDebounce from '@/src/hooks/useDebounce'
 
 export const Main = ({ id }: { id: string }) => {
   const [isExpanded, expand] = useExpand()
-  const { data: products } = useGet(QUERY_KEY.getAllGoods, GoodsService.getAll, id)
+  const { search, category, sortBy, sortByType } = useSearchAndSortStore()
+  const debouncedSearch = useDebounce(search, 300)
+
+  const { data: products, isLoading } = useGet(
+    `${QUERY_KEY.getAllGoods}, ${debouncedSearch}, ${category}, ${sortBy}, ${sortByType}`,
+    GoodsService.getAll,
+    id,
+    debouncedSearch,
+    category,
+    sortBy,
+    sortByType
+  )
   const { data: categories } = useGet(QUERY_KEY.getAllCategories, CategoryService.getAll, id)
 
   useEffect(() => {
@@ -23,7 +36,7 @@ export const Main = ({ id }: { id: string }) => {
     <>
       <Search />
       <Categories categories={categories} />
-      <ProductList products={products} />
+      <ProductList isLoading={isLoading} products={products} categories={categories} />
     </>
   )
 }

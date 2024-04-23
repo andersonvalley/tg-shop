@@ -2,6 +2,9 @@
 
 import React from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+
 import { QUERY_KEY } from '@/src/constants/queryKey'
 import { SubscriberService } from '@/src/services/subscriber/subscriber.service'
 import { useInitData } from '@vkruglikov/react-telegram-web-app'
@@ -9,11 +12,14 @@ import { useQuery } from '@tanstack/react-query'
 import { IoMdHeartEmpty } from 'react-icons/io'
 import { PiShoppingCartBold } from 'react-icons/pi'
 import { SpinUi } from '@/src/components/UI/loader/spin'
+import useHash from '../../hooks/useHash'
 
 import cl from '../../../../components/header/header.module.scss'
 
 export const HeaderWebApp = () => {
   const [initDataUnsafe] = useInitData()
+  const pathname = usePathname()
+  const hash = useHash()
 
   const { data, isLoading } = useQuery({
     queryKey: [QUERY_KEY.getSubscriberById, initDataUnsafe?.user?.id],
@@ -50,10 +56,10 @@ export const HeaderWebApp = () => {
             <IoMdHeartEmpty size={20} />
           </button>
 
-          <button className={cl.btn}>
+          <Link href={`${pathname}/cart/${hash}`} className={cl.btn}>
             <PiShoppingCartBold size={20} />
             <span className={cl.count}>12</span>
-          </button>
+          </Link>
         </div>
       </div>
     </header>

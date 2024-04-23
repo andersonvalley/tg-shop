@@ -1,6 +1,5 @@
 import { useShopStore } from '@/src/store/shop.state'
 import { QueryObserverResult, useQuery } from '@tanstack/react-query'
-import { usePathname } from 'next/navigation'
 
 interface UseGetResult<T> {
   data: T | undefined
@@ -11,8 +10,12 @@ interface UseGetResult<T> {
 
 export const useGet = <T,>(
   queryKey: string,
-  queryFn: (id: string) => Promise<T>,
-  pathname?: string
+  queryFn: (id: string, search: string, category: string, sortBy: string, sortByType: string) => Promise<T>,
+  pathname?: string,
+  search?: string,
+  category?: string,
+  sortBy?: string,
+  sortByType?: string
 ): UseGetResult<T> => {
   const { id } = useShopStore(store => store.currentShop)
 
@@ -20,7 +23,14 @@ export const useGet = <T,>(
 
   const { data, isError, isLoading, isSuccess }: QueryObserverResult<T, unknown> = useQuery({
     queryKey: [queryKey, currentId],
-    queryFn: () => queryFn(currentId),
+    queryFn: () =>
+      queryFn(
+        currentId,
+        search ? search : '',
+        category ? category : '',
+        sortBy ? sortBy : '',
+        sortByType ? sortByType : ''
+      ),
   })
 
   return { data, isError, isLoading, isSuccess }

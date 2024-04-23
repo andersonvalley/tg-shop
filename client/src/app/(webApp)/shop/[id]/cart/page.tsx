@@ -1,3 +1,5 @@
-export default function Cart() {
-  return <h1>hhfd</h1>
+import { Cart } from './cart'
+
+export default function CartPage() {
+  return <Cart />
 }

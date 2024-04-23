@@ -30,7 +30,7 @@ export class GoodsEntity {
   description?: string;
 
   @Column()
-  price: string;
+  price: number;
 
   @Column({ default: '' })
   weight: string;

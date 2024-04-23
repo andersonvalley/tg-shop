@@ -2,13 +2,14 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateGoodDto } from './dto/create-good.dto';
 import { UpdateGoodDto } from './dto/update-good.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 import { GoodsEntity } from './entities/good.entity';
 import { ShopEntity } from 'src/shops/entities/shop.entity';
 import { CategoryEntity } from 'src/category/entities/category.entity';
 import { PhotoGoodsEntity } from 'src/photo-goods/entities/photo-good.entity';
 import { VariantEntity } from 'src/variant/entities/variant.entity';
 import { OptionEntity } from 'src/option/entities/option.entity';
+import { QueryGoodDto } from './dto/query-good.dto';
 
 @Injectable()
 export class GoodsService {
@@ -62,17 +63,40 @@ export class GoodsService {
     return { message: 'Успешно' };
   }
 
-  async findAll(id: string) {
+  async findAll(id: string, query: QueryGoodDto) {
     const shop = await this.shopRepository.findOne({
       where: { id },
     });
 
     if (!shop) throw new BadRequestException('Магазин не найден');
 
+    const searchCriteria: any = { shop: { id: shop.id } };
+
+    if (query.search) {
+      searchCriteria.title = ILike(`%${query.search.toLowerCase()}%`);
+    }
+
+    const sortBy = query.sortBy ? query.sortBy : 'createdDate';
+    const sortByType = query.sortByType ? query.sortByType : 'ASC';
+
+    if (query.category) {
+      const category = await this.categoryRepository.findOne({
+        where: { id: query.category },
+        relations: { goods: { photoLinks: true } },
+        order: {
+          goods: { [sortBy]: sortByType },
+        },
+      });
+      if (!category) throw new BadRequestException('Категория не найдена');
+      searchCriteria.category = category;
+
+      return category.goods;
+    }
+
     const goods = await this.goodsRepository.find({
-      where: { shop: { id: shop.id } },
+      where: searchCriteria,
       order: {
-        createdDate: 'DESC',
+        [sortBy]: sortByType,
       },
       relations: { photoLinks: true, category: true },
     });
