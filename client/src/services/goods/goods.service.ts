@@ -29,7 +29,7 @@ export class GoodsService {
   }
 
   static async getById(id: string) {
-    const response = await instance<IGood>(`/goods/${id}`, {
+    const response = await instance<IGood>(`/goods/by-id/${id}`, {
       method: 'GET',
     })
 

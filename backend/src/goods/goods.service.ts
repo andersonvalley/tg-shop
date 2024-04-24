@@ -104,8 +104,15 @@ export class GoodsService {
     return goods;
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} good`;
+  async findOne(id: string) {
+    const product = await this.goodsRepository.findOne({
+      where: { id },
+      relations: { photoLinks: true, variants: true, options: true },
+    });
+
+    if (!product) throw new BadRequestException('Товар не найден');
+
+    return product;
   }
 
   async update(id: string, dto: UpdateGoodDto) {

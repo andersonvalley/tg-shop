@@ -3,7 +3,6 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 
 import { QUERY_KEY } from '@/src/constants/queryKey'
 import { SubscriberService } from '@/src/services/subscriber/subscriber.service'
@@ -12,14 +11,13 @@ import { useQuery } from '@tanstack/react-query'
 import { IoMdHeartEmpty } from 'react-icons/io'
 import { PiShoppingCartBold } from 'react-icons/pi'
 import { SpinUi } from '@/src/components/UI/loader/spin'
-import useHash from '../../hooks/useHash'
 
 import cl from '../../../../components/header/header.module.scss'
+import { usePathname } from '../../hooks/usePath'
 
 export const HeaderWebApp = () => {
   const [initDataUnsafe] = useInitData()
-  const pathname = usePathname()
-  const hash = useHash()
+  const { hash, initialPathname } = usePathname()
 
   const { data, isLoading } = useQuery({
     queryKey: [QUERY_KEY.getSubscriberById, initDataUnsafe?.user?.id],
@@ -52,11 +50,11 @@ export const HeaderWebApp = () => {
         </div>
 
         <div className={cl.group}>
-          <button className={cl.btn}>
+          <Link href={`${initialPathname}/favorite/${hash}`} className={cl.btn}>
             <IoMdHeartEmpty size={20} />
-          </button>
+          </Link>
 
-          <Link href={`${pathname}/cart/${hash}`} className={cl.btn}>
+          <Link href={`${initialPathname}/cart/${hash}`} className={cl.btn}>
             <PiShoppingCartBold size={20} />
             <span className={cl.count}>12</span>
           </Link>

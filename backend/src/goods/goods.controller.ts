@@ -39,10 +39,10 @@ export class GoodsController {
     return this.goodsService.findAll(id, query);
   }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.goodsService.findOne(+id);
-  // }
+  @Get('/by-id/:id')
+  findOne(@Param('id') id: string) {
+    return this.goodsService.findOne(id);
+  }
 
   @UseGuards(AuthGuard)
   @Patch(':id')

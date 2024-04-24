@@ -4,7 +4,7 @@ import { useGet } from '@/src/hooks/requests/useGet'
 import { QUERY_KEY } from '@/src/constants/queryKey'
 import { GoodsService } from '@/src/services/goods/goods.service'
 import { Search } from '../../components/search/search'
-import { useExpand } from '@vkruglikov/react-telegram-web-app'
+import { MainButton, useExpand } from '@vkruglikov/react-telegram-web-app'
 import { useEffect } from 'react'
 import { CategoryService } from '@/src/services/category/category.service'
 import { Categories } from '../../components/categories/categories'
@@ -37,6 +37,8 @@ export const Main = ({ id }: { id: string }) => {
       <Search />
       <Categories categories={categories} />
       <ProductList isLoading={isLoading} products={products} categories={categories} />
+
+      <MainButton text="В корзине что-то есть" onClick={() => console.log('Hello, I am button!')} />
     </>
   )
 }

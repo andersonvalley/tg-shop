@@ -12,7 +12,7 @@ export interface IGood {
   updatedDate: string
   title: string
   description: string
-  price: string
+  price: number
   weight: string
   quantity: string
   vendorCode: string
@@ -26,7 +26,7 @@ export interface createOrUpdateIGood {
   updatedDate?: string
   title: string
   description: string
-  price: string
+  price: number
   weight: string
   quantity: string
   vendorCode: string

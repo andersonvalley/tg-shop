@@ -1,0 +1,33 @@
+.product {
+  padding-top: 10px;
+}
+
+.slider {
+  width: 100%;
+}
+
+.slide {
+  max-width: none;
+  width: 100%;
+}
+
+.wrapper {
+  height: 350px;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+
+.img {
+  object-fit: cover;
+  height: 100%;
+  border-radius: 21px;
+}
+
+.content {
+  padding: 20px;
+}
+
+.prductTitle {
+  font-size: 2.6rem;
+  font-family: 'tg', sans-serif;
+}

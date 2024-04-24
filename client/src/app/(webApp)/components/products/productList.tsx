@@ -1,12 +1,13 @@
 import { IGood } from '@/src/types/goods.interface'
 import React, { useMemo, useState } from 'react'
 import { ProductItem } from './productItem'
-import styles from './card.module.scss'
 import { LuSettings2 } from 'react-icons/lu'
-import { ICategory } from '@/src/types/category.interface'
-import { useSearchAndSortStore } from '../../store/searchAndSort'
-import { DropdownUi } from '@/src/components/UI/dropdown/dropdown'
 import { sortByItems } from './products.sortBy'
+import { useSearchAndSortStore } from '../../store/searchAndSort'
+import { ICategory } from '@/src/types/category.interface'
+import { DropdownUi } from '@/src/components/UI/dropdown/dropdown'
+
+import styles from './card.module.scss'
 
 interface Props {
   products: IGood[] | undefined
@@ -41,7 +42,7 @@ export const ProductList = ({ products, categories, isLoading }: Props) => {
   }
 
   return (
-    <div>
+    <>
       <div className={styles.head}>
         <h3 className={styles.title}>{findCategory}</h3>
         <button onClick={() => setOpenDropDown(true)} className={styles.btn}>
@@ -79,6 +80,6 @@ export const ProductList = ({ products, categories, isLoading }: Props) => {
           return <ProductItem isLoading={isLoading} key={item.id} {...item} />
         })}
       </ul>
-    </div>
+    </>
   )
 }

@@ -26,14 +26,34 @@
 
 .cardImg {
   overflow: hidden;
-  margin-bottom: 7px;
   display: block;
   width: 95%;
-  margin-top: 2.5%;
+  height: 230px;
+  margin: 2.5% auto;
   aspect-ratio: 1 / 1;
 
+  @media (max-width: 506px) {
+    height: 220px;
+  }
+
+  @media (max-width: 455px) {
+    height: 200px;
+  }
+
+  @media (max-width: 415px) {
+    height: 180px;
+  }
+
+  @media (max-width: 377px) {
+    height: 160px;
+  }
+
+  @media (max-width: 340px) {
+    height: 150px;
+  }
+
   img {
-    border-radius: 18px 18px 20px 20px;
+    border-radius: 16px 16px 20px 20px;
     height: 100%;
     object-fit: cover;
   }

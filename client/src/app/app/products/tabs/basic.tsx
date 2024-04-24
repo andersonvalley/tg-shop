@@ -76,8 +76,8 @@ export const Basic = ({ values, setValues, categories, isLoading }: Props) => {
       <div className="flex">
         <Input
           label="Цена"
-          value={values.price}
-          onChange={e => onChange(e.target.value, value => setValues({ ...values, price: value }))}
+          value={String(values.price)}
+          onChange={e => onChange(e.target.value, value => setValues({ ...values, price: +value }))}
           placeholder="0"
           width="33%"
           icon="₽"

@@ -1,4 +1,3 @@
-import Script from 'next/script'
 import { Footer } from '../../components/footer/footer'
 import { HeaderWebApp } from '../../components/header/header'
 

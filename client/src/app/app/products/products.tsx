@@ -24,7 +24,7 @@ import { normalizePrice } from '@/src/utils/normalizeCurrency'
 export const emptyStateGoods = {
   title: '',
   description: '',
-  price: '',
+  price: 0,
   weight: '',
   quantity: '',
   vendorCode: '',

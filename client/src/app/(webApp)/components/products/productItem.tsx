@@ -1,6 +1,5 @@
 'use client'
 
-import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
@@ -9,17 +8,18 @@ import { IGood } from '@/src/types/goods.interface'
 import { normalizePrice } from '@/src/utils/normalizeCurrency'
 import { HiOutlinePlusSm } from 'react-icons/hi'
 import { SpinUi } from '@/src/components/UI/loader/spin'
-import useHash from '../../hooks/useHash'
 
 import styles from './card.module.scss'
+import { usePathname } from '../../hooks/usePath'
 
 interface Props extends IGood {
   isLoading: boolean
 }
 
-export const ProductItem = ({ title, price, id, photoLinks, isLoading }: Props) => {
-  const pathname = usePathname()
-  const hash = useHash()
+export const ProductItem = ({ title, price, id, photoLinks, isLoading, quantity }: Props) => {
+  const { initialPathname, hash } = usePathname()
+
+  if (quantity === '0') return
 
   return (
     <motion.li
@@ -33,7 +33,7 @@ export const ProductItem = ({ title, price, id, photoLinks, isLoading }: Props) 
           <SpinUi />
         ) : (
           <>
-            <Link className={styles.cardImg} href={`${pathname}/product/${id}${hash}`}>
+            <Link className={styles.cardImg} href={`${initialPathname}/product/${id}${hash}`}>
               <Image
                 src={
                   photoLinks[0]?.photoLink
