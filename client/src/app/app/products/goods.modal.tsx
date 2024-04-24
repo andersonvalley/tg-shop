@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react'
 import { Basic } from './tabs/basic'
 import { Options } from './tabs/options'
 import { Variants } from './tabs/variants'
-import { createOrUpdateIGood, responseMessage } from '@/src/types/goods.interface'
+import { IGood, createIGood, responseMessage } from '@/src/types/goods.interface'
 import { useCreate } from '@/src/hooks/requests/useCreate'
 import { QUERY_KEY } from '@/src/constants/queryKey'
 import { GoodsService } from '@/src/services/goods/goods.service'
@@ -14,25 +14,48 @@ import { useGet } from '@/src/hooks/requests/useGet'
 import { CategoryService } from '@/src/services/category/category.service'
 
 export interface Props {
-  data: createOrUpdateIGood
+  data: IGood[]
   update?: boolean
-  updateHandler?: (formData: createOrUpdateIGood) => void
+  currentEditId?: string
+  updateHandler?: (formData: createIGood) => void
 }
 
-export const GoodsContentModal = ({ data, update, updateHandler }: Props) => {
-  const [values, setValues] = useState<createOrUpdateIGood>(data)
+export const emptyStateGoods: createIGood = {
+  title: '',
+  description: '',
+  price: '',
+  discount: 0,
+  weight: '',
+  quantity: '',
+  vendorCode: '',
+  shopId: '',
+  categoryId: '',
+  photoLinks: [],
+}
+
+export const GoodsContentModal = ({ data, update, currentEditId, updateHandler }: Props) => {
+  const [values, setValues] = useState<createIGood>(emptyStateGoods)
   const { data: categories, isLoading } = useGet(QUERY_KEY.getAllCategories, CategoryService.getAll)
 
-  const { createHandler } = useCreate<responseMessage, createOrUpdateIGood>(
+  const { createHandler } = useCreate<responseMessage, createIGood>(
     QUERY_KEY.getAllGoods,
     GoodsService.create
   )
 
-  useEffect(() => {
-    if (!categories) return
+  const currentEdit = data.find(item => item.id === currentEditId)
 
-    setValues({ ...values, categoryId: categories[0].id })
-  }, [categories])
+  useEffect(() => {
+    if (!currentEdit) return
+    const { createdDate, updatedDate, category, photoLinks, ...rest } = currentEdit
+
+    const data = {
+      ...rest,
+      shopId: '',
+      categoryId: category.id,
+      photoLinks: photoLinks.map(item => item.link),
+    }
+    setValues(data)
+  }, [currentEdit])
 
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -48,7 +71,16 @@ export const GoodsContentModal = ({ data, update, updateHandler }: Props) => {
     {
       key: '1',
       label: 'Основное',
-      children: <Basic isLoading={isLoading} categories={categories} values={values} setValues={setValues} />,
+      children: (
+        <Basic
+          update={update}
+          isLoading={isLoading}
+          categories={categories}
+          state={values}
+          data={data}
+          setValues={setValues}
+        />
+      ),
     },
     {
       key: '2',
@@ -68,7 +100,7 @@ export const GoodsContentModal = ({ data, update, updateHandler }: Props) => {
         <Tabs defaultActiveKey="1" items={items}></Tabs>
 
         <div className="line"></div>
-        <SubmitButton>Добавить товар</SubmitButton>
+        <SubmitButton>{update ? 'Сохранить' : 'Добавить товар'}</SubmitButton>
       </form>
     </>
   )

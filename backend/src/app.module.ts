@@ -17,8 +17,9 @@ import { SubscriberModule } from './subscriber/subscriber.module';
 import { OrderModule } from './order/order.module';
 import { OptionModule } from './option/option.module';
 import { VariantModule } from './variant/variant.module';
-import { PhotoGoodsModule } from './photo-goods/photo-goods.module';
+import { PhotoGoodsModule } from './files/photo-goods.module';
 import { MessageModule } from './message/message.module';
+import { ShopCartModule } from './shop-cart/shop-cart.module';
 
 @Module({
   imports: [
@@ -52,6 +53,7 @@ import { MessageModule } from './message/message.module';
     VariantModule,
     OptionModule,
     MessageModule,
+    ShopCartModule,
   ],
   controllers: [AppController],
   providers: [AppService],

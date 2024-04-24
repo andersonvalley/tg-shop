@@ -1,9 +1,8 @@
-interface Photo {
+import { ICategory } from './category.interface'
+
+interface IFiles {
   id: string
-  photoLink: string
-  url?: string
-  uui?: string
-  name?: string
+  link: string
 }
 
 export interface IGood {
@@ -13,29 +12,26 @@ export interface IGood {
   title: string
   description: string
   price: number
+  discount: number
   weight: string
   quantity: string
   vendorCode: string
-  shopId?: string
-  photoLinks: Photo[]
-  categoryId?: string
+  category: ICategory
+  photoLinks: IFiles[]
 }
-export interface createOrUpdateIGood {
+export interface createIGood {
   id?: string
-  createdDate?: string
-  updatedDate?: string
   title: string
   description: string
-  price: number
+  price: number | string
+  discount: number | string
   weight: string
   quantity: string
   vendorCode: string
-  shopId?: string
-  categoryId?: string
-  linksOfPhoto?: string[]
-  photoLinks?: Photo[]
+  shopId: string
+  categoryId: string
+  photoLinks: string[]
 }
-
 export interface responseMessage {
   message: string
 }

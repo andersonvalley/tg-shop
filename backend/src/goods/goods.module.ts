@@ -6,9 +6,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { GoodsEntity } from './entities/good.entity';
 import { ShopEntity } from 'src/shops/entities/shop.entity';
 import { CategoryEntity } from 'src/category/entities/category.entity';
-import { PhotoGoodsEntity } from 'src/photo-goods/entities/photo-good.entity';
 import { OptionEntity } from 'src/option/entities/option.entity';
 import { VariantEntity } from 'src/variant/entities/variant.entity';
+import { FilesEntity } from 'src/files/entities/photo-good.entity';
 
 @Module({
   controllers: [GoodsController],
@@ -19,7 +19,7 @@ import { VariantEntity } from 'src/variant/entities/variant.entity';
       ShopEntity,
       GoodsEntity,
       CategoryEntity,
-      PhotoGoodsEntity,
+      FilesEntity,
       OptionEntity,
       VariantEntity,
     ]),

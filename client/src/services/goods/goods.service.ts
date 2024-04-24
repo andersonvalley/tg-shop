@@ -1,9 +1,8 @@
 import { instance } from '../api/api.config'
-import { IGood, createOrUpdateIGood, responseMessage } from '../../types/goods.interface'
-import { useSearchAndSortStore } from '@/src/app/(webApp)/store/searchAndSort'
+import { IGood, createIGood, responseMessage, updateIGood } from '../../types/goods.interface'
 
 export class GoodsService {
-  static async create(data: createOrUpdateIGood) {
+  static async create(data: createIGood) {
     const response = await instance<responseMessage>(`/goods`, {
       method: 'POST',
       data,
@@ -36,7 +35,7 @@ export class GoodsService {
     return response.data
   }
 
-  static async update(data: createOrUpdateIGood) {
+  static async update(data: createIGood) {
     const response = await instance<responseMessage>(`/goods/${data.id}`, {
       method: 'PATCH',
       data,

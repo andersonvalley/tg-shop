@@ -15,29 +15,17 @@ import { useGet } from '@/src/hooks/requests/useGet'
 import { SpinUi } from '@/src/components/UI/loader/spin'
 import { useDelete } from '@/src/hooks/requests/useDelete'
 import { useUpdate } from '@/src/hooks/requests/useUpdate'
-import { createOrUpdateIGood, responseMessage } from '@/src/types/goods.interface'
+import { createIGood, responseMessage } from '@/src/types/goods.interface'
 import Image from 'next/image'
 
 import styles from './products.module.scss'
 import { normalizePrice } from '@/src/utils/normalizeCurrency'
 
-export const emptyStateGoods = {
-  title: '',
-  description: '',
-  price: 0,
-  weight: '',
-  quantity: '',
-  vendorCode: '',
-  shopId: '',
-  categoryId: '',
-  linksOfPhoto: [],
-}
-
 export const Products = () => {
   const { data, isError, isLoading } = useGet(QUERY_KEY.getAllGoods, GoodsService.getAll)
 
   const { deleteHandler, showConfirmDeleteModal } = useDelete(QUERY_KEY.getAllGoods, GoodsService.delete)
-  const { updateHandler, editOption, currentEditItem } = useUpdate<responseMessage, createOrUpdateIGood>(
+  const { updateHandler, editOption, currentEditItem } = useUpdate<responseMessage, createIGood>(
     QUERY_KEY.getAllGoods,
     GoodsService.update
   )
@@ -50,7 +38,7 @@ export const Products = () => {
       width="60%"
       title="Товары"
       titleModal="Новый товар"
-      modalContent={<GoodsContentModal data={emptyStateGoods} />}
+      modalContent={!data ? null : <GoodsContentModal data={data} />}
     >
       <ul className={styles.list}>
         {isError && <li className="empty">Ошибка загрузки</li>}
@@ -59,19 +47,18 @@ export const Products = () => {
         {data?.map((item, index) => {
           return (
             <ListItem
+              editText="Редактировать"
               index={index}
               deleteHandler={() => showConfirmDeleteModal(item.id)}
-              editHandler={() => editOption(item)}
+              editHandler={() => editOption(item.id)}
               key={item.id}
             >
               <div className={styles.column}>
                 <Image
                   className={styles.photo}
                   src={
-                    item.photoLinks[0]?.photoLink
-                      ? process.env.NEXT_PUBLIC_PROD
-                        ? process.env.NEXT_PUBLIC_PROD + `/products/${item.photoLinks[0]?.photoLink}`
-                        : 'http://localhost:5501/api/uploads' + `/products/${item.photoLinks[0]?.photoLink}`
+                    item.photoLinks[0]?.link
+                      ? process.env.NEXT_PUBLIC_PROD + `/products/${item.photoLinks[0]?.link}`
                       : '/nophoto.png'
                   }
                   width={45}
@@ -105,7 +92,8 @@ export const Products = () => {
           <ModalUi title="Редактировать" open={isEditModal} setOpen={setIsEditModal}>
             <GoodsContentModal
               updateHandler={updateHandler}
-              data={currentEditItem as createOrUpdateIGood}
+              currentEditId={currentEditItem}
+              data={data ? data : []}
               update
             />
           </ModalUi>,

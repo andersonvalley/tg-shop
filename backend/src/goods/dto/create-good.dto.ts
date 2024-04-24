@@ -6,9 +6,10 @@ export class CreateGoodDto {
   title: string;
 
   categoryId: string;
-  linksOfPhoto?: string[];
+  photoLinks?: string[];
   description?: string;
   price: number;
+  discount?: number;
   weight?: string;
   quantity?: string;
   vendorCode?: string;

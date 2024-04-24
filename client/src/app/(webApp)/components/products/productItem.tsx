@@ -11,6 +11,10 @@ import { SpinUi } from '@/src/components/UI/loader/spin'
 
 import styles from './card.module.scss'
 import { usePathname } from '../../hooks/usePath'
+import { useMutation } from '@tanstack/react-query'
+import { createICart } from '@/src/types/cart.interface'
+import { CartService } from '@/src/services/cart/cart.service'
+import { useInitData } from '@vkruglikov/react-telegram-web-app'
 
 interface Props extends IGood {
   isLoading: boolean
@@ -18,6 +22,21 @@ interface Props extends IGood {
 
 export const ProductItem = ({ title, price, id, photoLinks, isLoading, quantity }: Props) => {
   const { initialPathname, hash } = usePathname()
+  const [initDataUnsafe] = useInitData()
+
+  const { mutate: add } = useMutation({
+    mutationFn: (formData: createICart) => CartService.create(formData),
+  })
+
+  const addToCartHandler = (id: string) => {
+    if (!initDataUnsafe?.user?.id) return
+
+    const formData: createICart = {
+      subscriber: String(initDataUnsafe?.user?.id),
+      goods: id,
+    }
+    add(formData)
+  }
 
   if (quantity === '0') return
 
@@ -36,10 +55,8 @@ export const ProductItem = ({ title, price, id, photoLinks, isLoading, quantity 
             <Link className={styles.cardImg} href={`${initialPathname}/product/${id}${hash}`}>
               <Image
                 src={
-                  photoLinks[0]?.photoLink
-                    ? process.env.NEXT_PUBLIC_PROD
-                      ? process.env.NEXT_PUBLIC_PROD + `/products/${photoLinks[0]?.photoLink}`
-                      : 'http://localhost:5501/api/uploads' + `/products/${photoLinks[0]?.photoLink}`
+                  photoLinks[0]?.link
+                    ? process.env.NEXT_PUBLIC_PROD + `/products/${photoLinks[0]?.link}`
                     : '/nophoto.png'
                 }
                 alt={title}
@@ -53,7 +70,7 @@ export const ProductItem = ({ title, price, id, photoLinks, isLoading, quantity 
 
               <div className={styles.group}>
                 <span>{normalizePrice(price)}</span>
-                <button className={styles.add}>
+                <button onClick={() => addToCartHandler(id)} className={styles.add}>
                   <HiOutlinePlusSm size={23} />
                 </button>
               </div>

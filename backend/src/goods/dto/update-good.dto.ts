@@ -8,8 +8,10 @@ export class UpdateGoodDto extends PartialType(CreateGoodDto) {
   title: string;
 
   categoryId: string;
+  photoLinks?: string[];
   description?: string;
   price: number;
+  discount?: number;
   weight?: string;
   quantity?: string;
   vendorCode?: string;

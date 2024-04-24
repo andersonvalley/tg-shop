@@ -6,10 +6,10 @@ import { ILike, Repository } from 'typeorm';
 import { GoodsEntity } from './entities/good.entity';
 import { ShopEntity } from 'src/shops/entities/shop.entity';
 import { CategoryEntity } from 'src/category/entities/category.entity';
-import { PhotoGoodsEntity } from 'src/photo-goods/entities/photo-good.entity';
 import { VariantEntity } from 'src/variant/entities/variant.entity';
 import { OptionEntity } from 'src/option/entities/option.entity';
 import { QueryGoodDto } from './dto/query-good.dto';
+import { FilesEntity } from 'src/files/entities/photo-good.entity';
 
 @Injectable()
 export class GoodsService {
@@ -20,8 +20,8 @@ export class GoodsService {
     private readonly shopRepository: Repository<ShopEntity>,
     @InjectRepository(CategoryEntity)
     private readonly categoryRepository: Repository<CategoryEntity>,
-    @InjectRepository(PhotoGoodsEntity)
-    private readonly filesRepository: Repository<PhotoGoodsEntity>,
+    @InjectRepository(FilesEntity)
+    private readonly filesRepository: Repository<FilesEntity>,
     @InjectRepository(OptionEntity)
     private readonly optionRepository: Repository<OptionEntity>,
     @InjectRepository(VariantEntity)
@@ -39,20 +39,24 @@ export class GoodsService {
     const category = await this.categoryRepository.findOne({
       where: { id: dto.categoryId },
     });
+
     if (!category) throw new BadRequestException('Категория не найдена');
 
-    const photos = dto?.linksOfPhoto;
-    delete dto?.linksOfPhoto;
+    const photos = dto?.photoLinks;
+    delete dto?.photoLinks;
 
-    const newProduct = this.goodsRepository.create(dto);
+    const newProduct = this.goodsRepository.create({
+      ...dto,
+      photoLinks: new FilesEntity(),
+    });
     newProduct.category = category;
     newProduct.shop = shop;
     const savedProduct = await this.goodsRepository.save(newProduct);
 
     if (photos && photos.length > 0) {
       const photoPromises = photos.map(async (link) => {
-        const photo = new PhotoGoodsEntity();
-        photo.photoLink = link;
+        const photo = new FilesEntity();
+        photo.link = link;
         photo.goods = savedProduct;
         return await this.filesRepository.save(photo);
       });
@@ -120,7 +124,33 @@ export class GoodsService {
 
     if (!product) throw new BadRequestException('Товар не найдена');
 
-    await this.goodsRepository.update(id, dto);
+    await this.filesRepository.delete({ goods: { id: product.id } });
+
+    const category = await this.categoryRepository.findOne({
+      where: { id: dto.categoryId },
+    });
+
+    await this.goodsRepository.update(id, {
+      title: dto.title,
+      description: dto.description,
+      price: dto.price,
+      weight: dto.weight,
+      quantity: dto.quantity,
+      discount: dto.discount,
+      vendorCode: dto.vendorCode,
+      category: category,
+    });
+
+    if (dto.photoLinks && dto.photoLinks.length > 0) {
+      const photoPromises = dto.photoLinks.map(async (link) => {
+        const photo = new FilesEntity();
+        photo.link = link;
+        photo.goods = product;
+        return await this.filesRepository.save(photo);
+      });
+
+      await Promise.all(photoPromises);
+    }
 
     return { messge: 'success' };
   }

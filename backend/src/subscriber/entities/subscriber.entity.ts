@@ -1,5 +1,6 @@
 import { MessageEntity } from 'src/message/entities/message.entity';
 import { OrderEntity } from 'src/order/entities/order.entity';
+import { ShopCartEntity } from 'src/shop-cart/entities/shop-cart.entity';
 import { ShopEntity } from 'src/shops/entities/shop.entity';
 import {
   Column,
@@ -45,4 +46,7 @@ export class SubscriberEntity {
 
   @OneToMany(() => MessageEntity, (message) => message.subscriber_)
   messages: MessageEntity;
+
+  @OneToMany(() => ShopCartEntity, (cart) => cart.subscriber_)
+  cart: ShopCartEntity;
 }

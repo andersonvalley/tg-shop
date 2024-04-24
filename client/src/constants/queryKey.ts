@@ -9,4 +9,5 @@ export const QUERY_KEY = {
   getAllSubscribers: 'getAllSubscribers',
   getSubscriberById: 'getSubscriberById',
   getAllOrders: 'getAllOrders',
+  getCart: 'getCart',
 }

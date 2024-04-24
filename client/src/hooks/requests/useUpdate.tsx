@@ -6,7 +6,7 @@ import { useState } from 'react'
 export const useUpdate = <T, T2>(queryKey: string, queryFn: (formData: T2) => Promise<T>) => {
   const { setIsEditModal } = useModalStore(store => store)
   const { hideEditModal, setIsOpenDropdown } = useModalStore(store => store)
-  const [currentEditItem, setCurrentItem] = useState<T2>()
+  const [currentEditItem, setCurrentItem] = useState('')
 
   const client = useQueryClient()
 
@@ -24,8 +24,8 @@ export const useUpdate = <T, T2>(queryKey: string, queryFn: (formData: T2) => Pr
     hideEditModal()
   }
 
-  const editOption = (item: T2) => {
-    setCurrentItem(item)
+  const editOption = (id: string) => {
+    setCurrentItem(id)
     setIsEditModal()
     setIsOpenDropdown()
   }

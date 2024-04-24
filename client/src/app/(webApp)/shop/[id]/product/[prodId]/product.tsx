@@ -18,47 +18,43 @@ export const Product = ({ id }: { id: string }) => {
   const { data } = useGet(QUERY_KEY.getGoodsById, GoodsService.getById, id)
 
   return (
-    <div className={styles.product}>
+    <motion.div
+      initial={{ opacity: 0, transform: 'translateY(100px)' }}
+      whileInView={{ opacity: 1, transform: 'translateY(0px)' }}
+      viewport={{ once: true }}
+      className={styles.product}
+    >
       <BackButton onClick={() => router.back()} />
       <Swiper slidesPerView={1} spaceBetween={10} direction="horizontal">
         {data &&
           data.photoLinks?.map(item => {
             return (
               <SwiperSlide className={styles.slide} key={item.id}>
-                <motion.div
-                  className={styles.wrapper}
-                  initial={{ opacity: 0, transform: 'translateY(100px)' }}
-                  whileInView={{ opacity: 1, transform: 'translateY(0px)' }}
-                  viewport={{ once: true }}
-                >
+                <div className={styles.wrapper}>
                   <Image
                     className={styles.img}
-                    src={
-                      item.photoLink
-                        ? process.env.NEXT_PUBLIC_PROD
-                          ? process.env.NEXT_PUBLIC_PROD + `/products/${item.photoLink}`
-                          : 'http://localhost:5501/api/uploads' + `/products/${item.photoLink}`
-                        : '/nophoto.png'
-                    }
+                    src={item.link ? process.env.NEXT_PUBLIC_PROD + `/products/${item.link}` : '/nophoto.png'}
                     width={360}
                     height={360}
                     alt={item.id}
                   />
-                </motion.div>
+                </div>
               </SwiperSlide>
             )
           })}
       </Swiper>
       <div className={styles.content}>
-        <div className={styles.prductTitle}>
-          <h1>{data?.title}</h1>
-          <span className={styles.weight}>{data?.weight}</span>
-        </div>
-        <div className={styles.variant}></div>
+        <h1 className={styles.prductTitle}>{data?.title}</h1>
         <p className={styles.description}>{data?.description}</p>
-        {normalizePrice(data?.price)}
+
+        <div className={styles.variant}></div>
+        {data?.weight && <span className={styles.weight}>Вес: {data?.weight} г.</span>}
+        <span className={styles.quantity}>
+          В наличии: {data?.quantity === '' ? 'много' : data?.quantity + 'шт.'}
+        </span>
         <div className={styles.option}></div>
+        {normalizePrice(data?.price)}
       </div>
-    </div>
+    </motion.div>
   )
 }

@@ -2,9 +2,9 @@ import { Input } from '@/src/components/UI/input/input'
 import { TextArea } from '@/src/components/UI/input/textArea'
 import { SelectUi } from '@/src/components/UI/select/select'
 import { useValidate } from '@/src/hooks/useValidate'
-import { createOrUpdateIGood } from '@/src/types/goods.interface'
+import { IGood, createIGood } from '@/src/types/goods.interface'
 import { Upload, Image as Imagine } from 'antd'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import type { UploadFile, UploadProps } from 'antd'
 import { ICategory } from '@/src/types/category.interface'
 import { UploadButton } from '@/src/components/UI/button/uploadButton'
@@ -13,37 +13,66 @@ import styles from '../../share/share.module.scss'
 import { SpinUi } from '@/src/components/UI/loader/spin'
 
 interface Props {
-  values: createOrUpdateIGood
-  setValues: (type: createOrUpdateIGood) => void
+  state: createIGood
+  data: IGood[]
+  setValues: (type: createIGood) => void
   categories: ICategory[] | undefined
   isLoading: boolean
+  update?: boolean
 }
 
-export const Basic = ({ values, setValues, categories, isLoading }: Props) => {
+export const Basic = ({ state, setValues, data, categories, isLoading, update }: Props) => {
   const { onChange } = useValidate()
   const [previewOpen, setPreviewOpen] = useState(false)
   const [previewImage, setPreviewImage] = useState('')
+  const [startEdit, setStartEdit] = useState(false)
+
+  const generateFiles = useMemo((): UploadFile[] => {
+    if (!state.photoLinks || state.photoLinks.length === 0 || !update) return []
+
+    return state.photoLinks.map((item, index) => ({
+      uid: String(index),
+      name: String(index),
+      status: 'done',
+      url: process.env.NEXT_PUBLIC_PROD + '/products/' + item,
+    }))
+  }, [state.photoLinks, update])
+
   const [fileList, setFileList] = useState<UploadFile[]>([])
 
-  // console.log(
-  //   values.photoLinks.map(item => ({
-  //     uui: item.id,
-  //     name: item.photoLink,
-  //     url: 'http://localhost:5501/api/uploads/products/' + item.photoLink,
-  //   }))
-  // )
-
   const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) => {
+    if (update) setStartEdit(true)
+
+    const successList = newFileList.filter(item => item.status === 'done')
+    const oldPhotos = successList.filter(item => !item.response)
+    const newPhotos = successList.filter(item => item.response)
+
+    const updatedPhotos = [
+      ...newPhotos.map(item => item.response),
+      ...oldPhotos.map(item => {
+        const url = item.url || ''
+        return url.substring(url.indexOf('products/') + 'products/'.length)
+      }),
+    ]
+
     setFileList(newFileList)
-    setValues({ ...values, linksOfPhoto: newFileList.map(item => item.response) })
+    setValues({ ...state, photoLinks: updatedPhotos })
   }
+
+  useEffect(() => {
+    if (update && !startEdit) setFileList(generateFiles)
+  }, [generateFiles, update, startEdit])
+
+  useEffect(() => {
+    setValues({ ...state, categoryId: categories ? categories[0].id : '' })
+  }, [])
 
   return (
     <>
       <Input
         label="Название"
-        value={values.title}
-        onChange={e => setValues({ ...values, title: e.target.value })}
+        value={state.title}
+        onChange={e => setValues({ ...state, title: e.target.value })}
         placeholder=""
       />
 
@@ -51,8 +80,8 @@ export const Basic = ({ values, setValues, categories, isLoading }: Props) => {
         <SpinUi />
       ) : (
         <SelectUi
-          defaultValue={categories ? categories[0].title : ''}
-          onChange={value => setValues({ ...values, categoryId: value })}
+          defaultValue={''}
+          onChange={value => setValues({ ...state, categoryId: value })}
           label="Категория"
           options={
             categories
@@ -67,8 +96,8 @@ export const Basic = ({ values, setValues, categories, isLoading }: Props) => {
 
       <TextArea
         label="Описание"
-        value={values.description}
-        onChange={e => setValues({ ...values, description: e.target.value })}
+        value={state.description}
+        onChange={e => setValues({ ...state, description: e.target.value })}
         placeholder="Скидка 20% на первый заказ"
         required={false}
       />
@@ -76,16 +105,16 @@ export const Basic = ({ values, setValues, categories, isLoading }: Props) => {
       <div className="flex">
         <Input
           label="Цена"
-          value={String(values.price)}
-          onChange={e => onChange(e.target.value, value => setValues({ ...values, price: +value }))}
+          value={String(state.price)}
+          onChange={e => onChange(e.target.value, value => setValues({ ...state, price: +value }))}
           placeholder="0"
           width="33%"
           icon="₽"
         />
         <Input
           label="Вес"
-          value={values.weight}
-          onChange={e => onChange(e.target.value, value => setValues({ ...values, weight: value }))}
+          value={state.weight}
+          onChange={e => onChange(e.target.value, value => setValues({ ...state, weight: value }))}
           placeholder="0"
           width="33%"
           icon="г"
@@ -94,8 +123,8 @@ export const Basic = ({ values, setValues, categories, isLoading }: Props) => {
         <Input
           label="Количество"
           labelHelper="Оставьте поле пустым, если количество товара не ограничено"
-          value={values.quantity}
-          onChange={e => onChange(e.target.value, value => setValues({ ...values, quantity: value }))}
+          value={state.quantity}
+          onChange={e => onChange(e.target.value, value => setValues({ ...state, quantity: value }))}
           placeholder="~"
           width="33%"
           icon="шт"
@@ -104,9 +133,19 @@ export const Basic = ({ values, setValues, categories, isLoading }: Props) => {
       </div>
 
       <Input
+        label="Скидка"
+        value={String(state.discount)}
+        onChange={e => onChange(e.target.value, value => setValues({ ...state, discount: +value }))}
+        placeholder="0"
+        width="33%"
+        icon="₽"
+        required={false}
+      />
+
+      <Input
         label="Артикул"
-        value={values.vendorCode}
-        onChange={e => setValues({ ...values, vendorCode: e.target.value })}
+        value={state.vendorCode}
+        onChange={e => setValues({ ...state, vendorCode: e.target.value })}
         placeholder=""
         width="40%"
         required={false}

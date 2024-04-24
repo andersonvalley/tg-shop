@@ -24,10 +24,31 @@
 }
 
 .content {
-  padding: 20px;
+  padding: 0 0 20px;
 }
 
 .prductTitle {
   font-size: 2.6rem;
   font-family: 'tg', sans-serif;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.description {
+  margin-bottom: 12px;
+}
+
+.weight {
+  color: var(--tg-theme-subtitle-text-color);
+  font-size: 1.5rem;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.quantity {
+  font-size: 1.5rem;
+  color: var(--tg-theme-accent-text-color);
+  display: block;
 }

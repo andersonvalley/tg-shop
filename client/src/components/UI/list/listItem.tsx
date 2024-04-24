@@ -14,9 +14,16 @@ interface Props {
   editHandler: () => void
   deleteHandler: () => void
   index: number
+  editText?: string
 }
 
-export const ListItem = ({ children, deleteHandler, editHandler, index }: Props) => {
+export const ListItem = ({
+  children,
+  deleteHandler,
+  editHandler,
+  index,
+  editText = 'Переименовать',
+}: Props) => {
   const { isOpenDropdown, setIsOpenDropdown, currentClickIndex, setCurrentClickIndex } = useModalStore(
     store => store
   )
@@ -45,7 +52,7 @@ export const ListItem = ({ children, deleteHandler, editHandler, index }: Props)
             <ul className={styles.group}>
               <li>
                 <ButtonMenu onClick={editHandler}>
-                  <RxCursorText size={19} /> Переименовать
+                  <RxCursorText size={19} /> {editText}
                 </ButtonMenu>
               </li>
               <li>

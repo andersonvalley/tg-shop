@@ -102,3 +102,48 @@
 .countNumber {
   font-family: 'tg', sans-serif;
 }
+
+.emptyCart {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+
+  h2 {
+    font-size: 1.7rem;
+    font-family: 'tg', sans-serif;
+  }
+
+  p {
+    font-size: 1.3rem;
+    color: var(--tg-theme-subtitle-text-color);
+  }
+
+  img {
+    max-width: 100px;
+  }
+}
+
+.code {
+  margin-bottom: 40px;
+}
+
+.countText {
+  margin-bottom: 20px;
+}
+
+.total {
+  margin-bottom: 40px;
+}
+
+.price,
+.countText {
+  white-space: nowrap;
+  font-family: 'tg', sans-serif;
+  font-size: 1.7rem;
+
+  span {
+    color: var(--tg-theme-button-color);
+  }
+}

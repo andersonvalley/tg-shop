@@ -1,5 +1,5 @@
 import { CategoryEntity } from 'src/category/entities/category.entity';
-import { PhotoGoodsEntity } from 'src/photo-goods/entities/photo-good.entity';
+import { FilesEntity } from 'src/files/entities/photo-good.entity';
 import { ShopEntity } from 'src/shops/entities/shop.entity';
 import { VariantEntity } from 'src/variant/entities/variant.entity';
 import {
@@ -32,6 +32,9 @@ export class GoodsEntity {
   @Column()
   price: number;
 
+  @Column({ default: 0 })
+  discount: number;
+
   @Column({ default: '' })
   weight: string;
 
@@ -41,8 +44,8 @@ export class GoodsEntity {
   @Column({ default: '' })
   vendorCode: string;
 
-  @OneToMany(() => PhotoGoodsEntity, (link) => link.goods)
-  photoLinks: PhotoGoodsEntity;
+  @OneToMany(() => FilesEntity, (link) => link.goods)
+  photoLinks: FilesEntity;
 
   @OneToMany(() => VariantEntity, (variant) => variant.goods)
   variants: VariantEntity;
