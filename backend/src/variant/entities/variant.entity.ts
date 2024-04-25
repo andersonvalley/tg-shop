@@ -9,20 +9,20 @@ export class VariantEntity {
   @Column()
   title: string;
 
-  @Column()
-  titleVariant: string;
-
-  @Column()
+  @Column({ default: '' })
   article: string;
 
   @Column()
   price: string;
 
-  @Column()
+  @Column({ default: '' })
   weight: string;
 
-  @Column()
+  @Column({ default: '' })
   quantity: string;
+
+  @Column({ default: '' })
+  vendorCode: string;
 
   @ManyToOne(() => GoodsEntity, (goods) => goods.variants)
   goods: GoodsEntity;

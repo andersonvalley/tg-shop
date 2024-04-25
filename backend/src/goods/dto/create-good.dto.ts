@@ -16,6 +16,16 @@ export class CreateGoodDto {
   shopId: string;
 
   options?: [{ title: string; price: string }];
+  variants: [
+    {
+      title: string;
+      price: string;
+      article: string;
+      weight: string;
+      quantity: string;
+      vendorCode: string;
+    },
+  ];
   // titleOption?: string;
   // requiredOption?: string;
 }

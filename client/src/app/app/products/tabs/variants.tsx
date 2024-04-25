@@ -1,82 +1,94 @@
-import { Input } from '@/src/components/UI/input/input'
-import { createIGood } from '@/src/types/goods.interface'
-import { Button, Modal } from 'antd'
-import React, { useState } from 'react'
-import { createPortal } from 'react-dom'
+'use client'
 
+import { createIGood } from '@/src/types/goods.interface'
+import React, { useState } from 'react'
+import styles from '../products.module.scss'
+import { SimpleButton } from '@/src/components/UI/button/simpleButton'
+import { createPortal } from 'react-dom'
+import { Modal } from 'antd'
+import { MdOutlineDelete } from 'react-icons/md'
+import { HiOutlinePlusSm } from 'react-icons/hi'
+import { VariantsForm } from './variants.form'
 interface Props {
   values: createIGood
   setValues: (type: any) => void
 }
 
 export const Variants = ({ values, setValues }: Props) => {
-  const [openModalVariants, setOpenModalVariants] = useState(false)
+  const [variantValues, setVariantValues] = useState({
+    titleVariant: values.titleVariant,
+    variants:
+      values.variants.length === 0
+        ? [
+            {
+              title: '',
+              price: '',
+              id: '1',
+              weight: '',
+              vendorCode: '',
+              quantity: '',
+            },
+          ]
+        : values.variants,
+  })
+  const [openModalExtra, setOpenModalExtra] = useState(false)
 
-  const [variants, setVariants] = useState([
-    {
-      title: '',
-      vendorCode: '',
-      price: '',
-      weight: '',
-      quantity: '',
-      id: 0,
-    },
-  ])
+  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    e.stopPropagation()
 
-  const addVariantHandler = () => {
-    setVariants([
-      ...variants,
-      {
-        title: '',
-        vendorCode: '',
-        price: '',
-        weight: '',
-        quantity: '',
-        id: variants.length + 1,
-      },
-    ])
+    setValues({
+      ...values,
+      titleVariant: variantValues.titleVariant,
+      variants: variantValues.variants,
+    })
+
+    setOpenModalExtra(false)
+  }
+
+  const deleteAllHandler = () => {
+    setValues({
+      ...values,
+      titleVariant: '',
+      variants: [],
+    })
   }
 
   return (
     <>
-      <p>Разновидности одного товара</p>
-      <span>Например: цвет, размер или материал</span>
+      <p className={styles.extraTitle}>Разновидности одного товара</p>
+      <span className={styles.extraText}>Например: цвет, размер или материал</span>
+      {values.titleVariant && (
+        <ul className={styles.extraList}>
+          <li>
+            <span onClick={() => setOpenModalExtra(true)}>{values.titleVariant} </span>
+            <button onClick={deleteAllHandler} type="button" className={styles.buttonRemove}>
+              <MdOutlineDelete size={23} />
+            </button>
+          </li>
+        </ul>
+      )}
+      {!values.titleVariant && (
+        <div className={styles.extraButton}>
+          <SimpleButton onClick={() => setOpenModalExtra(true)}>
+            {' '}
+            <HiOutlinePlusSm size={18} /> Добавить варинты
+          </SimpleButton>
+        </div>
+      )}
 
-      <Button onClick={() => setOpenModalVariants(true)}>Добавить варианты</Button>
-
-      {openModalVariants &&
+      {openModalExtra &&
         createPortal(
           <Modal
-            width={800}
+            width={900}
+            footer={[]}
             title="Новые варианты товара"
-            open={openModalVariants}
-            onOk={() => setOpenModalVariants(false)}
-            onCancel={() => setOpenModalVariants(false)}
+            open={openModalExtra}
+            onOk={() => setOpenModalExtra(false)}
+            onCancel={() => setOpenModalExtra(false)}
           >
-            <form>
-              <Input
-                label="Название"
-                value={values.title}
-                onChange={e => setValues({ ...values, titleVariant: e.target.value })}
-                placeholder=""
-              />
-
-              <span onClick={addVariantHandler}>Добавить новые</span>
-
-              <ul>
-                {variants.map(item => {
-                  return (
-                    <li key={item.id}>
-                      <Input
-                        label="Название"
-                        value={values.title}
-                        onChange={e => setValues({ ...values, titleVariant: e.target.value })}
-                        placeholder=""
-                      />
-                    </li>
-                  )
-                })}
-              </ul>
+            <form onSubmit={submitHandler}>
+              <VariantsForm variantValues={variantValues} setVariantValues={setVariantValues} />
             </form>
           </Modal>,
           document.body

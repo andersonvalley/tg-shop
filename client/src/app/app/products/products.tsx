@@ -19,7 +19,7 @@ import { createIGood, responseMessage } from '@/src/types/goods.interface'
 import Image from 'next/image'
 
 import styles from './products.module.scss'
-import { normalizePrice } from '@/src/utils/normalizeCurrency'
+import { currentPrice, normalizePrice } from '@/src/utils/normalizeCurrency'
 
 export const Products = () => {
   const { data, isError, isLoading } = useGet(QUERY_KEY.getAllGoods, GoodsService.getAll)
@@ -47,11 +47,11 @@ export const Products = () => {
         {data?.map((item, index) => {
           return (
             <ListItem
-              editText="Редактировать"
+              key={item.id}
               index={index}
+              editText="Редактировать"
               deleteHandler={() => showConfirmDeleteModal(item.id)}
               editHandler={() => editOption(item.id)}
-              key={item.id}
             >
               <div className={styles.column}>
                 <Image
@@ -61,15 +61,18 @@ export const Products = () => {
                       ? process.env.NEXT_PUBLIC_PROD + `/products/${item.photoLinks[0]?.link}`
                       : '/nophoto.png'
                   }
-                  width={45}
-                  height={45}
+                  width={105}
+                  height={105}
                   alt={item.title}
                 />
 
                 <span className={styles.title}>{item.title}</span>
               </div>
 
-              {normalizePrice(item.price)}
+              <div className={styles.priceWrapper}>
+                <span className={styles.old}>{normalizePrice(item.price)}</span>
+                <span className={styles.new}>{currentPrice(item.price, item.discount)}</span>
+              </div>
             </ListItem>
           )
         })}

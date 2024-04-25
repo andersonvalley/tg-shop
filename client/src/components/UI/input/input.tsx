@@ -28,7 +28,7 @@ export const Input = ({
   labelHelper,
 }: Props) => {
   return (
-    <label style={{ maxWidth: width }} className={styles.label}>
+    <label style={{ maxWidth: width, width: width }} className={styles.label}>
       <div className={styles.labelText}>
         {label}{' '}
         {labelHelper && (

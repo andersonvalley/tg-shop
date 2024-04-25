@@ -48,6 +48,9 @@ export class GoodsEntity {
   @OneToMany(() => FilesEntity, (link) => link.goods)
   photoLinks: FilesEntity;
 
+  @Column({ default: '' })
+  titleVariant: string;
+
   @OneToMany(() => VariantEntity, (variant) => variant.goods)
   variants: VariantEntity;
 

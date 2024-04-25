@@ -29,7 +29,7 @@ export class GoodsService {
   ) {}
 
   async create(dto: CreateGoodDto) {
-    const { photoLinks: photos, options, ...rest } = dto;
+    const { photoLinks: photos, options, variants, ...rest } = dto;
 
     const shop = await this.shopRepository.findOne({
       where: {
@@ -48,6 +48,7 @@ export class GoodsService {
       ...rest,
       photoLinks: new FilesEntity(),
       options: new OptionEntity(),
+      variants: new VariantEntity(),
     });
 
     newProduct.category = category;
@@ -64,6 +65,21 @@ export class GoodsService {
       });
 
       await Promise.all(optionPromises);
+    }
+
+    if (variants && variants.length > 0) {
+      const variantsPromises = variants.map(async (item) => {
+        const variant = new VariantEntity();
+        variant.price = item.price;
+        variant.title = item.title;
+        variant.quantity = item.quantity;
+        variant.article = item.article;
+        variant.weight = item.weight;
+        variant.goods = savedProduct;
+        return await this.variantRepository.save(variant);
+      });
+
+      await Promise.all(variantsPromises);
     }
 
     if (photos && photos.length > 0) {
@@ -115,7 +131,12 @@ export class GoodsService {
       order: {
         [sortBy]: sortByType,
       },
-      relations: { photoLinks: true, category: true, options: true },
+      relations: {
+        photoLinks: true,
+        category: true,
+        options: true,
+        variants: true,
+      },
     });
 
     return goods;
@@ -133,13 +154,13 @@ export class GoodsService {
   }
 
   async update(id: string, dto: UpdateGoodDto) {
-    console.log(dto);
     const product = await this.goodsRepository.findOne({ where: { id } });
 
     if (!product) throw new BadRequestException('Товар не найдена');
 
     await this.filesRepository.delete({ goods: { id: product.id } });
     await this.optionRepository.delete({ goods: { id: product.id } });
+    await this.variantRepository.delete({ goods: { id: product.id } });
 
     const category = await this.categoryRepository.findOne({
       where: { id: dto.categoryId },
@@ -154,6 +175,7 @@ export class GoodsService {
       discount: dto.discount,
       vendorCode: dto.vendorCode,
       titleOption: dto.titleOption,
+      titleVariant: dto.titleVariant,
       requiredOption: dto.requiredOption,
       category: category,
     });
@@ -179,6 +201,22 @@ export class GoodsService {
       });
 
       await Promise.all(optionPromises);
+    }
+
+    if (dto.variants && dto.variants.length > 0) {
+      const variantsPromises = dto.variants.map(async (item) => {
+        const variant = new VariantEntity();
+        variant.price = item.price;
+        variant.title = item.title;
+        variant.quantity = item.quantity;
+        variant.article = item.article;
+        variant.weight = item.weight;
+        variant.vendorCode = item.vendorCode;
+        variant.goods = product;
+        return await this.variantRepository.save(variant);
+      });
+
+      await Promise.all(variantsPromises);
     }
 
     return { messge: 'success' };

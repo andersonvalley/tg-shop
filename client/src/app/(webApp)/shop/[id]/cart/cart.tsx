@@ -32,7 +32,6 @@ export const Cart = () => {
     let sum = 0
     cart?.map(item => {
       sum = sum + +item.price
-      console.log(item.price)
       return sum
     })
 

@@ -41,6 +41,7 @@
   padding: 2px 0;
   border-radius: 6px;
   background: var(--menu-active);
+  margin-bottom: 15px;
 }
 
 .extraList li {
@@ -81,6 +82,10 @@
   label {
     flex-grow: 1;
   }
+
+  label span {
+    top: 40%;
+  }
 }
 
 .wrapper:first-child {
@@ -114,4 +119,39 @@
   display: flex;
   gap: 1px;
   margin-top: 40px;
+}
+
+@media (max-width: 680px) {
+  .wrapperVariants {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 500px) {
+  .wrapperVariants {
+    label {
+      max-width: 80% !important;
+      width: 80% !important;
+    }
+  }
+}
+
+.priceWrapper {
+  display: flex;
+  gap: 15px;
+}
+
+.old {
+  text-decoration: line-through;
+  color: #d3dee8;
+  font-size: 1.5rem;
+
+  @media (max-width: 500px) {
+    display: none;
+  }
+}
+
+.new {
+  font-family: 'tg', sans-serif;
 }

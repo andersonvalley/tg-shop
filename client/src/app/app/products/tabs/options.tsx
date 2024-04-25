@@ -8,6 +8,7 @@ import { createPortal } from 'react-dom'
 import { Modal } from 'antd'
 import { MdOutlineDelete } from 'react-icons/md'
 import { OptionsForm } from './options.form'
+import { HiOutlinePlusSm } from 'react-icons/hi'
 interface Props {
   values: createIGood
   setValues: (type: any) => void
@@ -69,7 +70,9 @@ export const Options = ({ values, setValues }: Props) => {
       )}
       {!values.titleOption && (
         <div className={styles.extraButton}>
-          <SimpleButton onClick={() => setOpenModalExtra(true)}>Добавить опцию</SimpleButton>
+          <SimpleButton onClick={() => setOpenModalExtra(true)}>
+            <HiOutlinePlusSm size={18} /> Добавить опцию
+          </SimpleButton>
         </div>
       )}
 

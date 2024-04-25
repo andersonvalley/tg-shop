@@ -5,10 +5,19 @@ interface IFiles {
   link: string
 }
 
-interface IOption {
+export interface IOption {
   id: string
   title: string
   price: string
+}
+
+export interface IVariant {
+  id: string
+  title: string
+  price: string
+  weight: string
+  quantity: string
+  vendorCode: string
 }
 
 export interface IGood {
@@ -28,6 +37,9 @@ export interface IGood {
   titleOption: string
   requiredOption: boolean
   options: IOption[]
+
+  titleVariant: string
+  variants: IVariant[]
 }
 export interface createIGood {
   id?: string
@@ -45,6 +57,9 @@ export interface createIGood {
   titleOption: string
   requiredOption: boolean
   options: IOption[]
+
+  titleVariant: string
+  variants: IVariant[]
 }
 export interface responseMessage {
   message: string

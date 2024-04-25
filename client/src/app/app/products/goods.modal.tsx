@@ -33,6 +33,17 @@ export const emptyStateGoods: createIGood = {
   photoLinks: [],
   titleOption: '',
   requiredOption: false,
+  titleVariant: '',
+  variants: [
+    {
+      title: '',
+      price: '',
+      id: '1',
+      weight: '',
+      vendorCode: '',
+      quantity: '',
+    },
+  ],
   options: [
     {
       title: '',

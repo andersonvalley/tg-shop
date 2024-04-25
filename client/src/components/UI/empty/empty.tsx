@@ -10,8 +10,8 @@ interface Props {
 export const Empty = ({ size }: Props) => {
   return (
     <li className="empty">
-      <Image style={{ maxWidth: size }} src={empty} width={40} height={40} alt="empty" />
-      Ничего нет :(
+      <Image style={{ maxWidth: size }} src={empty} width={200} height={200} alt="empty" />
+      Еще нет ничего :(
     </li>
   )
 }
