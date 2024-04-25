@@ -15,7 +15,6 @@ import { SpinUi } from '@/src/components/UI/loader/spin'
 import { useDelete } from '@/src/hooks/requests/useDelete'
 import { useUpdate } from '@/src/hooks/requests/useUpdate'
 import { categoryResponse, createOrUpdateCategory } from '@/src/types/category.interface'
-import { CatalogVitrina } from './catalogVitrina'
 
 export const emptyStateCategory = {
   title: '',
@@ -38,57 +37,54 @@ export const Category = () => {
   )
 
   return (
-    <>
-      <Card
-        width="30%"
-        title="Категории"
-        titleModal="Новая категория"
-        modalContent={<CategoryContentModal data={emptyStateCategory} />}
-        confirmCloseMessage={false}
-      >
-        <ul>
-          {isError && <li className="empty">Ошибка загрузки</li>}
-          {isLoading && <SpinUi />}
-          {data?.length === 0 && <Empty size={'60px'} />}
-          {data?.map((item, index) => {
-            return (
-              <ListItem
-                key={item.id}
-                index={index}
-                deleteHandler={() => showConfirmDeleteModal(item.id)}
-                editHandler={() => editOption(item)}
-              >
-                {item.title}
-              </ListItem>
-            )
-          })}
-        </ul>
+    <Card
+      width="30%"
+      title="Категории"
+      titleModal="Новая категория"
+      modalContent={<CategoryContentModal data={emptyStateCategory} />}
+      confirmCloseMessage={false}
+    >
+      <ul>
+        {isError && <li className="empty">Ошибка загрузки</li>}
+        {isLoading && <SpinUi />}
+        {data?.length === 0 && <Empty size={'60px'} />}
+        {data?.map((item, index) => {
+          return (
+            <ListItem
+              key={item.id}
+              index={index}
+              deleteHandler={() => showConfirmDeleteModal(item.id)}
+              editHandler={() => editOption(item)}
+            >
+              {item.title}
+            </ListItem>
+          )
+        })}
+      </ul>
 
-        {isConfirmDeleteModal && (
-          <Modal
-            className="confirm"
-            title="Удалить категорию?"
-            open={isConfirmDeleteModal}
-            onOk={deleteHandler}
-            onCancel={() => setIsConfirmDeleteModal()}
-            okText="Удалить"
-            cancelText="Оставить"
-          ></Modal>
+      {isConfirmDeleteModal && (
+        <Modal
+          className="confirm"
+          title="Удалить категорию?"
+          open={isConfirmDeleteModal}
+          onOk={deleteHandler}
+          onCancel={() => setIsConfirmDeleteModal()}
+          okText="Удалить"
+          cancelText="Оставить"
+        ></Modal>
+      )}
+
+      {isEditModal &&
+        createPortal(
+          <ModalUi title="Редактировать" open={isEditModal} setOpen={setIsEditModal}>
+            <CategoryContentModal
+              updateHandler={updateHandler}
+              data={currentEditItem as createOrUpdateCategory}
+              update
+            />
+          </ModalUi>,
+          document.body
         )}
-
-        {isEditModal &&
-          createPortal(
-            <ModalUi title="Редактировать" open={isEditModal} setOpen={setIsEditModal}>
-              <CategoryContentModal
-                updateHandler={updateHandler}
-                data={currentEditItem as createOrUpdateCategory}
-                update
-              />
-            </ModalUi>,
-            document.body
-          )}
-      </Card>
-      <CatalogVitrina />
-    </>
+    </Card>
   )
 }

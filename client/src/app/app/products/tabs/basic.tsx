@@ -14,14 +14,13 @@ import { SpinUi } from '@/src/components/UI/loader/spin'
 
 interface Props {
   state: createIGood
-  data: IGood[]
   setValues: (type: createIGood) => void
   categories: ICategory[] | undefined
   isLoading: boolean
   update?: boolean
 }
 
-export const Basic = ({ state, setValues, data, categories, isLoading, update }: Props) => {
+export const Basic = ({ state, setValues, categories, isLoading, update }: Props) => {
   const { onChange } = useValidate()
   const [previewOpen, setPreviewOpen] = useState(false)
   const [previewImage, setPreviewImage] = useState('')

@@ -19,3 +19,99 @@
 .list > li {
   padding: 10px 16px;
 }
+
+.extraTitle {
+  font-family: 'tg', sans-serif;
+  font-size: 1.8rem;
+  color: var(--color);
+  margin-bottom: 5px;
+}
+
+.extraText {
+  color: #6d6d6d;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.extraButton {
+  padding: 17px 0 20px 0;
+}
+
+.extraList {
+  padding: 2px 0;
+  border-radius: 6px;
+  background: var(--menu-active);
+}
+
+.extraList li {
+  padding: 5px 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  span {
+    font-size: 1.7rem;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--tag);
+    }
+  }
+}
+
+.label {
+  margin-bottom: 8px;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  font-family: 'tg', sans-serif;
+  font-size: 1.5rem;
+  color: var(--color);
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+
+  input {
+    margin-bottom: 0;
+  }
+
+  label {
+    flex-grow: 1;
+  }
+}
+
+.wrapper:first-child {
+  flex-grow: 1;
+}
+
+.buttonRemove {
+  svg {
+    fill: #d3dee8;
+  }
+
+  &:hover {
+    svg {
+      fill: var(--tag);
+    }
+  }
+}
+
+.addOption {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--color);
+
+  &:hover {
+    color: var(--tag);
+  }
+}
+
+.checkWrapper {
+  display: flex;
+  gap: 1px;
+  margin-top: 40px;
+}

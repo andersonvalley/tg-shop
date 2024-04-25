@@ -1,11 +1,11 @@
 import { Input } from '@/src/components/UI/input/input'
-import { IGood, createOrUpdateIGood } from '@/src/types/goods.interface'
+import { createIGood } from '@/src/types/goods.interface'
 import { Button, Modal } from 'antd'
 import React, { useState } from 'react'
 import { createPortal } from 'react-dom'
 
 interface Props {
-  values: createOrUpdateIGood
+  values: createIGood
   setValues: (type: any) => void
 }
 

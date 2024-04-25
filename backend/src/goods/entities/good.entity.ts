@@ -1,5 +1,6 @@
 import { CategoryEntity } from 'src/category/entities/category.entity';
 import { FilesEntity } from 'src/files/entities/photo-good.entity';
+import { OptionEntity } from 'src/option/entities/option.entity';
 import { ShopEntity } from 'src/shops/entities/shop.entity';
 import { VariantEntity } from 'src/variant/entities/variant.entity';
 import {
@@ -50,8 +51,14 @@ export class GoodsEntity {
   @OneToMany(() => VariantEntity, (variant) => variant.goods)
   variants: VariantEntity;
 
-  @OneToMany(() => VariantEntity, (option) => option.goods)
-  options: VariantEntity;
+  @Column({ default: '' })
+  titleOption: string;
+
+  @Column({ default: false })
+  requiredOption: boolean;
+
+  @OneToMany(() => OptionEntity, (option) => option.goods)
+  options: OptionEntity;
 
   @ManyToOne(() => CategoryEntity, (category) => category.goods)
   category: CategoryEntity;

@@ -27,6 +27,10 @@
   font-weight: 500;
 }
 
+:where(.css-dev-only-do-not-override-1kuana8).ant-modal .ant-modal-content {
+  border-radius: 22px;
+}
+
 :where(.css-dev-only-do-not-override-1kuana8).ant-select-dropdown
   .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
   background-color: var(--bg);

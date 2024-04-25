@@ -31,6 +31,15 @@ export const emptyStateGoods: createIGood = {
   shopId: '',
   categoryId: '',
   photoLinks: [],
+  titleOption: '',
+  requiredOption: false,
+  options: [
+    {
+      title: '',
+      price: '',
+      id: '1',
+    },
+  ],
 }
 
 export const GoodsContentModal = ({ data, update, currentEditId, updateHandler }: Props) => {
@@ -77,7 +86,6 @@ export const GoodsContentModal = ({ data, update, currentEditId, updateHandler }
           isLoading={isLoading}
           categories={categories}
           state={values}
-          data={data}
           setValues={setValues}
         />
       ),
@@ -97,7 +105,7 @@ export const GoodsContentModal = ({ data, update, currentEditId, updateHandler }
   return (
     <>
       <form onSubmit={submit}>
-        <Tabs defaultActiveKey="1" items={items}></Tabs>
+        <Tabs defaultActiveKey="0" items={items}></Tabs>
 
         <div className="line"></div>
         <SubmitButton>{update ? 'Сохранить' : 'Добавить товар'}</SubmitButton>

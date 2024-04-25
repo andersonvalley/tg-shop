@@ -16,4 +16,9 @@ export class UpdateGoodDto extends PartialType(CreateGoodDto) {
   quantity?: string;
   vendorCode?: string;
   shopId: string;
+
+  titleOption?: string;
+  requiredOption?: boolean;
+
+  options?: [{ title: string; price: string }];
 }

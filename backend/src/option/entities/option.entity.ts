@@ -6,13 +6,10 @@ export class OptionEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ default: '' })
   title: string;
 
-  @Column()
-  titleOption: string;
-
-  @Column()
+  @Column({ default: '' })
   price: string;
 
   @ManyToOne(() => GoodsEntity, (goods) => goods.options)
