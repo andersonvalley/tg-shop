@@ -15,8 +15,8 @@ import { IUpdateShopRequest } from '@/src/types/shop.interface'
 import { message } from 'antd'
 
 export const Title = () => {
-  const { firstName, id } = useShopStore(store => store.currentShop)
-  const [value, setValue] = useState(firstName)
+  const { first_name, id } = useShopStore(store => store.currentShop)
+  const [value, setValue] = useState(first_name)
 
   const client = useQueryClient()
 
@@ -31,7 +31,7 @@ export const Title = () => {
 
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    mutate({ firstName: value, shopId: id })
+    mutate({ first_name: value, shopId: id })
   }
 
   return (

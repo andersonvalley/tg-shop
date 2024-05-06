@@ -6,5 +6,5 @@ export const metadata: Metadata = {
 }
 
 export default function Integrations() {
-  return <Wrapper title="Интеграции">hello</Wrapper>
+  return <Wrapper title="Интеграции">ul</Wrapper>
 }

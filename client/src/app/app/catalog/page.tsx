@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function CatalogPage() {
   return (
-    <Wrapper width="86%" title="Товары">
+    <Wrapper width="30%" title="Категории">
       <Category />
     </Wrapper>
   )

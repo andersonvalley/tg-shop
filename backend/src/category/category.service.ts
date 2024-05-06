@@ -5,6 +5,8 @@ import { Repository } from 'typeorm';
 import { CategoryEntity } from './entities/category.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ShopEntity } from 'src/shops/entities/shop.entity';
+import { GoodsEntity } from 'src/goods/entities/good.entity';
+import { GoodsService } from 'src/goods/goods.service';
 
 @Injectable()
 export class CategoryService {
@@ -13,6 +15,9 @@ export class CategoryService {
     private readonly categoryRepository: Repository<CategoryEntity>,
     @InjectRepository(ShopEntity)
     private readonly shopRepository: Repository<ShopEntity>,
+    @InjectRepository(GoodsEntity)
+    private readonly goodsRepository: Repository<GoodsEntity>,
+    private readonly goodsService: GoodsService,
   ) {}
   async create(createCategoryDto: CreateCategoryDto, id: string) {
     const shop = await this.shopRepository.findOne({ where: { id } });
@@ -63,7 +68,15 @@ export class CategoryService {
   }
 
   async remove(id: string) {
+    const products = await this.goodsRepository.find({
+      where: { category: { id } },
+    });
+
+    for (const product of products) {
+      await this.goodsService.remove(product.id);
+    }
+
     await this.categoryRepository.delete(id);
-    return { messge: 'success' };
+    return { message: 'success' };
   }
 }

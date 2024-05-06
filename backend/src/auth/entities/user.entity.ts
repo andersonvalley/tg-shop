@@ -13,36 +13,33 @@ export class UserEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ default: '' })
-  telegramId: string;
+  @Column({ unique: true })
+  telegram_id: string;
 
   @Column({ default: '' })
-  firstName?: string;
+  first_name?: string;
 
   @Column({ default: '' })
-  lastName?: string;
+  last_name?: string;
 
   @Column({ default: '' })
-  userName?: string;
+  user_name?: string;
 
   @Column({ default: false })
-  isPremium?: boolean;
+  is_premium?: boolean;
 
   @Column({ default: '' })
-  languageCode?: string;
+  language_code?: string;
 
   @Column({ default: '' })
-  avatarUrl?: string;
-
-  @Column({ default: null })
-  code: number | null;
+  avatar_url?: string;
 
   @CreateDateColumn()
-  createdDate: Date;
+  created_date: Date;
 
   @UpdateDateColumn()
-  updatedDate: Date;
+  updated_date: Date;
 
-  @OneToMany(() => ShopEntity, (shop) => shop.user)
-  shops: ShopEntity;
+  @OneToMany(() => ShopEntity, (shop) => shop.user_)
+  shops_: ShopEntity;
 }

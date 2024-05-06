@@ -15,8 +15,8 @@ import { TextArea } from '@/src/components/UI/input/textArea'
 import { message } from 'antd'
 
 export const AfterOrder = () => {
-  const { afterOrder, id } = useShopStore(store => store.currentShop)
-  const [value, setValue] = useState(afterOrder)
+  const { after_order, id } = useShopStore(store => store.currentShop)
+  const [value, setValue] = useState(after_order)
 
   const client = useQueryClient()
 
@@ -31,7 +31,7 @@ export const AfterOrder = () => {
 
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    mutate({ afterOrder: value, shopId: id })
+    mutate({ after_order: value, shopId: id })
   }
 
   return (

@@ -14,6 +14,7 @@ RUN npm install
 COPY . .
 
 RUN npm run build
+
 # Указываем порт, который будет использоваться приложением
 EXPOSE 3000
 

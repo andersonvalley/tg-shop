@@ -1,5 +1,5 @@
 import { instance } from '../api/api.config'
-import { IGood, createIGood, responseMessage, updateIGood } from '../../types/goods.interface'
+import { IGood, createIGood, responseMessage } from '../../types/goods.interface'
 
 export class GoodsService {
   static async create(data: createIGood) {

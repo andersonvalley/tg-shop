@@ -1,6 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateShopCartDto } from './dto/create-shop-cart.dto';
-import { UpdateShopCartDto } from './dto/update-shop-cart.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ShopCartEntity } from './entities/shop-cart.entity';
 import { In, Repository } from 'typeorm';
@@ -64,7 +63,7 @@ export class ShopCartService {
     return filtered;
   }
 
-  async update(id: number, updateShopCartDto: UpdateShopCartDto) {
+  async update(id: number) {
     return `This action updates a #${id} shopCart`;
   }
 

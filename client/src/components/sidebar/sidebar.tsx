@@ -29,8 +29,8 @@ export const Sidebar = () => {
     <aside className={toogleMobileMenu ? [styles.sidebar, styles.sidebarOpen].join(' ') : styles.sidebar}>
       <nav className={`${styles.nav} ${data && data?.length > 0 ? '' : styles.hidden}`}>
         <button onClick={() => setExpanded(val => !val)} className={[styles.link, styles.shop].join(' ')}>
-          <p className={styles.shopAvatar}>{currentShop?.firstName[0]}</p>
-          <span>{currentShop?.firstName}</span> <MdKeyboardArrowDown />
+          <p className={styles.shopAvatar}>{currentShop?.first_name[0]}</p>
+          <span>{currentShop?.first_name}</span> <MdKeyboardArrowDown />
         </button>
         <animated.div style={{ overflow: 'hidden', ...stylesSpring }}>
           <ul ref={measureRef} className={styles.shopList}>
@@ -42,11 +42,11 @@ export const Sidebar = () => {
                       onClick={() => setCurrentShop(item)}
                       className={[styles.shopAvatar, styles.shopAvatarSmall].join(' ')}
                     >
-                      {currentShop.firstName[0]}
+                      {currentShop.first_name[0]}
                     </div>
                     <div className={styles.col}>
                       <span onClick={() => setCurrentShop(item)} className={styles.small}>
-                        {item.firstName}
+                        {item.first_name}
                       </span>
                       <Link href={`https://t.me/${item.username}`} className={styles.linkBot} target="_blank">
                         @{item.username}
@@ -57,7 +57,7 @@ export const Sidebar = () => {
               )
             })}
             <li ref={measureRef} className={styles.center}>
-              <Link className={styles.add} href={PATHS.START + '?add=new'}>
+              <Link className={styles.add} href={PATHS.START}>
                 <GoPlus size={21} /> Добавить магазин
               </Link>
             </li>

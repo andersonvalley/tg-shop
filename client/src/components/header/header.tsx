@@ -21,7 +21,7 @@ import { createPortal } from 'react-dom'
 
 export const Header = () => {
   const router = useRouter()
-  const { firstName, lastName, avatarUrl } = useUserStore(store => store.user)
+  const { first_name, last_name, avatar_url } = useUserStore(store => store.user)
   const { setToogleMobileMenu, toogleMobileMenu } = useUiStore(store => store)
   const { setExpanded, buttonRef, menuRef, measureRef, subMenuStyles } = useAnimate()
   const { fetchLogout } = useLogout()
@@ -48,7 +48,7 @@ export const Header = () => {
               className={styles.user}
             >
               <Image
-                src={avatarUrl ? avatarUrl : '/user.png'}
+                src={avatar_url ? avatar_url : '/user.png'}
                 alt={'user avatar'}
                 className={styles.avatar}
                 width={30}
@@ -56,7 +56,7 @@ export const Header = () => {
               ></Image>
 
               <p>
-                {firstName} {lastName} <MdKeyboardArrowDown />
+                {first_name} {last_name} <MdKeyboardArrowDown />
               </p>
             </button>
           )}

@@ -19,7 +19,6 @@ export const Menu = [
 ]
 
 export const SubMenu = [
-  { title: 'Общие', link: PATHS.COMMON, icon: LuSettings2 },
   { title: 'Доставка', link: PATHS.DELIVERY, icon: MdOutlineDeliveryDining },
   { title: 'Оплата', link: PATHS.PAYMENT, icon: PiContactlessPaymentBold },
   { title: 'Промокоды', link: PATHS.PROMOCODES, icon: MdAddCard },

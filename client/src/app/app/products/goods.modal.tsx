@@ -12,6 +12,7 @@ import { QUERY_KEY } from '@/src/constants/queryKey'
 import { GoodsService } from '@/src/services/goods/goods.service'
 import { useGet } from '@/src/hooks/requests/useGet'
 import { CategoryService } from '@/src/services/category/category.service'
+import { useShopStore } from '@/src/store/shop.state'
 
 export interface Props {
   data: IGood[]
@@ -55,6 +56,8 @@ export const emptyStateGoods: createIGood = {
 
 export const GoodsContentModal = ({ data, update, currentEditId, updateHandler }: Props) => {
   const [values, setValues] = useState<createIGood>(emptyStateGoods)
+  const { currentShop } = useShopStore()
+
   const { data: categories, isLoading } = useGet(QUERY_KEY.getAllCategories, CategoryService.getAll)
 
   const { createHandler } = useCreate<responseMessage, createIGood>(
@@ -79,6 +82,8 @@ export const GoodsContentModal = ({ data, update, currentEditId, updateHandler }
 
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+
+    if (!currentShop.id) return
 
     if (update && updateHandler) {
       updateHandler(values)

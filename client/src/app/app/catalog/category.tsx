@@ -16,12 +16,9 @@ import { useDelete } from '@/src/hooks/requests/useDelete'
 import { useUpdate } from '@/src/hooks/requests/useUpdate'
 import { categoryResponse, createOrUpdateCategory } from '@/src/types/category.interface'
 
-export const emptyStateCategory = {
-  title: '',
-}
-
 export const Category = () => {
   const { data, isError, isLoading } = useGet(QUERY_KEY.getAllCategories, CategoryService.getAll)
+
   const { deleteHandler, showConfirmDeleteModal } = useDelete(
     QUERY_KEY.getAllCategories,
     CategoryService.delete
@@ -41,7 +38,7 @@ export const Category = () => {
       width="30%"
       title="Категории"
       titleModal="Новая категория"
-      modalContent={<CategoryContentModal data={emptyStateCategory} />}
+      modalContent={!data ? null : <CategoryContentModal data={data} />}
       confirmCloseMessage={false}
     >
       <ul>
@@ -54,7 +51,7 @@ export const Category = () => {
               key={item.id}
               index={index}
               deleteHandler={() => showConfirmDeleteModal(item.id)}
-              editHandler={() => editOption(item)}
+              editHandler={() => editOption(item.id)}
             >
               {item.title}
             </ListItem>
@@ -79,7 +76,8 @@ export const Category = () => {
           <ModalUi title="Редактировать" open={isEditModal} setOpen={setIsEditModal}>
             <CategoryContentModal
               updateHandler={updateHandler}
-              data={currentEditItem as createOrUpdateCategory}
+              data={data ? data : []}
+              currentEditId={currentEditItem}
               update
             />
           </ModalUi>,

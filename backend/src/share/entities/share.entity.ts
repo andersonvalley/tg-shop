@@ -29,5 +29,5 @@ export class ShareEntity {
   photoLink: string;
 
   @ManyToOne(() => ShopEntity, (shop) => shop.share)
-  shop: ShopEntity;
+  shop_: ShopEntity;
 }

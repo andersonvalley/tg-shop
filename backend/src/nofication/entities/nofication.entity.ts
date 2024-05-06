@@ -1,1 +1,1 @@
-export class NoficationEntity {}
+export class NotificationEntity {}

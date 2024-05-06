@@ -23,10 +23,10 @@ export class ShopEntity {
   id: string;
 
   @CreateDateColumn()
-  createdDate: Date;
+  created_date: Date;
 
   @UpdateDateColumn()
-  updatedDate: Date;
+  updated_date: Date;
 
   @Column({ unique: true })
   token: string;
@@ -35,7 +35,7 @@ export class ShopEntity {
   bot_id: string;
 
   @Column()
-  firstName: string;
+  first_name: string;
 
   @Column()
   username: string;
@@ -53,21 +53,21 @@ export class ShopEntity {
     default: `Здравствуйте 👋
 Откройте меню, чтобы увидеть весь ассортимент.`,
   })
-  firstLaunch: string;
+  first_launch: string;
 
   @Column({
     default: `💬 Менеджер скоро свяжется с вами`,
   })
-  afterOrder: string;
+  after_order: string;
 
   @Column({ default: 'Меню' })
-  titleButton: string;
+  title_button: string;
 
   @Column({ default: true })
-  isActive: boolean;
+  is_active: boolean;
 
-  @ManyToOne(() => UserEntity, (user) => user.shops)
-  user: UserEntity;
+  @ManyToOne(() => UserEntity, (user) => user.shops_)
+  user_: UserEntity;
 
   @OneToMany(() => CategoryEntity, (category) => category.shop)
   categories: CategoryEntity;
@@ -78,7 +78,7 @@ export class ShopEntity {
   @OneToMany(() => PromocodeEntity, (promocode) => promocode.shop)
   promocodes: PromocodeEntity;
 
-  @OneToMany(() => ShareEntity, (share) => share.shop)
+  @OneToMany(() => ShareEntity, (share) => share.shop_)
   share: ShareEntity;
 
   @OneToMany(() => SubscriberEntity, (share) => share.shop_)

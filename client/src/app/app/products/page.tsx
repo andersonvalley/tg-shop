@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function OrdersPage() {
   return (
-    <Wrapper width="80%" title="Товары">
+    <Wrapper width="60%" title="Товары">
       <Products />
     </Wrapper>
   )

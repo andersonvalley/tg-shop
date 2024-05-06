@@ -35,6 +35,7 @@ export const Products = () => {
 
   return (
     <Card
+      textButton="Добавить товар"
       width="60%"
       title="Товары"
       titleModal="Новый товар"

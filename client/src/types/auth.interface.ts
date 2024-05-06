@@ -1,13 +1,12 @@
 interface IUser {
   id: string
-  telegramId: string
-  firstName?: string
-  lastName?: string
-  userName?: string
-  isPremium?: boolean
-  languageCode?: string
-  avatarUrl?: string
-  code?: null | number
+  telegram_id: string
+  first_name?: string
+  last_name?: string
+  user_name?: string
+  is_premium?: boolean
+  language_code?: string
+  avatar_url?: string
 }
 
 export interface IUserResponse {

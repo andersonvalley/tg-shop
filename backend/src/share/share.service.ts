@@ -20,7 +20,7 @@ export class ShareService {
     });
 
     const share = this.shareRepository.create(dto);
-    share.shop = shop;
+    share.shop_ = shop;
     await this.shareRepository.save(share);
 
     // TODO
@@ -33,7 +33,7 @@ export class ShareService {
   async findAll(id: string) {
     const shares = await this.shareRepository.find({
       where: {
-        shop: { id },
+        shop_: { id },
       },
     });
 

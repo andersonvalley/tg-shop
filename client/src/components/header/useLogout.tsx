@@ -3,6 +3,7 @@ import { removeTokenStorage } from '@/src/services/auth/auth.helpers'
 import { AuthService } from '@/src/services/auth/auth.service'
 import { useUserStore } from '@/src/store/user.state'
 import { useMutation } from '@tanstack/react-query'
+import { message } from 'antd'
 import { useRouter } from 'next/navigation'
 
 export const useLogout = () => {
@@ -15,7 +16,9 @@ export const useLogout = () => {
       deleteAllUser()
       removeTokenStorage()
       router.push(PATHS.LOGIN, { scroll: false })
+      message.success('Успешно')
     },
+    onError: () => message.error('Ошибка'),
   })
 
   return { fetchLogout }

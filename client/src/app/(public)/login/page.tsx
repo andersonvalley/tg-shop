@@ -28,7 +28,7 @@ export default function Login() {
 
         <p className={styles.subtitle}>
           Получите код в боте{' '}
-          <LinkLanding justText={true} text="@login_rocket_bot" path="https://t.me/login_rocket_bot" />
+          <LinkLanding justText={true} text="@tgrocket_bot" path="https://t.me/tgrocket_bot" />
         </p>
 
         <form className={styles.form} onSubmit={handleSubmit}>
@@ -54,10 +54,10 @@ export default function Login() {
               )
             })}
           </ul>
-          <p className={styles.error}>{isError ? error?.response?.data.message : ''}</p>
           <div className={styles.bwrapper}>
             <SubmitButton type="submit">Войти</SubmitButton>
           </div>
+          <p className={styles.error}>{isError ? error?.response?.data.message : ''}</p>
         </form>
       </div>
     </section>

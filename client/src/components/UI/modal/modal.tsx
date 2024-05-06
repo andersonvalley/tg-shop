@@ -47,7 +47,7 @@ export const ModalUi: React.FC<Props> = ({
         <Modal title={title} open={open} onCancel={handleCancel} footer={[]}>
           {confirmClose && (
             <Modal
-              width={width}
+              width={700}
               className="confirm"
               title="Выйти из редактирования?"
               open={open}

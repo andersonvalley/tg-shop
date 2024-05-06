@@ -7,11 +7,23 @@ export interface Props {
   children: React.ReactNode
   className?: string
   onClick?: () => void
+  disabled?: boolean
 }
 
-export const SubmitButton: React.FC<Props> = ({ type = 'submit', children, className, onClick }) => {
+export const SubmitButton: React.FC<Props> = ({
+  type = 'submit',
+  children,
+  className,
+  onClick,
+  disabled,
+}) => {
   return (
-    <button onClick={onClick} type={type} className={[styles.button, className].join(' ')}>
+    <button
+      disabled={disabled}
+      onClick={onClick}
+      type={type}
+      className={[styles.button, className].join(' ')}
+    >
       {children}
     </button>
   )

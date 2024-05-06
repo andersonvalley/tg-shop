@@ -44,6 +44,7 @@ export const ContentModal = ({ data, update }: Props) => {
         value={values.description}
         onChange={e => setValues({ ...values, description: e.target.value })}
         placeholder="Адрес самовывоза"
+        required={false}
       />
       <Input
         label="Стоимость"
@@ -60,6 +61,7 @@ export const ContentModal = ({ data, update }: Props) => {
         placeholder="0"
         width="50%"
         icon="₽"
+        required={false}
       />
 
       <p className={styles.text}>

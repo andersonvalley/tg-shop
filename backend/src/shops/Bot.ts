@@ -12,12 +12,12 @@ export async function stopBot(token: string) {
   }
 }
 
-export async function createBot(token: string) {
+export async function createBot(id: string) {
   try {
     const response = await fetch('http://147.45.106.238:8000/v1/bot', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ token: token }),
+      body: JSON.stringify({ token: id }),
     });
 
     console.log(response.status);

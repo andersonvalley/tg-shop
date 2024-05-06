@@ -16,8 +16,8 @@ import { SelectUi } from '@/src/components/UI/select/select'
 import { message } from 'antd'
 
 export const Menu = () => {
-  const { titleButton, id } = useShopStore(store => store.currentShop)
-  const [value, setValue] = useState(titleButton)
+  const { title_button, id } = useShopStore(store => store.currentShop)
+  const [value, setValue] = useState(title_button)
 
   const client = useQueryClient()
 
@@ -32,7 +32,7 @@ export const Menu = () => {
 
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    mutate({ titleButton: value, shopId: id })
+    mutate({ title_button: value, shopId: id })
   }
 
   return (

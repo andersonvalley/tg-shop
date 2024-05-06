@@ -5,12 +5,19 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from './entities/user.entity';
 import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
+import { RedisModule } from '@liaoliaots/nestjs-redis';
 
 @Module({
   controllers: [AuthController],
   providers: [AuthService],
   imports: [
     ConfigModule.forRoot(),
+    RedisModule.forRoot({
+      config: {
+        host: process.env.REDIS_HOST,
+        port: +process.env.REDIS_PORT,
+      },
+    }),
     JwtModule.register({
       global: true,
       secret: process.env.SECRET_KEY,

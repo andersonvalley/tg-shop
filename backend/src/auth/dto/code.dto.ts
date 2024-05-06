@@ -6,5 +6,5 @@ export class CodeDto {
   @Validate(IsNumberLengthConstraint, {
     message: 'Минимальная и максимальная длина 6 символов',
   })
-  code: number;
+  code: string;
 }

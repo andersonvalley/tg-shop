@@ -1,30 +1,29 @@
 export interface IUpdateShopRequest {
   username?: string
-  firstName?: string
-  isActive?: boolean
-  titleButton?: string
-  shopId?: string
+  first_name?: string
+  is_active?: boolean
+  title_button?: string
+  shopId: string
   description?: string
-  afterOrder?: string
-  firstLaunch?: string
+  after_order?: string
+  first_launch?: string
   greetings?: string
 }
 
 export interface IShop {
-  botId: string
-  createdDate: string
-  firstName: string
+  bot_id: string
+  created_date: string
+  first_name: string
   description: string
-  afterOrder: string
-  firstLaunch: string
+  after_order: string
+  first_launch: string
   greetings: string
   id: string
-  isActive: boolean
-  titleButton: string
+  is_active: boolean
+  title_button: string
   token: string
-  updatedDate: string
+  updated_date: string
   username: string
-  webLink: string
 }
 
 export interface IToken {
