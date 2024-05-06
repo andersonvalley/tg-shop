@@ -1,3 +1,8 @@
+.inner {
+  display: flex;
+  gap: 20px;
+}
+
 .column {
   display: flex;
   align-items: center;
@@ -154,4 +159,42 @@
 
 .new {
   font-family: 'tg', sans-serif;
+}
+
+.categoryWr > div {
+  padding: 5px 10px;
+}
+
+.categorySelect {
+  font-weight: 600;
+  font-family: 'tg', sans-serif;
+  font-size: 1.5rem;
+  max-width: 100px;
+  padding: 9px 10px;
+  background-color: #d3dee8;
+  border-radius: 8px;
+  cursor: pointer;
+  max-width: 300px;
+  width: 100%;
+  position: relative;
+}
+
+.hiddenCategory {
+  position: absolute;
+  top: 40px;
+  background-color: #d3dee8;
+  border-radius: 8px;
+  width: 100%;
+  z-index: 12;
+  right: 0;
+
+  li {
+    transition: all 100ms ease-in-out;
+    padding: 6px 10px;
+    border-radius: 8px;
+
+    &:hover {
+      background-color: #c8d4de;
+    }
+  }
 }

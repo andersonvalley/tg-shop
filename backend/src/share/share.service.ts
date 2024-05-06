@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ShareEntity } from './entities/share.entity';
 import { Repository } from 'typeorm';
 import { ShopEntity } from 'src/shops/entities/shop.entity';
+import { startShare } from 'src/shops/Bot';
 
 @Injectable()
 export class ShareService {
@@ -23,9 +24,7 @@ export class ShareService {
     share.shop_ = shop;
     await this.shareRepository.save(share);
 
-    // TODO
-    // Найти всех подписчиков
-    // отправить на рассылку каждого или всех
+    startShare({ ID: share.id });
 
     return { message: 'Success' };
   }
@@ -34,6 +33,9 @@ export class ShareService {
     const shares = await this.shareRepository.find({
       where: {
         shop_: { id },
+      },
+      order: {
+        createdDate: 'DESC',
       },
     });
 

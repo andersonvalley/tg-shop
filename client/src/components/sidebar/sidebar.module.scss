@@ -198,4 +198,11 @@ div.shopAvatarSmall {
   align-items: center;
   justify-content: center;
   color: #fff;
+  font-family: 'tg', sans-serif;
+
+  span {
+    text-align: center;
+    position: relative;
+    top: -2px;
+  }
 }

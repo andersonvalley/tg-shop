@@ -14,13 +14,22 @@ export interface Props {
   options: IOption[]
   margin?: string
   onChange: (event: any) => void
+  className?: string
 }
 
-export const SelectUi = ({ width, defaultValue, options, label, onChange, margin = '20px' }: Props) => {
+export const SelectUi = ({
+  width,
+  defaultValue,
+  options,
+  label,
+  onChange,
+  margin = '20px',
+  className,
+}: Props) => {
   return (
     <label className="selectLabel" style={{ maxWidth: width, marginBottom: margin }}>
       <span className="labelText">{label}</span>
-      <Select defaultValue={defaultValue} onChange={onChange} options={options} />
+      <Select className={className} defaultValue={defaultValue} onChange={onChange} options={options} />
     </label>
   )
 }

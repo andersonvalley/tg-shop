@@ -17,7 +17,7 @@ import { useShop } from '@/src/app/app/start/useShop'
 export const Sidebar = () => {
   const { styles: stylesSpring, measureRef, setExpanded } = useAnimation()
   const { shops, currentShop, saveCurrentShop } = useShopStore(store => store)
-  const { toogleMobileMenu } = useUiStore(store => store)
+  const { toogleMobileMenu, setToogleMobileMenu } = useUiStore(store => store)
   const { data } = useShop()
 
   const setCurrentShop = (item: IShop) => {
@@ -29,7 +29,9 @@ export const Sidebar = () => {
     <aside className={toogleMobileMenu ? [styles.sidebar, styles.sidebarOpen].join(' ') : styles.sidebar}>
       <nav className={`${styles.nav} ${data && data?.length > 0 ? '' : styles.hidden}`}>
         <button onClick={() => setExpanded(val => !val)} className={[styles.link, styles.shop].join(' ')}>
-          <p className={styles.shopAvatar}>{currentShop?.first_name[0]}</p>
+          <b className={styles.shopAvatar}>
+            <span>{currentShop?.first_name[0]}</span>
+          </b>
           <span>{currentShop?.first_name}</span> <MdKeyboardArrowDown />
         </button>
         <animated.div style={{ overflow: 'hidden', ...stylesSpring }}>
@@ -57,7 +59,7 @@ export const Sidebar = () => {
               )
             })}
             <li ref={measureRef} className={styles.center}>
-              <Link className={styles.add} href={PATHS.START}>
+              <Link className={styles.add} href={PATHS.START} onClick={setToogleMobileMenu}>
                 <GoPlus size={21} /> Добавить магазин
               </Link>
             </li>

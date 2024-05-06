@@ -9,7 +9,7 @@ import { CategoryEntity } from 'src/category/entities/category.entity';
 import { PromocodeEntity } from 'src/promocodes/entities/promocode.entity';
 import { DeliveryEntity } from 'src/delivery/entities/delivery.entity';
 import { delivery, delivery2 } from 'src/delivery/delivery.data.defult';
-import { createBot, stopBot } from './Bot';
+import { createBot, sendNotification, stopBot } from './Bot';
 import { SubscriberEntity } from 'src/subscriber/entities/subscriber.entity';
 import { CategoryService } from 'src/category/category.service';
 import { OrderEntity } from 'src/order/entities/order.entity';
@@ -71,7 +71,7 @@ export class ShopsService {
       where: { shop: { id } },
     });
 
-    await stopBot(shop.id);
+    await stopBot(shop.token);
 
     const relatedTables = [
       this.promocodeRepository,
@@ -155,10 +155,24 @@ export class ShopsService {
     await this.deliveryRepository.save(newDelivery);
     await this.deliveryRepository.save(newDelivery2);
 
-    // TODO
-    // отправить уведомление в бот, что создан магазин
+    const status = await createBot(dto.token);
 
-    await createBot(shop.id);
+    if (status !== 200) {
+      await this.delete(shop.id);
+      throw new BadRequestException('Ошибка');
+    }
+
+    await sendNotification({
+      text: 'Магазин создан: ',
+      photo: '',
+      button: false,
+      link: `https://t.me/@${shop.username}`,
+      linkText: `@${shop.username}`,
+      userId: user.telegram_id,
+      shopId: shop.id,
+    });
+
+    return { message: 'success' };
   }
 
   async getBotInfo(token: string) {

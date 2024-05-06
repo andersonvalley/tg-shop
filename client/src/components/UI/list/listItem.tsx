@@ -8,6 +8,7 @@ import { ButtonMenu } from '../button/buttonMenu'
 import { RxCursorText } from 'react-icons/rx'
 import { useModalStore } from '@/src/store/modal.store'
 import { usePathname } from 'next/navigation'
+import { motion } from 'framer-motion'
 
 interface Props {
   children: ReactNode
@@ -37,7 +38,12 @@ export const ListItem = ({
   useEffect(() => setCurrentClickIndex(-1), [pathname, setCurrentClickIndex])
 
   return (
-    <li className={styles.item}>
+    <motion.li
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      className={styles.item}
+    >
       <div className={styles.wrapperItem}>
         {/* <button className={styles.drag}>
           <MdDragIndicator size={19} />
@@ -64,6 +70,6 @@ export const ListItem = ({
           </DropdownUi>
         )}
       </div>
-    </li>
+    </motion.li>
   )
 }

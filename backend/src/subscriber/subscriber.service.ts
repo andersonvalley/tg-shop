@@ -14,7 +14,7 @@ export class SubscriberService {
     const subscribers = await this.subscriberRepository.find({
       where: { shop_: { id } },
       order: {
-        created_date: 'ASC',
+        created_date: 'DESC',
       },
     });
 

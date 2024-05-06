@@ -1,10 +1,11 @@
 'use client'
 
 import { Card } from '@/src/components/UI/card/card'
-import React from 'react'
+import React, { useState } from 'react'
 import { GoodsContentModal } from './goods.modal'
 import { ListItem } from '@/src/components/UI/list/listItem'
 import { Modal } from 'antd'
+import Image from 'next/image'
 import { createPortal } from 'react-dom'
 import { ModalUi } from '@/src/components/UI/modal/modal'
 import { useModalStore } from '@/src/store/modal.store'
@@ -16,12 +17,14 @@ import { SpinUi } from '@/src/components/UI/loader/spin'
 import { useDelete } from '@/src/hooks/requests/useDelete'
 import { useUpdate } from '@/src/hooks/requests/useUpdate'
 import { createIGood, responseMessage } from '@/src/types/goods.interface'
-import Image from 'next/image'
-
-import styles from './products.module.scss'
 import { currentPrice, normalizePrice } from '@/src/utils/normalizeCurrency'
+import { CategorySelect } from './categorySelect'
+import { CategoryService } from '@/src/services/category/category.service'
+import styles from './products.module.scss'
 
 export const Products = () => {
+  const [currentCategory, setCurrentCategory] = useState('Все')
+  const { data: categories } = useGet(QUERY_KEY.getAllCategories, CategoryService.getAll)
   const { data, isError, isLoading } = useGet(QUERY_KEY.getAllGoods, GoodsService.getAll)
 
   const { deleteHandler, showConfirmDeleteModal } = useDelete(QUERY_KEY.getAllGoods, GoodsService.delete)
@@ -40,6 +43,7 @@ export const Products = () => {
       title="Товары"
       titleModal="Новый товар"
       modalContent={!data ? null : <GoodsContentModal data={data} />}
+      additionally={<CategorySelect categories={categories} currentCategory={currentCategory} />}
     >
       <ul className={styles.list}>
         {isError && <li className="empty">Ошибка загрузки</li>}

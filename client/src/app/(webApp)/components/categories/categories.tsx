@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { ICategory } from '@/src/types/category.interface'
 

@@ -1,9 +1,10 @@
 import { QUERY_KEY } from '@/src/constants/queryKey'
 import { useShopStore } from '@/src/store/shop.state'
 import { useQuery } from '@tanstack/react-query'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { ISubscriber } from '@/src/types/subscribers.interface'
 import { SubscriberService } from '@/src/services/subscriber/subscriber.service'
+import { normalizeOnlyDate } from '@/src/utils/normalizeDate'
 
 export const useGet = () => {
   const [items, setItems] = useState<ISubscriber[]>([])
@@ -16,7 +17,8 @@ export const useGet = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      setItems(data)
+      const items = data.map(item => ({ ...item, key: item.id }))
+      setItems(items)
     }
   }, [data, isSuccess])
 

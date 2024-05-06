@@ -7,7 +7,7 @@ import { FaRegTrashCan } from 'react-icons/fa6'
 import { useShop } from './useShop'
 import { normalizeOnlyDate } from '@/src/utils/normalizeDate'
 import { useDeleteShop } from './useShopDelete'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { createPortal } from 'react-dom'
 import { Modal } from 'antd'
 import { IoWarningOutline } from 'react-icons/io5'
@@ -36,9 +36,14 @@ export const StartComponent = () => {
     deleteById(currentDeleteId)
   }
 
-  const chooseCurrentShop = (item: IShop) => {
-    saveCurrentShop(item)
-    router.push(PATHS.CATALOG)
+  const chooseCurrentShop = (e: React.MouseEvent, item: IShop) => {
+    const isDeleteButtonClicked = (e.target as HTMLElement).closest(`.${styles.remove}`)
+    const isLinkClicked = (e.target as HTMLElement).closest(`.${styles.linkShop}`)
+
+    if (!isDeleteButtonClicked && !isLinkClicked) {
+      saveCurrentShop(item)
+      router.push(PATHS.CATALOG)
+    }
   }
 
   return (
@@ -56,7 +61,7 @@ export const StartComponent = () => {
         {data?.length === 0 && <Empty />}
         {data?.map(item => {
           return (
-            <li onClick={() => chooseCurrentShop(item)} key={item.id} className={styles.item}>
+            <li onClick={e => chooseCurrentShop(e, item)} key={item.id} className={styles.item}>
               <h3 className={styles.title}>{item.first_name}</h3>
 
               <div className={styles.block}>
@@ -67,7 +72,7 @@ export const StartComponent = () => {
               <div className={styles.user}>
                 <div>
                   <span className={styles.text}>Ссылка</span>
-                  <a target="_blank" href={`https://t.me/${item.username}`}>
+                  <a className={styles.linkShop} target="_blank" href={`https://t.me/${item.username}`}>
                     <b>@{item.username}</b>
                   </a>
                 </div>

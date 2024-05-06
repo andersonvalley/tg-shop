@@ -15,11 +15,9 @@ async function bootstrap() {
   app.enableCors({
     credentials: true,
     origin: [
-      'http://localhost:5173',
       'http://localhost:3000',
-      'http://localhost:4173',
-      'http://172.20.10.2:5173',
-      'http://192.168.0.157:3000',
+      'http://192.168.0.108:3000',
+      'https://tgrocket.ru',
     ],
   });
 

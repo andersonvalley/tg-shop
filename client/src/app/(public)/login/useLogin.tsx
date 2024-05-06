@@ -21,7 +21,7 @@ export const useLogin = () => {
       message.success('Успешно')
       saveUser(data)
       saveTokenStorage(data.accessToken)
-      router.push(PATHS.CATALOG, { scroll: false })
+      router.push(PATHS.START, { scroll: false })
       client.invalidateQueries({ queryKey: [QUERY_KEY.getAllShops] })
     },
   })
