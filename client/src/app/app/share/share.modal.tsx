@@ -15,9 +15,10 @@ import { useShopStore } from '@/src/store/shop.state'
 import { useCreate } from './fetch/useCreate'
 export interface Props {
   data: createShare
+  subscribers: number
 }
 
-export const ShareModal = ({ data }: Props) => {
+export const ShareModal = ({ data, subscribers }: Props) => {
   const [values, setValues] = useState<createShare>(data)
   const { id } = useShopStore(store => store.currentShop)
   const { handleChange, imageUrl } = useUpload(values, setValues)
@@ -61,7 +62,7 @@ export const ShareModal = ({ data }: Props) => {
         Кнопка «Открыть меню»
       </Checkbox>
 
-      <p className={styles.textModal}>Сообщение получат 1 человек(а)</p>
+      <p className={styles.textModal}>Сообщение получат {subscribers} человек(а)</p>
 
       <div className="line"></div>
       <SubmitButton>Запустить рассылку</SubmitButton>

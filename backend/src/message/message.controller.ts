@@ -1,17 +1,28 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { MessageService } from './message.service';
+import { AuthGuard } from 'src/auth/auth.gard';
+import { CreateMessageDto } from './dto/create-message.dto';
 
-@Controller('message')
+@Controller('messages')
 export class MessageController {
   constructor(private readonly messageService: MessageService) {}
 
-  @Get()
-  findAll() {
-    return this.messageService.findAll();
+  @UseGuards(AuthGuard)
+  @Get(':id')
+  findAll(@Param('id') id: string) {
+    return this.messageService.findAll(id);
   }
 
-  @Get(':id')
+  @UseGuards(AuthGuard)
+  @Get('/byId/:id')
   findOne(@Param('id') id: string) {
-    return this.messageService.findOne(+id);
+    return this.messageService.findOne(id);
+  }
+
+  @UseGuards(AuthGuard)
+  @Post()
+  create(@Body() dto: CreateMessageDto) {
+    console.log(dto);
+    return this.messageService.create(dto);
   }
 }

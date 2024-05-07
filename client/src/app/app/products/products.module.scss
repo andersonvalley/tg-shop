@@ -165,17 +165,21 @@
   padding: 5px 10px;
 }
 
+.categoryWrapper {
+  position: relative;
+  max-width: 300px;
+  width: 100%;
+}
+
 .categorySelect {
   font-weight: 600;
   font-family: 'tg', sans-serif;
   font-size: 1.5rem;
-  max-width: 100px;
+  max-width: 300px;
   padding: 9px 10px;
   background-color: #d3dee8;
   border-radius: 8px;
   cursor: pointer;
-  max-width: 300px;
-  width: 100%;
   position: relative;
 }
 
@@ -185,6 +189,8 @@
   background-color: #d3dee8;
   border-radius: 8px;
   width: 100%;
+  font-family: 'tg', sans-serif;
+  font-size: 1.5rem;
   z-index: 12;
   right: 0;
 
@@ -192,6 +198,7 @@
     transition: all 100ms ease-in-out;
     padding: 6px 10px;
     border-radius: 8px;
+    cursor: pointer;
 
     &:hover {
       background-color: #c8d4de;

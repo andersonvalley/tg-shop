@@ -2,7 +2,7 @@ import { Input } from '@/src/components/UI/input/input'
 import { TextArea } from '@/src/components/UI/input/textArea'
 import { SelectUi } from '@/src/components/UI/select/select'
 import { useValidate } from '@/src/hooks/useValidate'
-import { IGood, createIGood } from '@/src/types/goods.interface'
+import { createIGood } from '@/src/types/goods.interface'
 import { Upload, Image as Imagine } from 'antd'
 import React, { useEffect, useMemo, useState } from 'react'
 import type { UploadFile, UploadProps } from 'antd'
@@ -10,17 +10,16 @@ import { ICategory } from '@/src/types/category.interface'
 import { UploadButton } from '@/src/components/UI/button/uploadButton'
 
 import styles from '../../share/share.module.scss'
-import { SpinUi } from '@/src/components/UI/loader/spin'
 
 interface Props {
   state: createIGood
   setValues: (type: createIGood) => void
   categories: ICategory[] | undefined
-  isLoading: boolean
+  currentCategory: string
   update?: boolean
 }
 
-export const Basic = ({ state, setValues, categories, isLoading, update }: Props) => {
+export const Basic = ({ state, setValues, categories, currentCategory, update }: Props) => {
   const { onChange } = useValidate()
   const [previewOpen, setPreviewOpen] = useState(false)
   const [previewImage, setPreviewImage] = useState('')
@@ -63,7 +62,13 @@ export const Basic = ({ state, setValues, categories, isLoading, update }: Props
   }, [generateFiles, update, startEdit])
 
   useEffect(() => {
-    setValues({ ...state, categoryId: categories ? categories[0].id : '' })
+    const id = categories?.find(item => item.title === currentCategory)?.id
+    if (!id) return
+
+    setValues({
+      ...state,
+      categoryId: categories ? id : '',
+    })
   }, [])
 
   return (
@@ -75,23 +80,19 @@ export const Basic = ({ state, setValues, categories, isLoading, update }: Props
         placeholder=""
       />
 
-      {isLoading ? (
-        <SpinUi />
-      ) : (
-        <SelectUi
-          defaultValue={''}
-          onChange={value => setValues({ ...state, categoryId: value })}
-          label="Категория"
-          options={
-            categories
-              ? categories?.map(option => ({
-                  value: option.id,
-                  label: option.title,
-                }))
-              : []
-          }
-        />
-      )}
+      <SelectUi
+        defaultValue={currentCategory}
+        onChange={value => setValues({ ...state, categoryId: value })}
+        label="Категория"
+        options={
+          categories
+            ? categories?.map(option => ({
+                value: option.id,
+                label: option.title,
+              }))
+            : []
+        }
+      />
 
       <TextArea
         label="Описание"

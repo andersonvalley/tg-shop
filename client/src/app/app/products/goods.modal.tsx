@@ -13,12 +13,15 @@ import { GoodsService } from '@/src/services/goods/goods.service'
 import { useGet } from '@/src/hooks/requests/useGet'
 import { CategoryService } from '@/src/services/category/category.service'
 import { useShopStore } from '@/src/store/shop.state'
+import { ICategory } from '@/src/types/category.interface'
 
 export interface Props {
   data: IGood[]
   update?: boolean
   currentEditId?: string
   updateHandler?: (formData: createIGood) => void
+  currentCategory: string
+  categories: ICategory[]
 }
 
 export const emptyStateGoods: createIGood = {
@@ -54,11 +57,16 @@ export const emptyStateGoods: createIGood = {
   ],
 }
 
-export const GoodsContentModal = ({ data, update, currentEditId, updateHandler }: Props) => {
+export const GoodsContentModal = ({
+  data,
+  update,
+  currentEditId,
+  updateHandler,
+  currentCategory,
+  categories,
+}: Props) => {
   const [values, setValues] = useState<createIGood>(emptyStateGoods)
   const { currentShop } = useShopStore()
-
-  const { data: categories, isLoading } = useGet(QUERY_KEY.getAllCategories, CategoryService.getAll)
 
   const { createHandler } = useCreate<responseMessage, createIGood>(
     QUERY_KEY.getAllGoods,
@@ -99,7 +107,7 @@ export const GoodsContentModal = ({ data, update, currentEditId, updateHandler }
       children: (
         <Basic
           update={update}
-          isLoading={isLoading}
+          currentCategory={currentCategory}
           categories={categories}
           state={values}
           setValues={setValues}

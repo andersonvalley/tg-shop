@@ -6,7 +6,7 @@ import { ISubscriber } from '@/src/types/subscribers.interface'
 import { SubscriberService } from '@/src/services/subscriber/subscriber.service'
 import { normalizeOnlyDate } from '@/src/utils/normalizeDate'
 
-export const useGet = () => {
+export const useGetSubscribers = () => {
   const [items, setItems] = useState<ISubscriber[]>([])
   const { id } = useShopStore(store => store.currentShop)
 

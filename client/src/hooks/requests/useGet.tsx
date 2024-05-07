@@ -15,7 +15,8 @@ export const useGet = <T,>(
   search?: string,
   category?: string,
   sortBy?: string,
-  sortByType?: string
+  sortByType?: string,
+  refetchInterval?: false
 ): UseGetResult<T> => {
   const { id } = useShopStore(store => store.currentShop)
 
@@ -31,6 +32,7 @@ export const useGet = <T,>(
         sortBy ? sortBy : '',
         sortByType ? sortByType : ''
       ),
+    refetchInterval,
   })
 
   return { data, isError, isLoading, isSuccess }

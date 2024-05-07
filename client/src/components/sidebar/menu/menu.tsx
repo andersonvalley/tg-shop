@@ -20,7 +20,7 @@ export const SidebarMenu = () => {
         return (
           <li key={item.title} className={styles.item}>
             <Link
-              className={`${styles.link} ${pathname === item.link ? styles.active : ''}`}
+              className={`${styles.link} ${pathname.includes(item.link) ? styles.active : ''}`}
               onClick={setToogleMobileMenu}
               href={item.link}
               scroll={false}

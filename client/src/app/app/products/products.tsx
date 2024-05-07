@@ -1,7 +1,7 @@
 'use client'
 
 import { Card } from '@/src/components/UI/card/card'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { GoodsContentModal } from './goods.modal'
 import { ListItem } from '@/src/components/UI/list/listItem'
 import { Modal } from 'antd'
@@ -21,11 +21,20 @@ import { currentPrice, normalizePrice } from '@/src/utils/normalizeCurrency'
 import { CategorySelect } from './categorySelect'
 import { CategoryService } from '@/src/services/category/category.service'
 import styles from './products.module.scss'
+import { useShopStore } from '@/src/store/shop.state'
 
 export const Products = () => {
-  const [currentCategory, setCurrentCategory] = useState('Все')
+  const [currentCategory, setCurrentCategory] = useState('Категории не созданы')
+  const [currentCategoryId, setCurrentCategoryId] = useState('')
+  const { currentShop } = useShopStore()
   const { data: categories } = useGet(QUERY_KEY.getAllCategories, CategoryService.getAll)
-  const { data, isError, isLoading } = useGet(QUERY_KEY.getAllGoods, GoodsService.getAll)
+  const { data, isError, isLoading } = useGet(
+    `${QUERY_KEY.getAllGoods}, ${currentCategoryId}`,
+    GoodsService.getAll,
+    currentShop.id,
+    '',
+    currentCategoryId
+  )
 
   const { deleteHandler, showConfirmDeleteModal } = useDelete(QUERY_KEY.getAllGoods, GoodsService.delete)
   const { updateHandler, editOption, currentEditItem } = useUpdate<responseMessage, createIGood>(
@@ -36,14 +45,38 @@ export const Products = () => {
     store => store
   )
 
+  useEffect(() => {
+    if (!categories) return
+
+    if (categories?.length > 0) {
+      setCurrentCategoryId(categories[0].id)
+    }
+  }, [categories, setCurrentCategoryId])
+
   return (
     <Card
       textButton="Добавить товар"
       width="60%"
       title="Товары"
       titleModal="Новый товар"
-      modalContent={!data ? null : <GoodsContentModal data={data} />}
-      additionally={<CategorySelect categories={categories} currentCategory={currentCategory} />}
+      hideButton={!categories?.length}
+      modalContent={
+        !data ? null : (
+          <GoodsContentModal
+            currentCategory={currentCategory}
+            categories={categories ? categories : []}
+            data={data}
+          />
+        )
+      }
+      additionally={
+        <CategorySelect
+          setCurrentCategory={setCurrentCategory}
+          setCurrentCategoryId={setCurrentCategoryId}
+          categories={categories}
+          currentCategory={currentCategory}
+        />
+      }
     >
       <ul className={styles.list}>
         {isError && <li className="empty">Ошибка загрузки</li>}
@@ -103,6 +136,8 @@ export const Products = () => {
               currentEditId={currentEditItem}
               data={data ? data : []}
               update
+              currentCategory={currentCategory}
+              categories={categories ? categories : []}
             />
           </ModalUi>,
           document.body

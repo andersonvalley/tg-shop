@@ -9,11 +9,10 @@ import styles from './subscribers.module.scss'
 import { Card } from '@/src/components/UI/card/card'
 import { Table } from 'antd'
 import { columns } from './table/subscribers.columns'
-import { useGet } from './fetch/useGet'
-import { ISubscriber } from '@/src/types/subscribers.interface'
+import { useGetSubscribers } from './fetch/useGetSubscribers'
 
 export const Subscribers = () => {
-  const { items, isLoading } = useGet()
+  const { items, isLoading } = useGetSubscribers()
 
   return (
     <>

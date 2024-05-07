@@ -75,3 +75,19 @@ export async function startShare(body: IShare) {
     console.log(error);
   }
 }
+
+export async function sendMessage(body: IShare) {
+  try {
+    const response = await fetch(`${botIp}/message`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+
+    console.log(response.status);
+
+    return response.status;
+  } catch (error) {
+    console.log(error);
+  }
+}

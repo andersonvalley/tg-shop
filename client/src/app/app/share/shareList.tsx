@@ -9,6 +9,7 @@ import { normalizeDate } from '@/src/utils/normalizeDate'
 import { useModalStore } from '@/src/store/modal.store'
 import { ShareModal } from './share.modal'
 import { Card } from '@/src/components/UI/card/card'
+import { useGetSubscribers } from '../subscribers/fetch/useGetSubscribers'
 
 export const emptyState = {
   text: '',
@@ -19,6 +20,7 @@ export const emptyState = {
 
 export const ShareList = () => {
   const { items } = useGet()
+  const { items: subscribers } = useGetSubscribers()
 
   return (
     <Card
@@ -26,7 +28,7 @@ export const ShareList = () => {
       title="Завершенные рассылки"
       textButton="Создать рассылку"
       titleModal="Новая рассылка"
-      modalContent={<ShareModal data={emptyState} />}
+      modalContent={<ShareModal subscribers={subscribers && subscribers.length} data={emptyState} />}
     >
       <ul className={styles.list}>
         {items && items.length === 0 && <Empty />}
