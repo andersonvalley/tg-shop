@@ -12,7 +12,6 @@ import { useGetUsersMessage } from '../fetch/useGetUser'
 import { useCreateMessage } from '../fetch/useCreateMessage'
 import { useShopStore } from '@/src/store/shop.state'
 import { BiLogoTelegram } from 'react-icons/bi'
-import { useCurrentUserStore } from '../store/useCurrentUser'
 
 export const MessagesById = () => {
   const [value, setValue] = useState('')
@@ -21,7 +20,6 @@ export const MessagesById = () => {
   const { createHandler } = useCreateMessage()
 
   const { id, first_name } = useShopStore(store => store.currentShop)
-  const { currentUser } = useCurrentUserStore()
 
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()

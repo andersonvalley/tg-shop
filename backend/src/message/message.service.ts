@@ -3,7 +3,7 @@ import { MessageEntity } from './entities/message.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ShopEntity } from 'src/shops/entities/shop.entity';
-import { CreateMessageDto } from './dto/create-message.dto';
+import { CreateMessageDto, getMessageDto } from './dto/create-message.dto';
 import { SubscriberEntity } from 'src/subscriber/entities/subscriber.entity';
 import { sendMessage } from 'src/shops/Bot';
 
@@ -50,10 +50,11 @@ export class MessageService {
     return uniqueSubscribers;
   }
 
-  async findOne(id: string) {
+  async findOne(dto: getMessageDto) {
     const messages = await this.messageRepository.find({
       where: {
-        subscriber_: { id },
+        subscriber_: { id: dto.subscriberId },
+        bot_: { id: dto.shopId },
       },
       relations: { subscriber_: true },
       order: {

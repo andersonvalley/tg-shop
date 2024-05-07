@@ -153,6 +153,7 @@
 .messagesContent {
   padding-top: 10px;
   padding-bottom: 30px;
+  flex-grow: 1;
 
   ul {
     display: flex;
@@ -216,4 +217,15 @@
   right: 2px;
   top: -4px;
   position: relative;
+}
+
+.empty {
+  text-align: center;
+  font-family: 'tg', sans-serif;
+}
+
+.messages {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }

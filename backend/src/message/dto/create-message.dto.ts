@@ -4,3 +4,8 @@ export class CreateMessageDto {
   subscriberId: string;
   is_from_user: boolean;
 }
+
+export class getMessageDto {
+  shopId: string;
+  subscriberId: string;
+}

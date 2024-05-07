@@ -1,4 +1,10 @@
-import { iCreateMessage, iMessage, iMessagesByUser, messageResponse } from '@/src/types/messages.interface'
+import {
+  iCreateMessage,
+  iGetMessgeByUser,
+  iMessage,
+  iMessagesByUser,
+  messageResponse,
+} from '@/src/types/messages.interface'
 import { instance } from '../api/api.config'
 
 export class MessagesService {
@@ -21,9 +27,12 @@ export class MessagesService {
     return response.data
   }
 
-  static async getById(shopId: string) {
-    const response = await instance<iMessage[]>(`/messages/byId/${shopId}`, {
-      method: 'GET',
+  static async getById(data: iGetMessgeByUser) {
+    if (data.shopId === '') return []
+
+    const response = await instance<iMessage[]>(`/messages/id`, {
+      method: 'POST',
+      data,
     })
 
     return response.data

@@ -8,11 +8,12 @@ import { useParams } from 'next/navigation'
 
 export const useGetMessages = () => {
   const [items, setItems] = useState<iMessage[]>([])
+  const { id: shopId } = useShopStore(store => store.currentShop)
   const { id } = useParams()
 
   const { data, isError, isLoading, isSuccess } = useQuery({
-    queryKey: [QUERY_KEY.getAllMessages],
-    queryFn: () => MessagesService.getById(String(id)),
+    queryKey: [QUERY_KEY.getAllMessages, shopId],
+    queryFn: () => MessagesService.getById({ shopId, subscriberId: String(id) }),
     refetchOnWindowFocus: true,
     refetchInterval: 5000,
   })

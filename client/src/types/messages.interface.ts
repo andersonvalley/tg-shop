@@ -20,6 +20,11 @@ export interface iCreateMessage {
   subscriberId: string
 }
 
+export interface iGetMessgeByUser {
+  shopId: string
+  subscriberId: string
+}
+
 export interface messageResponse {
   message: 'string'
 }

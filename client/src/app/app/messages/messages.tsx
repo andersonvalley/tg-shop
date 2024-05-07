@@ -20,6 +20,7 @@ export const Users = () => {
     <div className={params?.id ? [styles.users, styles.userHidden].join(' ') : styles.users}>
       <ul className={styles.userList}>
         {isError && <li className="empty">Ошибка загрузки</li>}
+        {items.length === 0 && <li className={styles.empty}>Нет сообщений</li>}
         {isLoading && <SpinUi />}
         {items?.map(item => {
           return (
