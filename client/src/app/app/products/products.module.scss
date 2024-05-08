@@ -12,6 +12,24 @@
 
 .title {
   white-space: nowrap;
+  max-width: 287px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 10px;
+
+  @media (max-width: 565px) {
+    max-width: 227px;
+  }
+
+  @media (max-width: 470px) {
+    max-width: 190px;
+    font-size: 1.5rem;
+  }
+
+  @media (max-width: 360px) {
+    max-width: 170px;
+    font-size: 1.4rem;
+  }
 }
 
 .photo {
@@ -19,10 +37,19 @@
   height: 45px;
   object-fit: cover;
   border-radius: 10px;
+
+  @media (max-width: 565px) {
+    width: 35px;
+    height: 35px;
+  }
 }
 
 .list > li {
   padding: 10px 16px;
+
+  @media (max-width: 565px) {
+    padding: 10px 7px;
+  }
 }
 
 .extraTitle {
@@ -152,13 +179,17 @@
   color: #d3dee8;
   font-size: 1.5rem;
 
-  @media (max-width: 500px) {
+  @media (max-width: 650px) {
     display: none;
   }
 }
 
 .new {
   font-family: 'tg', sans-serif;
+
+  @media (max-width: 400px) {
+    display: none;
+  }
 }
 
 .categoryWr > div {

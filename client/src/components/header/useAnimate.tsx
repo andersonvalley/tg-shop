@@ -13,7 +13,7 @@ export const useAnimate = () => {
     },
     to: {
       height: expanded ? height + 16 : 0,
-      top: expanded ? '60px' : '0px',
+      top: expanded ? '60px' : '-20px',
       opacity: expanded ? 1 : 0,
     },
   })

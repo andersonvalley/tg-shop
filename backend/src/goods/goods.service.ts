@@ -115,7 +115,14 @@ export class GoodsService {
     if (query.category) {
       const category = await this.categoryRepository.findOne({
         where: { id: query.category },
-        relations: { goods: { photoLinks: true } },
+        relations: {
+          goods: {
+            photoLinks: true,
+            category: true,
+            options: true,
+            variants: true,
+          },
+        },
         order: {
           goods: { [sortBy]: sortByType },
         },

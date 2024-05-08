@@ -8,15 +8,15 @@ import styles from '../messages.module.scss'
 import { useGetMessages } from '../fetch/useGetMessages'
 import { normalizeOnlyTime } from '@/src/utils/normalizeDate'
 import { SpinUi } from '@/src/components/UI/loader/spin'
-import { useGetUsersMessage } from '../fetch/useGetUser'
 import { useCreateMessage } from '../fetch/useCreateMessage'
 import { useShopStore } from '@/src/store/shop.state'
 import { BiLogoTelegram } from 'react-icons/bi'
+import { Button } from 'antd'
 
 export const MessagesById = () => {
   const [value, setValue] = useState('')
   const scrollRef = useRef<HTMLDivElement>(null)
-  const { items, isError, isLoading } = useGetMessages()
+  const { items, isError, isLoading, isSuccess } = useGetMessages()
   const { createHandler } = useCreateMessage()
 
   const { id, first_name } = useShopStore(store => store.currentShop)
@@ -47,14 +47,16 @@ export const MessagesById = () => {
     <div className={styles.messagesWrapper}>
       <div className={styles.messages}>
         <div className={styles.messagesHeader}>
-          <Image
-            src={items[0]?.subscriber_?.avatar_url ? items[0]?.subscriber_?.avatar_url : '/user.png'}
-            width={50}
-            height={50}
-            alt="user"
-          />
+          {isSuccess && (
+            <Image
+              src={items[0]?.subscriber_?.avatar_url ? items[0]?.subscriber_?.avatar_url : '/user.png'}
+              width={50}
+              height={50}
+              alt="user"
+            />
+          )}
           <span className={styles.name}>
-            {items[0]?.subscriber_?.first_name + ' ' + items[0]?.subscriber_?.last_name}
+            {isSuccess && items[0]?.subscriber_?.first_name + ' ' + items[0]?.subscriber_?.last_name}
           </span>
         </div>
 
@@ -105,7 +107,11 @@ export const MessagesById = () => {
               value={value}
               onChange={e => setValue(e.target.value)}
               placeholder="Написать сообщение..."
-              icon={<BiLogoTelegram className={styles.icon} size={23} />}
+              icon={
+                <button type="submit">
+                  <BiLogoTelegram className={styles.icon} size={23} />
+                </button>
+              }
             />
           </form>
         </div>

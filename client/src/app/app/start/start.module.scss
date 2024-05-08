@@ -66,6 +66,12 @@
     flex-direction: column;
     gap: 5px;
   }
+
+  @media (max-width: 460px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
 }
 
 .status {

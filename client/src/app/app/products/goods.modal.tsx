@@ -21,6 +21,7 @@ export interface Props {
   currentEditId?: string
   updateHandler?: (formData: createIGood) => void
   currentCategory: string
+  currentCategoryId?: string
   categories: ICategory[]
 }
 
@@ -63,13 +64,14 @@ export const GoodsContentModal = ({
   currentEditId,
   updateHandler,
   currentCategory,
+  currentCategoryId,
   categories,
 }: Props) => {
   const [values, setValues] = useState<createIGood>(emptyStateGoods)
   const { currentShop } = useShopStore()
 
   const { createHandler } = useCreate<responseMessage, createIGood>(
-    QUERY_KEY.getAllGoods,
+    `${QUERY_KEY.getAllGoods}, ${currentCategoryId}`,
     GoodsService.create
   )
 

@@ -180,3 +180,165 @@ button {
   inset: 0;
   background: #fff;
 }
+
+:where(.css-dev-only-do-not-override-11xg00t).ant-switch.ant-switch-checked {
+  background: var(--link);
+}
+
+:where(.css-dev-only-do-not-override-11xg00t).ant-switch.ant-switch-checked:hover:not(.ant-switch-disabled) {
+  background: var(--link-hover);
+}
+
+:where(.css-dev-only-do-not-override-1kuana8).ant-modal .ant-modal-title {
+  font-size: 2.3rem;
+  color: var(--tag);
+  font-family: 'tg', sans-serif;
+}
+
+:where(.css-dev-only-do-not-override-1kuana8).ant-modal .ant-modal-header {
+  margin-bottom: 20px;
+}
+
+:where(.css-dev-only-do-not-override-1kuana8).ant-checkbox-wrapper {
+  color: var(--color);
+  font-family: 'tg';
+}
+
+:where(.css-dev-only-do-not-override-1kuana8).ant-select-dropdown .ant-select-item {
+  padding: 10px 12px;
+  color: var(--color);
+  font-weight: 500;
+}
+
+:where(.css-dev-only-do-not-override-1kuana8).ant-modal .ant-modal-content {
+  border-radius: 22px;
+}
+
+:where(.css-dev-only-do-not-override-1kuana8).ant-select-dropdown
+  .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
+  background-color: var(--bg);
+}
+
+:where(.css-dev-only-do-not-override-1kuana8).ant-select-dropdown
+  .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+  font-weight: 700;
+  color: var(--color);
+}
+
+:where(.css-dev-only-do-not-override-1kuana8).ant-select-single.ant-select-show-arrow
+  .ant-select-selection-item,
+:where(.css-dev-only-do-not-override-1kuana8).ant-select-single.ant-select-show-arrow
+  .ant-select-selection-placeholder {
+  color: #000;
+}
+
+a[title='Preview file'] {
+  display: none;
+}
+
+.ant-upload button div {
+  display: none;
+}
+
+.ant-upload button svg {
+  fill: var(--tag);
+}
+
+.line {
+  height: 1px;
+  background: #e7eaf0;
+  margin: 0 0 20px 0;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.description {
+  padding-left: 40px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 350px;
+  font-size: 1.5rem;
+  width: 100%;
+  text-align: right;
+
+  @media (max-width: 630px) {
+    max-width: 200px;
+  }
+
+  @media (max-width: 470px) {
+    display: none;
+  }
+}
+
+.switch {
+  display: flex;
+  gap: 12px;
+  font-size: 1.5rem;
+  color: var(--color);
+  font-family: 'tg', sans-serif;
+  margin-bottom: 10px;
+}
+
+.switchMargin {
+  margin-bottom: 0;
+
+  span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+    width: 100%;
+  }
+}
+
+.empty {
+  padding: 10px 15px;
+  width: 100%;
+}
+
+.empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  img {
+    max-width: 80px;
+    margin-bottom: 7px;
+  }
+}
+
+:where(.css-dev-only-do-not-override-1kuana8).ant-table-wrapper .ant-table-thead > tr > th,
+:where(.css-dev-only-do-not-override-1kuana8).ant-table-wrapper .ant-table-thead > tr > td {
+  color: #8492a6;
+  text-transform: uppercase;
+  font-family: 'tg', sans-serif;
+}
+
+.ant-empty-normal {
+  display: none;
+}
+
+@media (max-width: 650px) {
+  .ant-table {
+    overflow: scroll;
+  }
+  .ant-table-container {
+    width: 600px;
+  }
+}
+
+.ant-table-cell {
+  color: var(--color);
+}

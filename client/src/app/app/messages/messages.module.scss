@@ -10,6 +10,10 @@
   padding: 10px;
   max-width: 360px;
   width: 100%;
+
+  @media (max-width: 900px) {
+    max-width: none;
+  }
 }
 
 .messagesWrapper {
@@ -103,7 +107,7 @@
   top: -10px;
   left: 0;
   right: 0;
-  background-color: #fff;
+  background-color: #ffffffca;
   backdrop-filter: blur(5px);
   z-index: 2;
 
@@ -217,6 +221,7 @@
   right: 2px;
   top: -4px;
   position: relative;
+  cursor: pointer;
 }
 
 .empty {

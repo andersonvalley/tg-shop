@@ -20,25 +20,30 @@ import { createIGood, responseMessage } from '@/src/types/goods.interface'
 import { currentPrice, normalizePrice } from '@/src/utils/normalizeCurrency'
 import { CategorySelect } from './categorySelect'
 import { CategoryService } from '@/src/services/category/category.service'
-import styles from './products.module.scss'
 import { useShopStore } from '@/src/store/shop.state'
+import styles from './products.module.scss'
 
 export const Products = () => {
   const [currentCategory, setCurrentCategory] = useState('Категории не созданы')
   const [currentCategoryId, setCurrentCategoryId] = useState('')
   const { currentShop } = useShopStore()
-  const { data: categories } = useGet(QUERY_KEY.getAllCategories, CategoryService.getAll)
-  const { data, isError, isLoading } = useGet(
+  const { data: categories, isError, isLoading } = useGet(QUERY_KEY.getAllCategories, CategoryService.getAll)
+  const { data } = useGet(
     `${QUERY_KEY.getAllGoods}, ${currentCategoryId}`,
     GoodsService.getAll,
     currentShop.id,
     '',
-    currentCategoryId
+    currentCategoryId,
+    '',
+    ''
   )
 
-  const { deleteHandler, showConfirmDeleteModal } = useDelete(QUERY_KEY.getAllGoods, GoodsService.delete)
+  const { deleteHandler, showConfirmDeleteModal } = useDelete(
+    `${QUERY_KEY.getAllGoods}, ${currentCategoryId}`,
+    GoodsService.delete
+  )
   const { updateHandler, editOption, currentEditItem } = useUpdate<responseMessage, createIGood>(
-    QUERY_KEY.getAllGoods,
+    `${QUERY_KEY.getAllGoods}, ${currentCategoryId}`,
     GoodsService.update
   )
   const { setIsConfirmDeleteModal, setIsEditModal, isConfirmDeleteModal, isEditModal } = useModalStore(
@@ -64,6 +69,7 @@ export const Products = () => {
         !data ? null : (
           <GoodsContentModal
             currentCategory={currentCategory}
+            currentCategoryId={currentCategoryId}
             categories={categories ? categories : []}
             data={data}
           />
@@ -108,7 +114,7 @@ export const Products = () => {
               </div>
 
               <div className={styles.priceWrapper}>
-                <span className={styles.old}>{normalizePrice(item.price)}</span>
+                {item.discount > 0 && <span className={styles.old}>{normalizePrice(item.price)}</span>}
                 <span className={styles.new}>{currentPrice(item.price, item.discount)}</span>
               </div>
             </ListItem>
