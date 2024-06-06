@@ -8,19 +8,15 @@ interface Props {
   path: string
   xl?: boolean
   justText?: boolean
+  target?: string
 }
 
-export const LinkLanding = ({ text, path, xl, justText }: Props) => {
+export const LinkLanding = ({ text, path, xl, justText, target }: Props) => {
   const xlBtn = xl ? styles.xl : ''
   const justBtn = justText ? styles.justText : ''
 
   return (
-    <Link
-      target={justBtn ? '_blank' : '_self'}
-      href={path}
-      scroll={false}
-      className={[styles.button, xlBtn, justBtn].join(' ')}
-    >
+    <Link target={target} href={path} scroll={false} className={[styles.button, xlBtn, justBtn].join(' ')}>
       {text}
     </Link>
   )

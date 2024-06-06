@@ -7,7 +7,7 @@ interface Props {
   className?: string
 }
 
-// import './main.scss'
+import './main.scss'
 import styles from './layout.module.scss'
 
 export const Wrapper = ({ title, children, width, className }: Props) => {

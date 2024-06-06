@@ -6,14 +6,14 @@
   background: var(--link-hover);
 }
 
-:where(.css-dev-only-do-not-override-1kuana8).ant-modal .ant-modal-title {
-  font-size: 2.3rem;
-  color: var(--tag);
-  font-family: 'tg', sans-serif;
+.ant-modal-title {
+  font-size: 2.3rem !important;
+  color: var(--tag) !important;
+  font-family: 'tg', sans-serif !important;
 }
 
-:where(.css-dev-only-do-not-override-1kuana8).ant-modal .ant-modal-header {
-  margin-bottom: 20px;
+.ant-modal-header {
+  margin-bottom: 20px !important;
 }
 
 :where(.css-dev-only-do-not-override-1kuana8).ant-checkbox-wrapper {
