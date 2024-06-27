@@ -28,7 +28,12 @@ export default function Login() {
 
         <p className={styles.subtitle}>
           Получите код в боте{' '}
-          <LinkLanding justText={true} text="@tgrocket_bot" path="https://t.me/tgrocket_bot" />
+          <LinkLanding
+            justText={true}
+            text="@tgrocket_bot"
+            path="https://t.me/tgrocket_bot"
+            target="_blank"
+          />
         </p>
 
         <form className={styles.form} onSubmit={handleSubmit}>

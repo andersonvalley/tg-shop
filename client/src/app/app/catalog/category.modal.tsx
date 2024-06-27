@@ -19,7 +19,7 @@ export const emptyStateCategory = {
   title: '',
 }
 
-export const CategoryContentModal = ({ update, updateHandler }: Props) => {
+export const CategoryContentModal = ({ update, updateHandler, currentEditId }: Props) => {
   const [values, setValues] = useState<createOrUpdateCategory>(emptyStateCategory)
   const { createHandler } = useCreate<categoryResponse, createOrUpdateCategory>(
     QUERY_KEY.getAllCategories,
@@ -30,6 +30,7 @@ export const CategoryContentModal = ({ update, updateHandler }: Props) => {
     e.preventDefault()
 
     if (update && updateHandler) {
+      values.id = currentEditId
       updateHandler(values)
     } else {
       createHandler(values)

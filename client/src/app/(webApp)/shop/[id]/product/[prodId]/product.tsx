@@ -12,6 +12,7 @@ import { BackButton } from '@vkruglikov/react-telegram-web-app'
 
 import 'swiper/scss'
 import styles from './product.module.scss'
+import { SelectUi } from '@/src/components/UI/select/select'
 
 export const Product = ({ id }: { id: string }) => {
   const router = useRouter()
@@ -47,10 +48,20 @@ export const Product = ({ id }: { id: string }) => {
         <h1 className={styles.prductTitle}>{data?.title}</h1>
         <p className={styles.description}>{data?.description}</p>
 
+        {data?.variants && (
+          <SelectUi
+            label={data?.titleVariant}
+            defaultValue={data?.variants ? data?.variants[0].title : ''}
+            options={
+              data?.variants ? data?.variants.map(item => ({ label: item.title, value: item.title })) : []
+            }
+            onChange={() => {}}
+          />
+        )}
         <div className={styles.variant}></div>
         {data?.weight && <span className={styles.weight}>Вес: {data?.weight} г.</span>}
         <span className={styles.quantity}>
-          В наличии: {data?.quantity === '' ? 'много' : data?.quantity + 'шт.'}
+          В наличии: {data?.quantity === '' ? 'много' : data?.quantity + ' шт.'}
         </span>
         <div className={styles.option}></div>
         {normalizePrice(data?.price)}
