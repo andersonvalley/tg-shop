@@ -13,6 +13,8 @@ import { BackButton } from '@vkruglikov/react-telegram-web-app'
 import 'swiper/scss'
 import styles from './product.module.scss'
 import { SelectUi } from '@/src/components/UI/select/select'
+import { FaMinus, FaPlus } from 'react-icons/fa'
+import { Checkbox, Select } from 'antd'
 
 export const Product = ({ id }: { id: string }) => {
   const router = useRouter()
@@ -49,22 +51,60 @@ export const Product = ({ id }: { id: string }) => {
         <p className={styles.description}>{data?.description}</p>
 
         {data?.variants && (
-          <SelectUi
-            label={data?.titleVariant}
-            defaultValue={data?.variants ? data?.variants[0].title : ''}
-            options={
-              data?.variants ? data?.variants.map(item => ({ label: item.title, value: item.title })) : []
-            }
-            onChange={() => {}}
-          />
+          <label className={styles.selectLabel}>
+            <span className={styles.labelText}>{data?.titleVariant}</span>
+            <Select
+              popupClassName={styles.popup}
+              className={styles.select}
+              defaultValue={data?.variants ? data?.variants[0].title : ''}
+              options={
+                data?.variants ? data?.variants.map(item => ({ label: item.title, value: item.title })) : []
+              }
+            />
+          </label>
         )}
-        <div className={styles.variant}></div>
+        {data?.options && (
+          <div className={styles.options}>
+            <span className={styles.labelText}>{data?.titleOption}</span>
+            <ul className={styles.optionList}>
+              {data.options.map(item => {
+                return (
+                  <li className={styles.optionItem} key={item.id}>
+                    <Checkbox
+                      className={styles.checkbox}
+                      // checked={optionsValues.requiredOption}
+                      onChange={() => {}}
+                    />
+                    <span className={styles.optionTitle}>{item.title}</span>+{normalizePrice(+item.price)}
+                  </li>
+                )
+              })}
+            </ul>
+          </div>
+        )}
+
         {data?.weight && <span className={styles.weight}>Вес: {data?.weight} г.</span>}
         <span className={styles.quantity}>
           В наличии: {data?.quantity === '' ? 'много' : data?.quantity + ' шт.'}
         </span>
         <div className={styles.option}></div>
         {normalizePrice(data?.price)}
+      </div>
+
+      <div className={styles.footer}>
+        <div className="price"></div>
+        <div className="col">
+          <div className={styles.count}>
+            <button className={styles.countItem}>
+              <FaMinus />
+            </button>
+            <span className={styles.countNumber}>1</span>
+            <button className={styles.countItem}>
+              <FaPlus />
+            </button>
+          </div>
+        </div>
+        <div className="button">Добавить</div>
       </div>
     </motion.div>
   )

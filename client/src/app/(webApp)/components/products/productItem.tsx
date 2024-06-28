@@ -15,6 +15,7 @@ import { useMutation } from '@tanstack/react-query'
 import { createICart } from '@/src/types/cart.interface'
 import { CartService } from '@/src/services/cart/cart.service'
 import { useInitData } from '@vkruglikov/react-telegram-web-app'
+import { IoIosHeartEmpty } from 'react-icons/io'
 
 interface Props extends IGood {
   isLoading: boolean
@@ -48,7 +49,7 @@ export const ProductItem = ({ title, price, id, photoLinks, isLoading, quantity 
       viewport={{ once: true }}
     >
       <div>
-        {isLoading ? (
+        {!!isLoading ? (
           <SpinUi />
         ) : (
           <>
@@ -63,16 +64,19 @@ export const ProductItem = ({ title, price, id, photoLinks, isLoading, quantity 
                 width={200}
                 height={200}
               />
+              {/* <button onClick={addToFavoriteHandler} className={styles.favorite}>
+                <IoIosHeartEmpty size={18} />
+              </button> */}
             </Link>
 
             <div className={styles.cardFooter}>
               <h4 className={styles.cardTitle}>{title}</h4>
 
               <div className={styles.group}>
-                <span>{normalizePrice(price)}</span>
-                <button onClick={() => addToCartHandler(id)} className={styles.add}>
+                <span>от {normalizePrice(price)}</span>
+                {/* <button onClick={() => addToCartHandler(id)} className={styles.add}>
                   <HiOutlinePlusSm size={23} />
-                </button>
+                </button> */}
               </div>
             </div>
           </>

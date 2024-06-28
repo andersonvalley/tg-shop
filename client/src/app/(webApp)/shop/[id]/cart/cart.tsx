@@ -38,13 +38,13 @@ export const Cart = () => {
     return normalizePrice(sum)
   }, [cart])
 
-  const validatePromocodHandler = () => {}
+  const validatePromocodeHandler = () => {}
 
   return (
     <div className={styles.cart}>
       <BackButton onClick={() => router.back()} />
       <div className={styles.header}>
-        <span onClick={validatePromocodHandler} className={styles.title}>
+        <span onClick={validatePromocodeHandler} className={styles.title}>
           Корзина
         </span>
         {cart && cart.length > 0 && (

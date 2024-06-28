@@ -37,7 +37,7 @@
 }
 
 .description {
-  margin-bottom: 12px;
+  margin-bottom: 18px;
 }
 
 .weight {
@@ -52,3 +52,46 @@
   color: var(--tg-theme-accent-text-color);
   display: block;
 }
+
+.labelText {
+  margin-bottom: 10px;
+  display: block;
+}
+
+.select {
+  width: 100%;
+
+  div {
+    background: var(--tg-theme-bg-color) !important;
+    border: var(--tg-theme-bg-color) !important;
+    color: var(--tg-theme-text-color) !important;
+    font-size: 16px !important;
+    padding: 20px 10px !important;
+  }
+}
+
+.selectLabel,
+.options {
+  margin-bottom: 25px;
+  display: block;
+}
+
+.optionList {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.optionItem {
+  display: flex;
+  gap: 5px;
+}
+
+.optionTitle {
+  flex-grow: 1;
+}
+
+// .popup {
+//   background: var(--tg-theme-bg-color) !important;
+//   color: var(--tg-theme-text-color) !important;
+// }
