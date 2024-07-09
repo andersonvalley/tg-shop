@@ -27,12 +27,17 @@ export class ShopCartService {
     }
 
     const existsGoods = await this.cartRepository.findOne({
-      where: { goods_id: dto.goods },
+      where: { goods_id: dto.goods, variant_id: dto.variant },
     });
 
-    if (existsGoods) return { message: 'Уже добавлен' };
+    if (existsGoods) throw new Error('Товар уже добавлен');
 
-    const shopCart = this.cartRepository.create({ goods_id: dto.goods });
+    const shopCart = this.cartRepository.create({
+      goods_id: dto.goods,
+      variant_id: dto.variant,
+      options_id: dto.options,
+      quantity_cart: dto.quantity_cart,
+    });
 
     shopCart.subscriber_ = subscriber;
     this.cartRepository.save(shopCart);
@@ -57,10 +62,22 @@ export class ShopCartService {
       where: {
         id: In(productsIds),
       },
-      relations: { options: true, variants: true, photoLinks: true },
+      relations: ['options', 'variants', 'photoLinks'],
     });
 
-    return filtered;
+    // Создаем словарь для быстрого поиска товаров по id
+    const filteredMap = new Map(filtered.map((item) => [item.id, item]));
+
+    // Объединяем данные из products и filtered
+    const mergedProducts = products.map((product) => {
+      const detailedProduct = filteredMap.get(product.goods_id);
+      return {
+        ...product,
+        ...detailedProduct,
+      };
+    });
+
+    return mergedProducts;
   }
 
   async update(id: number) {

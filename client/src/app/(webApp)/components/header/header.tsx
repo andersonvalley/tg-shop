@@ -3,6 +3,7 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { motion } from 'framer-motion'
 
 import { QUERY_KEY } from '@/src/constants/queryKey'
 import { SubscriberService } from '@/src/services/subscriber/subscriber.service'
@@ -14,10 +15,12 @@ import { SpinUi } from '@/src/components/UI/loader/spin'
 
 import cl from '../../../../components/header/header.module.scss'
 import { usePathname } from '../../hooks/usePath'
+import { useCart } from '../../store/useCart'
 
-export const HeaderWebApp = () => {
+export const HeaderWebApp: React.FC = () => {
   const [initDataUnsafe] = useInitData()
   const { hash, initialPathname } = usePathname()
+  const { cart } = useCart()
 
   const { data, isLoading } = useQuery({
     queryKey: [QUERY_KEY.getSubscriberById, initDataUnsafe?.user?.id],
@@ -26,7 +29,16 @@ export const HeaderWebApp = () => {
   })
 
   return (
-    <header className={cl.header}>
+    <motion.header
+      initial={{ scale: 0, rotate: 180 }}
+      animate={{ rotate: 0, scale: 1 }}
+      transition={{
+        type: 'spring',
+        stiffness: 260,
+        damping: 20,
+      }}
+      className={cl.header}
+    >
       <div className={[cl.wrapperLanding, cl.wrapperLandingWebApp].join(' ')}>
         <div className={cl.currentUser}>
           {isLoading ? (
@@ -56,10 +68,10 @@ export const HeaderWebApp = () => {
 
           <Link href={`${initialPathname}/cart/${hash}`} className={cl.btn}>
             <PiShoppingCartBold size={20} />
-            <span className={cl.count}>12</span>
+            <span className={cl.count}>{cart.length}</span>
           </Link>
         </div>
       </div>
-    </header>
+    </motion.header>
   )
 }

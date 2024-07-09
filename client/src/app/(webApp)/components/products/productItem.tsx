@@ -6,7 +6,6 @@ import { motion } from 'framer-motion'
 
 import { IGood } from '@/src/types/goods.interface'
 import { normalizePrice } from '@/src/utils/normalizeCurrency'
-import { HiOutlinePlusSm } from 'react-icons/hi'
 import { SpinUi } from '@/src/components/UI/loader/spin'
 
 import styles from './card.module.scss'
@@ -15,7 +14,6 @@ import { useMutation } from '@tanstack/react-query'
 import { createICart } from '@/src/types/cart.interface'
 import { CartService } from '@/src/services/cart/cart.service'
 import { useInitData } from '@vkruglikov/react-telegram-web-app'
-import { IoIosHeartEmpty } from 'react-icons/io'
 
 interface Props extends IGood {
   isLoading: boolean
@@ -23,33 +21,22 @@ interface Props extends IGood {
 
 export const ProductItem = ({ title, price, id, photoLinks, isLoading, quantity }: Props) => {
   const { initialPathname, hash } = usePathname()
-  const [initDataUnsafe] = useInitData()
-
-  const { mutate: add } = useMutation({
-    mutationFn: (formData: createICart) => CartService.create(formData),
-  })
-
-  const addToCartHandler = (id: string) => {
-    if (!initDataUnsafe?.user?.id) return
-
-    const formData: createICart = {
-      subscriber: String(initDataUnsafe?.user?.id),
-      goods: id,
-    }
-    add(formData)
-  }
 
   if (quantity === '0') return
 
   return (
     <motion.li
       className={[styles.card, isLoading ? styles.spin : ''].join(' ')}
-      initial={{ opacity: 0, transform: 'translateY(100px)' }}
-      whileInView={{ opacity: 1, transform: 'translateY(0)' }}
-      viewport={{ once: true }}
+      initial={{ scale: 0, transform: 'translateY(100px)' }}
+      animate={{ scale: 1, transform: 'translateY(0px)' }}
+      transition={{
+        type: 'spring',
+        stiffness: 260,
+        damping: 40,
+      }}
     >
       <div>
-        {!!isLoading ? (
+        {isLoading ? (
           <SpinUi />
         ) : (
           <>

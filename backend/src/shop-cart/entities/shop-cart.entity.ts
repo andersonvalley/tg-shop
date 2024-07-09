@@ -15,8 +15,17 @@ export class ShopCartEntity {
   @CreateDateColumn()
   created_date: Date;
 
-  @Column({ unique: true })
+  @Column()
   goods_id: string;
+
+  @Column()
+  variant_id: string;
+
+  @Column()
+  options_id: string;
+
+  @Column()
+  quantity_cart: number;
 
   @ManyToOne(() => SubscriberEntity, (subscriber) => subscriber.cart)
   subscriber_: SubscriberEntity;

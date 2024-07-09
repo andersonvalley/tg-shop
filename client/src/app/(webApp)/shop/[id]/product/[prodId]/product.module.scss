@@ -86,11 +86,14 @@
 
 .optionItem {
   display: flex;
+  justify-content: space-between;
   gap: 5px;
 }
 
 .optionTitle {
   flex-grow: 1;
+  font-family: var(--ff);
+  font-size: 1.7rem;
 }
 
 .actions {
@@ -101,6 +104,10 @@
   justify-content: space-between;
   align-items: center;
   gap: 10px;
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
 }
 
 .add {
@@ -108,6 +115,9 @@
   color: var(--tg-theme-button-text-color);
   border-radius: 12px;
   padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .count {
@@ -130,4 +140,38 @@
 
 .countNumber {
   font-family: 'tg', sans-serif;
+}
+
+.price {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.oldPrice {
+  font-size: 1.3rem;
+  text-decoration: line-through;
+}
+
+.newPrice {
+  color: var(--tg-theme-link-color);
+  font-weight: 700;
+}
+
+.discount {
+  align-items: center;
+  background-color: #eee;
+  border-radius: 50px;
+  cursor: pointer;
+  display: flex;
+  height: 37px;
+  justify-content: center;
+  left: 10px;
+  position: absolute;
+  top: 10px;
+  width: 37px;
+  font-size: 1.4rem;
+  color: var(--tg-theme-link-color);
+  font-weight: 700;
+  z-index: 9;
 }

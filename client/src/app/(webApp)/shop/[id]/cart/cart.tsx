@@ -69,7 +69,7 @@ export const Cart = () => {
             </motion.li>
           )}
           {cart?.map(item => {
-            return <CartItem key={item.id} {...item} />
+            return <CartItem key={item.id + item.variant_id} {...item} />
           })}
         </ul>
 

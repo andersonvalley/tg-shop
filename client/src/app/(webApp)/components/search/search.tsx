@@ -16,9 +16,13 @@ export const Search = () => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, transform: 'translateY(100px)' }}
-      whileInView={{ opacity: 1, transform: 'translateY(0px)' }}
-      viewport={{ once: true }}
+      initial={{ scale: 0, transform: 'translateY(100px)' }}
+      animate={{ scale: 1, transform: 'translateY(0px)' }}
+      transition={{
+        type: 'spring',
+        stiffness: 260,
+        damping: 70,
+      }}
       className={[styles.search, 'card animate'].join(' ')}
     >
       <input
