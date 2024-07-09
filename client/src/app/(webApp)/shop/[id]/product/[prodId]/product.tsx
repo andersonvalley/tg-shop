@@ -12,13 +12,30 @@ import { BackButton } from '@vkruglikov/react-telegram-web-app'
 
 import 'swiper/scss'
 import styles from './product.module.scss'
-import { SelectUi } from '@/src/components/UI/select/select'
 import { FaMinus, FaPlus } from 'react-icons/fa'
 import { Checkbox, Select } from 'antd'
+import { useEffect, useState } from 'react'
+import { replaceBr } from '@/src/utils'
 
 export const Product = ({ id }: { id: string }) => {
   const router = useRouter()
   const { data } = useGet(QUERY_KEY.getGoodsById, GoodsService.getById, id)
+  const [totalAdded, setTotalAdded] = useState(1)
+  const [totalPriceByOneItem, setTotalPriceByOneItem] = useState(data?.price ? data?.price : 0)
+
+  const decrease = () => {
+    if (totalAdded === 1) return
+    setTotalAdded(prev => prev - 1)
+  }
+
+  const increment = () => {
+    if (data?.quantity && totalAdded === +data?.quantity) return
+    setTotalAdded(prev => prev + 1)
+  }
+
+  useEffect(() => {
+    setTotalPriceByOneItem(prev => (data?.price ? +data?.price * totalAdded : 0))
+  }, [totalAdded, data?.price])
 
   return (
     <motion.div
@@ -48,9 +65,9 @@ export const Product = ({ id }: { id: string }) => {
       </Swiper>
       <div className={styles.content}>
         <h1 className={styles.prductTitle}>{data?.title}</h1>
-        <p className={styles.description}>{data?.description}</p>
+        <p className={styles.description}>{replaceBr(data?.description)}</p>
 
-        {data?.variants && (
+        {data?.variants && data.titleVariant && (
           <label className={styles.selectLabel}>
             <span className={styles.labelText}>{data?.titleVariant}</span>
             <Select
@@ -63,7 +80,7 @@ export const Product = ({ id }: { id: string }) => {
             />
           </label>
         )}
-        {data?.options && (
+        {data?.options && data.titleOption && (
           <div className={styles.options}>
             <span className={styles.labelText}>{data?.titleOption}</span>
             <ul className={styles.optionList}>
@@ -91,20 +108,20 @@ export const Product = ({ id }: { id: string }) => {
         {normalizePrice(data?.price)}
       </div>
 
-      <div className={styles.footer}>
-        <div className="price"></div>
+      <div className={styles.actions}>
+        <div className={styles.price}>{normalizePrice(totalPriceByOneItem)}</div>
         <div className="col">
           <div className={styles.count}>
-            <button className={styles.countItem}>
+            <button onClick={decrease} className={styles.countItem}>
               <FaMinus />
             </button>
-            <span className={styles.countNumber}>1</span>
-            <button className={styles.countItem}>
+            <span className={styles.countNumber}>{totalAdded}</span>
+            <button onClick={increment} className={styles.countItem}>
               <FaPlus />
             </button>
           </div>
         </div>
-        <div className="button">Добавить</div>
+        <div className={styles.add}>Добавить</div>
       </div>
     </motion.div>
   )

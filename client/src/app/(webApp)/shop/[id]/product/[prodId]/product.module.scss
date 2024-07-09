@@ -38,6 +38,7 @@
 
 .description {
   margin-bottom: 18px;
+  white-space: pre-wrap;
 }
 
 .weight {
@@ -56,6 +57,7 @@
 .labelText {
   margin-bottom: 10px;
   display: block;
+  font-family: 'tg', sans-serif;
 }
 
 .select {
@@ -91,7 +93,41 @@
   flex-grow: 1;
 }
 
-// .popup {
-//   background: var(--tg-theme-bg-color) !important;
-//   color: var(--tg-theme-text-color) !important;
-// }
+.actions {
+  padding: 10px;
+  background: var(--tg-theme-bg-color);
+  border-radius: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.add {
+  background: var(--tg-theme-accent-text-color);
+  color: var(--tg-theme-button-text-color);
+  border-radius: 12px;
+  padding: 8px 14px;
+}
+
+.count {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3px;
+  width: 100px;
+  background: var(--tg-theme-secondary-bg-color);
+  border-radius: 12px;
+}
+
+.countItem {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.countNumber {
+  font-family: 'tg', sans-serif;
+}

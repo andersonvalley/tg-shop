@@ -95,10 +95,15 @@ export const GoodsContentModal = ({
 
     if (!currentShop.id) return
 
+    const formattedValues = {
+      ...values,
+      description: values.description.replace(/\n/g, '<br>'),
+    }
+
     if (update && updateHandler) {
-      updateHandler(values)
+      updateHandler(formattedValues)
     } else {
-      createHandler(values)
+      createHandler(formattedValues)
     }
   }
 

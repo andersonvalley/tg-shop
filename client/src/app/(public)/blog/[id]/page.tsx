@@ -1,5 +1,5 @@
 import { LinkLanding } from '@/src/components/landing/link/link'
-import styles from '../../../components/landing/page.module.scss'
+import styles from '../../../../components/landing/page.module.scss'
 
 import type { Metadata } from 'next'
 

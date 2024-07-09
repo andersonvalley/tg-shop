@@ -10,6 +10,7 @@ import { ICategory } from '@/src/types/category.interface'
 import { UploadButton } from '@/src/components/UI/button/uploadButton'
 
 import styles from '../../share/share.module.scss'
+import { replaceBr } from '@/src/utils'
 
 interface Props {
   state: createIGood
@@ -96,7 +97,7 @@ export const Basic = ({ state, setValues, categories, currentCategory, update }:
 
       <TextArea
         label="Описание"
-        value={state.description}
+        value={replaceBr(state.description)}
         onChange={e => setValues({ ...state, description: e.target.value })}
         placeholder="Скидка 20% на первый заказ"
         required={false}
@@ -138,7 +139,7 @@ export const Basic = ({ state, setValues, categories, currentCategory, update }:
         onChange={e => onChange(e.target.value, value => setValues({ ...state, discount: +value }))}
         placeholder="0"
         width="33%"
-        icon="₽"
+        icon="%"
         required={false}
       />
 
