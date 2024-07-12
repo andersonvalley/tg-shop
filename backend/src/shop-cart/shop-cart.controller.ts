@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { ShopCartService } from './shop-cart.service';
 import { CreateShopCartDto } from './dto/create-shop-cart.dto';
+import { UpdateCartDto } from './dto/update-shop-cart.dto';
 
 @Controller('cart')
 export class ShopCartController {
@@ -25,8 +26,8 @@ export class ShopCartController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string) {
-    return this.shopCartService.update(+id);
+  update(@Param('id') id: string, @Body() dto: UpdateCartDto) {
+    return this.shopCartService.update(dto);
   }
 
   @Delete(':id')

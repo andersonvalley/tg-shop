@@ -11,10 +11,7 @@ import { Categories } from '../../components/categories/categories'
 import { ProductList } from '../../components/products/productList'
 import { useSearchAndSortStore } from '../../store/searchAndSort'
 import useDebounce from '@/src/hooks/useDebounce'
-import { useGetCart } from '../../hooks/useGetCart'
-import { useCart } from '../../store/useCart'
-import { usePathname } from '../../hooks/usePath'
-import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 export const Main = ({ id }: { id: string }) => {
   const [isExpanded, expand] = useExpand()
@@ -31,31 +28,16 @@ export const Main = ({ id }: { id: string }) => {
     sortByType
   )
   const { data: categories } = useGet(QUERY_KEY.getAllCategories, CategoryService.getAll, id)
-  const { setCart } = useCart()
 
   useEffect(() => {
     !isExpanded && expand()
   }, [expand, isExpanded])
-
-  const { cart } = useGetCart()
-  const { hash, initialPathname } = usePathname()
-
-  useEffect(() => {
-    if (!cart) return
-    setCart(cart)
-  }, [cart, setCart])
 
   return (
     <>
       <Search />
       <Categories categories={categories} />
       <ProductList isLoading={isLoading} products={products} categories={categories} />
-
-      {cart && cart?.length > 0 && (
-        <Link href={`${initialPathname}/cart/${hash}`}>
-          <MainButton text="В корзине что-то есть" />{' '}
-        </Link>
-      )}
     </>
   )
 }

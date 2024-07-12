@@ -5,6 +5,7 @@ import { ShopCartEntity } from './entities/shop-cart.entity';
 import { In, Repository } from 'typeorm';
 import { GoodsEntity } from 'src/goods/entities/good.entity';
 import { SubscriberEntity } from 'src/subscriber/entities/subscriber.entity';
+import { UpdateCartDto } from './dto/update-shop-cart.dto';
 
 @Injectable()
 export class ShopCartService {
@@ -50,10 +51,15 @@ export class ShopCartService {
       where: { telegram_id: id },
     });
 
-    if (!subscriber) throw new BadRequestException('Ошибка');
+    if (!subscriber) {
+      throw new BadRequestException('Подписчик не найден');
+    }
 
     const products = await this.cartRepository.find({
       where: { subscriber_: { id: subscriber.id } },
+      order: {
+        created_date: 'ASC',
+      },
     });
 
     const productsIds = products.map((item) => item.goods_id);
@@ -62,26 +68,40 @@ export class ShopCartService {
       where: {
         id: In(productsIds),
       },
+      order: {
+        createdDate: 'ASC',
+      },
       relations: ['options', 'variants', 'photoLinks'],
     });
 
-    // Создаем словарь для быстрого поиска товаров по id
     const filteredMap = new Map(filtered.map((item) => [item.id, item]));
-
-    // Объединяем данные из products и filtered
     const mergedProducts = products.map((product) => {
       const detailedProduct = filteredMap.get(product.goods_id);
       return {
-        ...product,
         ...detailedProduct,
+        ...product,
       };
     });
 
     return mergedProducts;
   }
 
-  async update(id: number) {
-    return `This action updates a #${id} shopCart`;
+  async update(dto: UpdateCartDto) {
+    const cartItem = await this.cartRepository.findOne({
+      where: { id: dto.id },
+    });
+
+    if (!cartItem) throw new BadRequestException('Ошибка');
+
+    if (dto.quantity_cart === 0) {
+      await this.cartRepository.delete(dto.id);
+    } else {
+      await this.cartRepository.update(dto.id, {
+        quantity_cart: dto.quantity_cart,
+      });
+    }
+
+    return { messge: 'success' };
   }
 
   async removeAll(id: string) {

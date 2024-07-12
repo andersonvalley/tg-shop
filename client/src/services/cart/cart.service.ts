@@ -1,4 +1,4 @@
-import { createICart, iCart, iCartResponse } from '@/src/types/cart.interface'
+import { createICart, iCart, iCartResponse, updateICart } from '@/src/types/cart.interface'
 import { categoryResponse } from '@/src/types/category.interface'
 import { instance } from '../api/api.config'
 
@@ -25,6 +25,15 @@ export class CartService {
   static async deleteAll(id: string) {
     const response = await instance<iCartResponse>(`/cart/${id}`, {
       method: 'DELETE',
+    })
+
+    return response.data
+  }
+
+  static async update(data: updateICart) {
+    const response = await instance<iCartResponse>(`/cart/${data.id}`, {
+      method: 'PATCH',
+      data,
     })
 
     return response.data

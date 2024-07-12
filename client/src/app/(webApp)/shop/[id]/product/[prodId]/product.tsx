@@ -8,7 +8,7 @@ import { normalizePrice } from '@/src/utils/normalizeCurrency'
 import { motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
-import { BackButton, useInitData } from '@vkruglikov/react-telegram-web-app'
+import { BackButton, useHapticFeedback, useInitData } from '@vkruglikov/react-telegram-web-app'
 
 import 'swiper/scss'
 import styles from './product.module.scss'
@@ -23,6 +23,7 @@ import { SpinUi } from '@/src/components/UI/loader/spin'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { createICart } from '@/src/types/cart.interface'
 import { CartService } from '@/src/services/cart/cart.service'
+import { useCart } from '@/src/app/(webApp)/store/useCart'
 
 export const Product = ({ id }: { id: string }) => {
   const router = useRouter()
@@ -33,6 +34,9 @@ export const Product = ({ id }: { id: string }) => {
   const [choosedOptions, setChoosedOptions] = useState<number[]>([0])
   const [totalAdded, setTotalAdded] = useState(1)
   const [totalPriceByOneItem, setTotalPriceByOneItem] = useState(0)
+  const [addedProductToCart, setAddedProductToCart] = useState(false)
+
+  const { cart } = useCart()
 
   const decrease = () => {
     if (totalAdded === 1) return
@@ -66,16 +70,19 @@ export const Product = ({ id }: { id: string }) => {
 
   const [initDataUnsafe] = useInitData()
   const client = useQueryClient()
+  const [impactOccurred, notificationOccurred] = useHapticFeedback()
 
   const { mutate: add } = useMutation({
     mutationFn: (formData: createICart) => CartService.create(formData),
     onSuccess: () => {
       client.invalidateQueries({ queryKey: [QUERY_KEY.getCart, initDataUnsafe?.user?.id] })
       message.success('Товар добавлен в корзину')
+      impactOccurred('heavy')
+      notificationOccurred('success')
       router.back()
     },
     onError: () => {
-      message.success('Товар уже добавлен в корзину')
+      message.error('Товар уже добавлен в корзину')
     },
   })
 
@@ -115,10 +122,26 @@ export const Product = ({ id }: { id: string }) => {
 
   // count total price
   useEffect(() => {
-    setTotalPriceByOneItem(
-      () => choosedVariant * totalAdded + choosedOptions.reduce((acc, item) => acc + item)
-    )
+    setTotalPriceByOneItem(() => choosedVariant * totalAdded)
   }, [totalAdded, choosedVariant, choosedOptions])
+
+  useEffect(() => {
+    cart.find(item => {
+      if (item.goods_id === data?.id) {
+        if (item.variant_id) {
+          const variant = item.variant_id === choosedVariantOfProduct?.id
+
+          if (variant) {
+            setAddedProductToCart(true)
+          } else {
+            setAddedProductToCart(false)
+          }
+        } else {
+          return true
+        }
+      }
+    })
+  }, [cart, choosedVariantOfProduct?.id, data?.id])
 
   return (
     <div className={styles.product}>
@@ -227,9 +250,11 @@ export const Product = ({ id }: { id: string }) => {
               discount={data.discount}
               totalAdded={totalAdded}
               totalPriceByOneItem={totalPriceByOneItem}
+              optionsTotal={choosedOptions.reduce((acc, item) => acc + item)}
               decrease={decrease}
               increment={increment}
               addToCartHandler={() => addToCartHandler(data.id)}
+              addedProductToCart={addedProductToCart}
             />
           )}
         </motion.div>

@@ -8,6 +8,11 @@ import { FaMinus, FaPlus } from 'react-icons/fa'
 import { iCart } from '@/src/types/cart.interface'
 import { IOption, IVariant } from '@/src/types/goods.interface'
 
+interface Props extends iCart {
+  decrease: (id: string) => void
+  increment: (id: string) => void
+}
+
 export const CartItem = ({
   title,
   price,
@@ -17,7 +22,11 @@ export const CartItem = ({
   options,
   options_id,
   quantity_cart,
-}: iCart) => {
+  id,
+  discount,
+  decrease,
+  increment,
+}: Props) => {
   const [currentVariant, setCurrentVariant] = useState<IVariant>()
   const [currentOptions, setCurrentOptions] = useState<IOption[]>([])
 
@@ -59,17 +68,28 @@ export const CartItem = ({
           {currentOptions && (
             <p className={styles.option}>{currentOptions.map(item => item.title).join(', ')}</p>
           )}
-          <p className={styles.price}>{normalizePrice(currentVariant && +currentVariant?.price)}</p>
+          <p className={styles.price}>
+            <span className={styles.oldPrice}>
+              {normalizePrice(currentVariant ? +currentVariant?.price : price)}{' '}
+            </span>
+            <span className={styles.newPrice}>
+              {normalizePrice(
+                currentVariant
+                  ? (+currentVariant?.price / 100) * (100 - discount)
+                  : (price / 100) * (100 - discount)
+              )}
+            </span>
+          </p>
         </div>
       </div>
 
       <div className="col">
         <div className={styles.count}>
-          <button className={styles.countItem}>
+          <button onClick={() => decrease(id)} className={styles.countItem}>
             <FaMinus />
           </button>
           <span className={styles.countNumber}>{quantity_cart}</span>
-          <button className={styles.countItem}>
+          <button onClick={() => increment(id)} className={styles.countItem}>
             <FaPlus />
           </button>
         </div>
