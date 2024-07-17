@@ -55,35 +55,35 @@ export const ContentModal = ({ data, update }: Props) => {
         ]}
       />
 
-      <Input
-        label="Скидка"
-        value={values.discount}
-        onChange={e => onChange(e.target.value, value => setValues({ ...values, discount: value }))}
-        placeholder="0"
-        width="50%"
-      />
-
       <div className="flex">
         <Input
-          label="Для заказов от"
-          value={values.orderFrom}
-          onChange={e => onChange(e.target.value, value => setValues({ ...values, orderFrom: value }))}
+          label="Скидка"
+          value={values.discount}
+          onChange={e => onChange(e.target.value, value => setValues({ ...values, discount: value }))}
           placeholder="0"
           width="50%"
-          icon="₽"
         />
 
         <SelectUi
           margin="10px"
           width="70px"
           defaultValue="percent"
-          onChange={value => setValues({ ...values, apply: value })}
+          onChange={value => setValues({ ...values, discountBy: value })}
           options={[
             { value: 'price', label: '₽' },
             { value: 'percent', label: '%' },
           ]}
         />
       </div>
+
+      <Input
+        label="Для заказов от"
+        value={values.orderFrom}
+        onChange={e => onChange(e.target.value, value => setValues({ ...values, orderFrom: value }))}
+        placeholder="0"
+        width="50%"
+        icon="₽"
+      />
 
       <div className="line"></div>
       <SubmitButton>Добавить способ</SubmitButton>

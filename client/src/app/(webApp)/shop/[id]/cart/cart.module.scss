@@ -11,6 +11,11 @@
   font-size: 2.4rem;
 }
 
+.titleSmall {
+  font-size: 2rem;
+  margin: 20px 0;
+}
+
 .btn {
   width: 40px;
   height: 40px;
@@ -162,4 +167,41 @@ span.oldPrice {
   font-weight: 700;
   display: inline-block;
   margin-left: 10px;
+}
+
+button.submit {
+  background: var(--tg-theme-button-color);
+
+  &:hover {
+    background: var(--tg-theme-button-color);
+  }
+}
+
+.input div {
+  color: var(--tg-theme-subtitle-text-color) !important;
+}
+
+.input input {
+  background: var(--tg-theme-hint-color);
+
+  &:focus {
+    border: 2px solid var(--tg-theme-button-color);
+  }
+}
+
+.delivery {
+  padding-top: 5px;
+}
+
+.select {
+  width: 100%;
+  margin-bottom: 20px;
+
+  div {
+    background: var(--tg-theme-bg-color) !important;
+    border: var(--tg-theme-bg-color) !important;
+    color: var(--tg-theme-text-color) !important;
+    font-size: 16px !important;
+    padding: 20px 10px !important;
+  }
 }

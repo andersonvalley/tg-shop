@@ -20,9 +20,6 @@ export class OrderEntity {
   @UpdateDateColumn()
   updatedDate: Date;
 
-  @Column()
-  number: string;
-
   @Column({ default: 'Новый' })
   status: string;
 
@@ -33,7 +30,7 @@ export class OrderEntity {
   username: string;
 
   @Column()
-  firtname: string;
+  firstname: string;
 
   @Column()
   paymentBy: string;

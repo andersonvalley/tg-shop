@@ -1,6 +1,6 @@
 import { instance } from '../api/api.config'
 import { IDelivery } from '@/src/types/delivery.interface'
-import { IPromocode, promocodeResponse } from '@/src/types/promocode.interface'
+import { IPromocode, promocodeResponse, PromocodeValidateResponse, validatePromocode } from '@/src/types/promocode.interface'
 
 export class PromocodeService {
   static async create(data: IPromocode) {
@@ -25,6 +25,15 @@ export class PromocodeService {
   static async update(data: IPromocode) {
     const response = await instance<promocodeResponse>(`/promocode/${data.id}`, {
       method: 'PATCH',
+      data,
+    })
+
+    return response.data
+  }
+
+  static async validate(data: validatePromocode) {
+    const response = await instance<PromocodeValidateResponse>(`/promocode/validate/${data.shopId}`, {
+      method: 'POST',
       data,
     })
 

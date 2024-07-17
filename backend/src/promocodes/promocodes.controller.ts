@@ -11,7 +11,7 @@ import {
 import { AuthGuard } from 'src/auth/auth.gard';
 import { PromocodeService } from './promocodes.service';
 import { CreatePromocodeDto } from './dto/create-promocode.dto';
-import { UpdatePromocodeDto } from './dto/update-promocode.dto';
+import { UpdatePromocodeDto, ValidateDto } from './dto/update-promocode.dto';
 
 @Controller('promocode')
 export class PromocodeController {
@@ -29,6 +29,11 @@ export class PromocodeController {
   @Get(':id')
   findAll(@Param('id') id: string) {
     return this.promocodeService.findAll(id);
+  }
+
+  @Post('/validate/:id')
+  validatePromocode(@Body() dto: ValidateDto) {
+    return this.promocodeService.validatePromocode(dto);
   }
 
   @UseGuards(AuthGuard)

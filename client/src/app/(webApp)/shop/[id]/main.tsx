@@ -11,7 +11,6 @@ import { Categories } from '../../components/categories/categories'
 import { ProductList } from '../../components/products/productList'
 import { useSearchAndSortStore } from '../../store/searchAndSort'
 import useDebounce from '@/src/hooks/useDebounce'
-import { useRouter } from 'next/navigation'
 
 export const Main = ({ id }: { id: string }) => {
   const [isExpanded, expand] = useExpand()

@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { emptyState } from '../promocode'
 import { IPromocode } from '@/src/types/promocode.interface'
 import { PromocodeService } from '@/src/services/promocode/promocode.service'
+import { message } from 'antd'
 
 export const useUpdate = () => {
   const { setIsEditModal } = useModalStore(store => store)
@@ -14,7 +15,10 @@ export const useUpdate = () => {
 
   const { mutate: updateDelivery } = useMutation({
     mutationFn: (formData: IPromocode) => PromocodeService.update(formData),
-    onSuccess: () => client.invalidateQueries({ queryKey: [QUERY_KEY.getAllPromocode] }),
+    onSuccess: () => {
+      client.invalidateQueries({ queryKey: [QUERY_KEY.getAllPromocode] })
+      message.success('Успешно')
+    },
   })
 
   const updateDeliveryHandler = (formData: IPromocode) => {

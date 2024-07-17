@@ -3,10 +3,9 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
 import { MdOutlineDelete } from 'react-icons/md'
-import { ModalUi } from '@/src/components/UI/modal/modal'
 import { CartItem } from './cartItem'
 import { BackButton, MainButton, useInitData } from '@vkruglikov/react-telegram-web-app'
-import { useRouter } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import { useGetCart } from '../../../hooks/useGetCart'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { CartService } from '@/src/services/cart/cart.service'
@@ -17,16 +16,28 @@ import styles from './cart.module.scss'
 import { normalizePrice } from '@/src/utils/normalizeCurrency'
 import { updateICart } from '@/src/types/cart.interface'
 import { SpinUi } from '@/src/components/UI/loader/spin'
+import { Input } from '@/src/components/UI/input/input'
+import { SubmitButton } from '@/src/components/UI/button/submitButton'
+import Modal from 'antd/es/modal/Modal'
+import { useValidatePromocode } from './fetch/validatePromocode'
+import { usePathname } from '../../../hooks/usePath'
 
 export const Cart = () => {
   const router = useRouter()
+  const { id } = useParams()
   const client = useQueryClient()
 
+  const [price, setPrice] = useState(0)
+
+  const { hash, initialPathname } = usePathname()
   const [initDataUnsafe] = useInitData()
   const { cart } = useGetCart()
 
-  const [openModal, setOpenModal] = useState(false)
   const [totalQuantity, setTotalQuantity] = useState(0)
+  const [openModalPromocode, setOpenModalPromocode] = useState(false)
+  const [promocodeModalValue, setPromocodeModalValue] = useState('')
+
+  const { validate } = useValidatePromocode()
 
   const { mutate: deleteAll } = useMutation({
     mutationFn: () => CartService.deleteAll(String(initDataUnsafe?.user?.id)),
@@ -44,27 +55,19 @@ export const Cart = () => {
     function totalOptions() {
       let totalPrice = 0
 
-      // Перебираем каждый элемент массива cart
       cart?.forEach(item => {
-        // Проверяем, есть ли у текущего элемента свойство options_id
         if (item.options_id) {
-          // Разбиваем строку options_id на отдельные id
           const optionIds = item.options_id.split(',')
 
-          // Проходимся по каждому id из optionIds
           optionIds.forEach(optionId => {
-            // Находим объект в массиве options по соответствию id
             const option = item.options.find(opt => opt.id === optionId)
 
-            // Если объект найден, добавляем его цену к общей сумме
             if (option) {
               totalPrice += +option.price
             }
           })
         }
       })
-
-      // Возвращаем общую сумму цен
       return totalPrice
     }
 
@@ -84,6 +87,7 @@ export const Cart = () => {
 
     sum += +totalOptions()
 
+    setPrice(sum)
     return normalizePrice(sum)
   }, [cart])
 
@@ -128,7 +132,19 @@ export const Cart = () => {
 
     update({ id: item.id, quantity_cart: item.quantity_cart - 1 })
   }
-  const validatePromocodeHandler = () => {}
+  const validatePromocodeHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    validate({
+      promocode: promocodeModalValue,
+      shopId: String(id),
+      subscriberId: String(initDataUnsafe?.user?.id),
+      sum: price,
+    })
+  }
+
+  const navigateToNextPage = () => {
+    router.push(`${initialPathname}/cart/delivery${hash}`)
+  }
 
   return (
     <div className={styles.cart}>
@@ -144,7 +160,7 @@ export const Cart = () => {
                 stiffness: 160,
                 damping: 30,
               }}
-              onClick={validatePromocodeHandler}
+              onClick={() => setOpenModalPromocode(true)}
               className={styles.title}
             >
               Корзина
@@ -203,7 +219,7 @@ export const Cart = () => {
             </ul>
 
             {cart && cart.length > 0 && (
-              <button className={styles.code} onClick={() => setOpenModal(true)}>
+              <button className={styles.code} onClick={() => setOpenModalPromocode(true)}>
                 У меня есть промокод
               </button>
             )}
@@ -228,15 +244,27 @@ export const Cart = () => {
               </motion.div>
             )}
 
-            {openModal && (
-              <ModalUi confirmCloseMessage={false} open={openModal} setOpen={() => setOpenModal(false)}>
-                <form></form>
-              </ModalUi>
+            {openModalPromocode && (
+              <Modal
+                className="modal"
+                footer={false}
+                open={openModalPromocode}
+                onCancel={() => setOpenModalPromocode(false)}
+              >
+                <form onSubmit={validatePromocodeHandler}>
+                  <Input
+                    className={styles.input}
+                    label="Введите промокод"
+                    value={promocodeModalValue}
+                    onChange={e => setPromocodeModalValue(e.target.value)}
+                    placeholder="SALE10"
+                  />
+                  <SubmitButton className={styles.submit}>Применить</SubmitButton>
+                </form>
+              </Modal>
             )}
 
-            {cart && cart?.length > 0 && (
-              <MainButton text="Все верно, далее" onClick={() => console.log('Hello, I am button!')} />
-            )}
+            {cart && cart?.length > 0 && <MainButton text="Все верно, далее" onClick={navigateToNextPage} />}
           </div>
         </>
       ) : (

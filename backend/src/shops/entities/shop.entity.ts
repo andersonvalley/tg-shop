@@ -4,6 +4,7 @@ import { DeliveryEntity } from 'src/delivery/entities/delivery.entity';
 import { GoodsEntity } from 'src/goods/entities/good.entity';
 import { MessageEntity } from 'src/message/entities/message.entity';
 import { OrderEntity } from 'src/order/entities/order.entity';
+import { PaymentEntity } from 'src/payment/entities/payment.entity';
 import { PromocodeEntity } from 'src/promocodes/entities/promocode.entity';
 import { ShareEntity } from 'src/share/entities/share.entity';
 import { SubscriberEntity } from 'src/subscriber/entities/subscriber.entity';
@@ -75,8 +76,11 @@ export class ShopEntity {
   @OneToMany(() => DeliveryEntity, (delivery) => delivery.shop)
   delivery: DeliveryEntity;
 
+  @OneToMany(() => PaymentEntity, (payment) => payment.shop)
+  payment: PaymentEntity;
+
   @OneToMany(() => PromocodeEntity, (promocode) => promocode.shop)
-  promocodes: PromocodeEntity;
+  promocodes: PromocodeEntity[];
 
   @OneToMany(() => ShareEntity, (share) => share.shop_)
   share: ShareEntity;

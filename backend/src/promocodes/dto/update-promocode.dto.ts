@@ -11,3 +11,10 @@ export class UpdatePromocodeDto extends PartialType(CreatePromocodeDto) {
   isActive?: boolean;
   order?: number;
 }
+
+export class ValidateDto {
+  promocode: string;
+  shopId: string;
+  subscriberId: string;
+  sum: number;
+}

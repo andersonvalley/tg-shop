@@ -1,3 +1,5 @@
+import { stringify } from 'querystring'
+
 export interface IPromocode {
   title: string
   description: string
@@ -15,4 +17,18 @@ export interface IPromocode {
 
 export interface promocodeResponse {
   message: string
+}
+
+export interface validatePromocode {
+  promocode: string
+  shopId: string
+  subscriberId: string
+  sum: number
+}
+
+export interface PromocodeValidateResponse {
+  discount: string
+  discountBy: string
+  orderFrom: string
+  apply: string
 }

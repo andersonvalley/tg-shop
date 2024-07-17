@@ -20,6 +20,7 @@ import { VariantModule } from './variant/variant.module';
 import { PhotoGoodsModule } from './files/photo-goods.module';
 import { MessageModule } from './message/message.module';
 import { ShopCartModule } from './shop-cart/shop-cart.module';
+import { PaymentModule } from './payment/payment.module';
 
 @Module({
   imports: [
@@ -54,6 +55,7 @@ import { ShopCartModule } from './shop-cart/shop-cart.module';
     OptionModule,
     MessageModule,
     ShopCartModule,
+    PaymentModule,
   ],
   controllers: [AppController],
   providers: [AppService],

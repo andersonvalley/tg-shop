@@ -16,6 +16,8 @@ import { OrderEntity } from 'src/order/entities/order.entity';
 import { ShareEntity } from 'src/share/entities/share.entity';
 import { ShopCartEntity } from 'src/shop-cart/entities/shop-cart.entity';
 import { MessageEntity } from 'src/message/entities/message.entity';
+import { PaymentEntity } from 'src/payment/entities/payment.entity';
+import { paymentDefault } from 'src/payment/payment.default';
 
 @Injectable()
 export class ShopsService {
@@ -27,6 +29,8 @@ export class ShopsService {
     private readonly categoryRepository: Repository<CategoryEntity>,
     @InjectRepository(DeliveryEntity)
     private readonly deliveryRepository: Repository<DeliveryEntity>,
+    @InjectRepository(PaymentEntity)
+    private readonly paymentRepository: Repository<PaymentEntity>,
     @InjectRepository(PromocodeEntity)
     private readonly promocodeRepository: Repository<PromocodeEntity>,
     @InjectRepository(UserEntity)
@@ -76,6 +80,7 @@ export class ShopsService {
     const relatedTables = [
       this.promocodeRepository,
       this.deliveryRepository,
+      this.paymentRepository,
       this.orderRepository,
     ];
 
@@ -149,11 +154,14 @@ export class ShopsService {
 
     const newDelivery = this.deliveryRepository.create(delivery);
     const newDelivery2 = this.deliveryRepository.create(delivery2);
+    const newPayment = this.paymentRepository.create(paymentDefault);
 
     newDelivery.shop = shop;
     newDelivery2.shop = shop;
+    newPayment.shop = shop;
     await this.deliveryRepository.save(newDelivery);
     await this.deliveryRepository.save(newDelivery2);
+    await this.paymentRepository.save(newPayment);
 
     const status = await createBot(dto.token);
 

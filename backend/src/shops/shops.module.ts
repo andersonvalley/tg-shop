@@ -20,6 +20,7 @@ import { ShareEntity } from 'src/share/entities/share.entity';
 import { ShopCartEntity } from 'src/shop-cart/entities/shop-cart.entity';
 import { CategoryService } from 'src/category/category.service';
 import { GoodsService } from 'src/goods/goods.service';
+import { PaymentEntity } from 'src/payment/entities/payment.entity';
 
 @Module({
   controllers: [ShopsController],
@@ -45,6 +46,7 @@ import { GoodsService } from 'src/goods/goods.service';
       NotificationEntity,
       ShareEntity,
       ShopCartEntity,
+      PaymentEntity,
     ]),
   ],
   exports: [ShopsService],

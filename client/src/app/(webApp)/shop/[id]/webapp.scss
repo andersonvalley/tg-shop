@@ -24,3 +24,17 @@
   max-width: fit-content;
   margin-right: 15px;
 }
+
+.modal {
+  .ant-modal-close-x {
+    color: var(--tg-theme-text-color);
+  }
+  .ant-modal-content {
+    background-color: var(--tg-theme-bg-color);
+    padding: 20px 10px;
+  }
+}
+
+.ant-select-selection-item {
+  font-family: 'tg', sans-serif;
+}

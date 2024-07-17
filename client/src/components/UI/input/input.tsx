@@ -8,12 +8,13 @@ export interface Props {
   value: string
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
   label?: string
-  type?: 'text' | 'number'
+  type?: 'text' | 'number' | 'tel'
   validate?: boolean
   width?: string
   icon?: ReactNode
   required?: boolean
   labelHelper?: string
+  className?: string
 }
 
 export const Input = ({
@@ -26,9 +27,10 @@ export const Input = ({
   width,
   icon,
   labelHelper,
+  className,
 }: Props) => {
   return (
-    <label style={{ maxWidth: width, width: width }} className={styles.label}>
+    <label style={{ maxWidth: width, width: width }} className={[styles.label, className].join(' ')}>
       <div className={styles.labelText}>
         {label}{' '}
         {labelHelper && (

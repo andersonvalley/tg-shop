@@ -10,10 +10,6 @@ import { SpinUi } from '@/src/components/UI/loader/spin'
 
 import styles from './card.module.scss'
 import { usePathname } from '../../hooks/usePath'
-import { useMutation } from '@tanstack/react-query'
-import { createICart } from '@/src/types/cart.interface'
-import { CartService } from '@/src/services/cart/cart.service'
-import { useInitData } from '@vkruglikov/react-telegram-web-app'
 
 interface Props extends IGood {
   isLoading: boolean

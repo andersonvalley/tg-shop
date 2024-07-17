@@ -2,9 +2,9 @@ import { Metadata } from 'next'
 import { Delivery } from './delivery'
 
 export const metadata: Metadata = {
-  title: 'Настройки доставки',
+  title: `Интернет магазин | Доставка`,
 }
 
-export default function DeliveryPage() {
+export default function CartDeliveryPage() {
   return <Delivery />
 }
