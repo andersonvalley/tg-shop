@@ -11,7 +11,20 @@ export const Orders = () => {
 
   return (
     <Card width="80%" showHeader={false}>
-      <Table loading={isLoading} dataSource={items} columns={columns} />
+      <Table
+        loading={isLoading}
+        dataSource={[
+          {
+            id: 1,
+            status: 'Новый',
+            price: 123,
+            subscriber: 'avalley',
+            paymentBy: 'Наличные',
+            createdAt: '2024-04-12',
+          },
+        ]}
+        columns={columns}
+      />
     </Card>
   )
 }

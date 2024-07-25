@@ -1,3 +1,6 @@
+import { DeliveryEntity } from 'src/delivery/entities/delivery.entity';
+import { PaymentEntity } from 'src/payment/entities/payment.entity';
+import { PromocodeEntity } from 'src/promocodes/entities/promocode.entity';
 import { ShopEntity } from 'src/shops/entities/shop.entity';
 import { SubscriberEntity } from 'src/subscriber/entities/subscriber.entity';
 import {
@@ -20,20 +23,35 @@ export class OrderEntity {
   @UpdateDateColumn()
   updatedDate: Date;
 
+  @PrimaryGeneratedColumn('increment')
+  public number: number;
+
   @Column({ default: 'Новый' })
   status: string;
 
-  @Column()
-  amount: string;
+  @Column({ default: false })
+  isPayed: boolean;
 
   @Column()
-  username: string;
+  phone: string;
+
+  @Column({ default: '' })
+  comment: string;
 
   @Column()
-  firstname: string;
+  products: string;
 
   @Column()
-  paymentBy: string;
+  totalPrice: string;
+
+  @ManyToOne(() => PromocodeEntity, (promocode) => promocode.order)
+  promocode: PromocodeEntity;
+
+  @ManyToOne(() => DeliveryEntity, (delivery) => delivery.order)
+  delivery: DeliveryEntity;
+
+  @ManyToOne(() => PaymentEntity, (payment) => payment.order)
+  payment: PaymentEntity;
 
   @ManyToOne(() => ShopEntity, (shop) => shop.orders)
   shop: ShopEntity;

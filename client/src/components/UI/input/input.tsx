@@ -15,6 +15,8 @@ export interface Props {
   required?: boolean
   labelHelper?: string
   className?: string
+  minLength?: number
+  maxLength?: number
 }
 
 export const Input = ({
@@ -28,6 +30,8 @@ export const Input = ({
   icon,
   labelHelper,
   className,
+  minLength,
+  maxLength,
 }: Props) => {
   return (
     <label style={{ maxWidth: width, width: width }} className={[styles.label, className].join(' ')}>
@@ -51,6 +55,8 @@ export const Input = ({
         placeholder={placeholder}
         required={required}
         spellCheck={false}
+        minLength={minLength}
+        maxLength={maxLength}
       />
       <span className={styles.icon}>{icon}</span>
     </label>

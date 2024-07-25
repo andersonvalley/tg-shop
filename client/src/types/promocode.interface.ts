@@ -17,6 +17,7 @@ export interface IPromocode {
 
 export interface promocodeResponse {
   message: string
+  id: string
 }
 
 export interface validatePromocode {
@@ -31,4 +32,5 @@ export interface PromocodeValidateResponse {
   discountBy: string
   orderFrom: string
   apply: string
+  id: string
 }

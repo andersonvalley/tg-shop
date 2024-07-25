@@ -1,18 +1,21 @@
 import { PromocodeService } from '@/src/services/promocode/promocode.service'
 import { promocodeResponse, validatePromocode } from '@/src/types/promocode.interface'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import { message } from 'antd'
-import { Axios, AxiosError } from 'axios'
+import { AxiosError } from 'axios'
+import { useHapticFeedback } from '@vkruglikov/react-telegram-web-app'
 
 export const useValidatePromocode = () => {
-  const client = useQueryClient()
+  const [impactOccurred, notificationOccurred] = useHapticFeedback()
 
   const { mutate: validate } = useMutation({
     mutationFn: (data: validatePromocode) => PromocodeService.validate(data),
     onSuccess: () => {
       message.success('Применен успешно')
+      notificationOccurred('success')
     },
     onError: (e: AxiosError<promocodeResponse>) => {
+      impactOccurred('heavy')
       message.error(e.response?.data.message)
     },
   })

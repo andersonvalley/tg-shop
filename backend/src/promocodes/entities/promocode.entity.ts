@@ -1,9 +1,11 @@
+import { OrderEntity } from 'src/order/entities/order.entity';
 import { ShopEntity } from 'src/shops/entities/shop.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -42,6 +44,9 @@ export class PromocodeEntity {
 
   @Column({ default: 0 })
   order: number;
+
+  @OneToMany(() => OrderEntity, (order) => order.promocode)
+  orders: OrderEntity[];
 
   @ManyToOne(() => ShopEntity, (shop) => shop.promocodes)
   shop: ShopEntity;

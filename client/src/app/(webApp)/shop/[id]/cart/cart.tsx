@@ -21,6 +21,7 @@ import { SubmitButton } from '@/src/components/UI/button/submitButton'
 import Modal from 'antd/es/modal/Modal'
 import { useValidatePromocode } from './fetch/validatePromocode'
 import { usePathname } from '../../../hooks/usePath'
+import { useCart } from '../../../store/useCart'
 
 export const Cart = () => {
   const router = useRouter()
@@ -32,6 +33,7 @@ export const Cart = () => {
   const { hash, initialPathname } = usePathname()
   const [initDataUnsafe] = useInitData()
   const { cart } = useGetCart()
+  const { setTotalPrice, totalPrice } = useCart()
 
   const [totalQuantity, setTotalQuantity] = useState(0)
   const [openModalPromocode, setOpenModalPromocode] = useState(false)
@@ -88,6 +90,7 @@ export const Cart = () => {
     sum += +totalOptions()
 
     setPrice(sum)
+    setTotalPrice(String(sum))
     return normalizePrice(sum)
   }, [cart])
 
@@ -264,6 +267,7 @@ export const Cart = () => {
               </Modal>
             )}
 
+            <button onClick={navigateToNextPage}>next</button>
             {cart && cart?.length > 0 && <MainButton text="Все верно, далее" onClick={navigateToNextPage} />}
           </div>
         </>

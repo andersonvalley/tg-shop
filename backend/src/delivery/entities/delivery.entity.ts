@@ -1,9 +1,11 @@
+import { OrderEntity } from 'src/order/entities/order.entity';
 import { ShopEntity } from 'src/shops/entities/shop.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -48,6 +50,9 @@ export class DeliveryEntity {
 
   @Column({ default: false })
   comment: boolean;
+
+  @OneToMany(() => OrderEntity, (order) => order.delivery)
+  orders: OrderEntity[];
 
   @ManyToOne(() => ShopEntity, (shop) => shop.delivery)
   shop: ShopEntity;

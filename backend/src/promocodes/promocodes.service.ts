@@ -81,6 +81,7 @@ export class PromocodeService {
       discountBy: promocode.discountBy,
       orderFrom: promocode.orderFrom,
       apply: promocode.apply,
+      id: promocode.id,
     };
   }
 }

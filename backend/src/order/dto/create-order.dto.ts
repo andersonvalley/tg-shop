@@ -1,9 +1,9 @@
 export class CreateOrderDto {
-  status: string;
-  amount: string;
-  username: string;
-  firstname: string;
-  paymentBy: string;
   shopId: string;
   subscriberId: string;
+  deliveryId: string;
+  paymentId: string;
+  promocodeId?: string;
+  comment?: string;
+  phone: string;
 }

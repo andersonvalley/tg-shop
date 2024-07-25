@@ -77,12 +77,12 @@ export const Product = ({ id }: { id: string }) => {
     onSuccess: () => {
       client.invalidateQueries({ queryKey: [QUERY_KEY.getCart, initDataUnsafe?.user?.id] })
       message.success('Товар добавлен в корзину')
-      impactOccurred('heavy')
       notificationOccurred('success')
       router.back()
     },
     onError: () => {
       message.error('Товар уже добавлен в корзину')
+      impactOccurred('heavy')
     },
   })
 

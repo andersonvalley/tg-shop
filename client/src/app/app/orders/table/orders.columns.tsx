@@ -1,10 +1,5 @@
 export const columns = [
   {
-    title: 'Номер',
-    dataIndex: 'number',
-    key: 'number',
-  },
-  {
     title: 'Статус',
     dataIndex: 'status',
     key: 'status',
